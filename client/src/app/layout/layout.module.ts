@@ -16,5 +16,6 @@ const LAYOUTCOMPONENT = [
   ],
   declarations: [...LAYOUTCOMPONENT],
   exports: [...LAYOUTCOMPONENT],
+  providers: []
 })
 export class LayoutModule { }

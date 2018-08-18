@@ -1,5 +1,16 @@
-<app-header></app-header>
-<!-- NG-ZORRO -->
-<a href="https://github.com/NG-ZORRO/ng-zorro-antd" target="_blank" style="display: flex;align-items: center;justify-content: center;height: 100%;width: 100%;">
-  <img height="300" src="https://img.alicdn.com/tfs/TB1NvvIwTtYBeNjy1XdXXXXyVXa-89-131.svg">
-</a>
+<nz-layout class="layout">
+  <nz-header>
+    <app-header></app-header>
+  </nz-header>
+  <nz-layout>
+    <app-sidebar></app-sidebar>
+    <nz-layout class="right-area">
+      <nz-breadcrumb style="margin:16px 0;">
+        <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+        <nz-breadcrumb-item>List</nz-breadcrumb-item>
+        <nz-breadcrumb-item>App</nz-breadcrumb-item>
+      </nz-breadcrumb>
+      <nz-content style="background:#fff; padding: 24px; min-height: 280px;">Content</nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>
