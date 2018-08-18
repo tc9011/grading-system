@@ -67,51 +67,6 @@
       line-height: 100%;
     }
   }
-  .item,
-  nz-badge {
-    color: #fff !important;
-  }
 }
 
-// Collapsed
-.aside-collapsed {
-  .header {
-    .logo {
-      width: 64px;
-      img {
-        &.collapsed {
-          display: inline;
-        }
-        &.expanded {
-          display: none;
-        }
-      }
-    }
-  }
-}
 
-// APP ICONS
-.app-icons {
-  padding: 16px;
-  .ant-col-6 {
-    padding: 16px 0;
-    border-radius: 4px;
-    text-align: center;
-    transition: background-color 300ms;
-    cursor: pointer;
-    &:hover {
-      background-color: #ececec;
-    }
-  }
-  i {
-    border-radius: 50%;
-    font-size: 22px;
-    padding: 15px;
-  }
-  small {
-    font-size: 14px;
-    padding-top: 4px;
-    color: #9c9c9c;
-    display: block;
-  }
-}
