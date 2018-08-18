@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://127.0.0.1:7300/mock/5a50f8ab12c2102876c59682",
+    "target": "http://localhost:3000",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
