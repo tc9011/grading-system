@@ -2,18 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NgZorroAntdModule } from 'ng-zorro-antd';
 
 const SHAREDMODULE = [
   ReactiveFormsModule,
   FormsModule,
-  RouterModule
+  RouterModule,
+  NgZorroAntdModule,
+  CommonModule
 ];
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [...SHAREDMODULE],
-  exports: [...SHAREDMODULE]
+  imports: [SHAREDMODULE],
+  declarations: [],
+  exports: [SHAREDMODULE]
 })
 export class SharedModule { }

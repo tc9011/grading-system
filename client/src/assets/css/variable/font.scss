@@ -1,0 +1,21 @@
+// font-size
+$font-size-base: 14px;
+$font-size-large:         $font-size-base + 8;  // 20px
+$font-size-small:         $font-size-base;      // 12px
+
+$h1-font-size:            $font-size-base + 20; // 32px
+$h2-font-size:            $font-size-base + 12; // 24px
+$h3-font-size:            $font-size-base + 8;  // 20px
+$h4-font-size:            $font-size-base + 4;  // 16px
+$h5-font-size:            $font-size-base + 2;  // 14px
+$h6-font-size:            $font-size-base;      // 12px
+
+// text
+$text-sm:       $font-size-base + 0; // 12px
+$text-md:       $font-size-base + 2; // 14px
+$text-lg:       $font-size-base + 4; // 16px
+
+// icon
+$icon-sm:       $font-size-base * 2; // 24px
+$icon-md:       $font-size-base * 4; // 48px
+$icon-lg:       $font-size-base * 6; // 72px
