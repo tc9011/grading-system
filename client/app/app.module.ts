@@ -7,8 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
-import { ViewsRoutingModule } from './views/views-routing.module';
 import { CoreModule } from './core/core.module';
+import { ViewsModule } from './views/views.module';
 
 
 @NgModule({
@@ -23,7 +23,7 @@ import { CoreModule } from './core/core.module';
     LayoutModule,
     SharedModule,
     CoreModule,
-    ViewsRoutingModule,
+    ViewsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

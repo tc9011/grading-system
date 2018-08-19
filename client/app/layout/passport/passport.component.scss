@@ -1,0 +1,47 @@
+@import "../../../styles";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: #f0f2f5;
+}
+
+.wrap {
+  padding: 112px 0 24px;
+  flex: 1;
+}
+
+.top {
+  text-align: center;
+}
+
+.header {
+  height: 44px;
+  line-height: 44px;
+  a {
+    text-decoration: none;
+  }
+}
+
+.logo {
+  height: 44px;
+  margin-right: 16px;
+}
+
+.title {
+  font-size: 33px;
+  color: $grey-9;
+  font-family: 'Myriad Pro', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  position: relative;
+  vertical-align: middle;
+}
+
+.desc {
+  font-size: $font-size-base;
+  color: $grey-6;
+  margin-top: 12px;
+  margin-bottom: 40px;
+}
+
