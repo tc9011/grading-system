@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { RegisterComponent } from './passport/register/register.component';
 import { LoginComponent } from './passport/login/login.component';
 import { ViewsRoutingModule } from './views-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     ViewsRoutingModule
   ],
   declarations: [RegisterComponent, LoginComponent]
