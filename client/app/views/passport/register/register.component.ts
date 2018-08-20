@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
+import { PassportService } from '../services/passport.service';
 
 @Component({
   selector: 'app-register',
@@ -23,9 +24,10 @@ export class RegisterComponent {
   };
 
   constructor(
-    fb: FormBuilder,
+    private fb: FormBuilder,
     private router: Router,
     public msg: NzMessageService,
+    private passportService: PassportService
   ) {
     this.form = fb.group({
       workNumber: [
@@ -103,11 +105,12 @@ export class RegisterComponent {
       this.form.controls[i].updateValueAndValidity();
     }
     if (this.form.invalid) return;
-    // mock http
+
     this.loading = true;
+    this.passportService.postRegister();
     setTimeout(() => {
       this.loading = false;
-      this.router.navigate(['/passport/register-result']);
+      this.router.navigate(['/']);
     }, 1000);
   }
 
