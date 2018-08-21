@@ -18,9 +18,10 @@ mongoose.connect(dbURL)
     console.log('Connected to MongoDB');
 
     routes(app);
+
+    app.listen(port);
   })
   .catch(err => console.error(err));
 
-app.listen(port);
 
 export { app };
