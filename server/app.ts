@@ -1,15 +1,26 @@
 import * as Koa from 'koa';
+import * as path from 'path';
 import * as mongoose from 'mongoose';
+import * as serveStatic from 'koa-static';
+import * as bodyParser from 'koa-bodyparser';
+import { routes } from './config/routes';
 
 const app = new Koa();
 const dbURL = 'mongodb://localhost/gradingSystem';
+const port = process.env.PORT || 3000;
 
-mongoose.connect(dbURL);
+app.use(bodyParser());
+app.use(serveStatic(path.join(__dirname, '../grading-system')));
 
-app.use(ctx => {
-  ctx.body = 'Hello Koa';
-});
+mongoose.Promise = global.Promise;
+mongoose.connect(dbURL)
+  .then(db => {
+    console.log('Connected to MongoDB');
 
-app.listen(3000);
+    routes(app);
+  })
+  .catch(err => console.error(err));
+
+app.listen(port);
 
 export { app };
