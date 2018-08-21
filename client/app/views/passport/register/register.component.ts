@@ -107,7 +107,7 @@ export class RegisterComponent {
     if (this.form.invalid) return;
 
     this.loading = true;
-    this.passportService.postRegister();
+    this.passportService.postRegister(this.form.value).subscribe();
     setTimeout(() => {
       this.loading = false;
       this.router.navigate(['/']);
