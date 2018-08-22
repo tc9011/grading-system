@@ -5,6 +5,6 @@ const router = new Router();
 const userCtrl = new UserCtrl();
 
 router
-  .get('/passport/register', userCtrl.login);
+  .post('/passport/register', userCtrl.login);
 
 export { router as userRouter }
