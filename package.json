@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "start:client": "ng serve --port 4200 --host 0.0.0.0 --proxy-config proxy.config.json --open",
+    "start:server": "concurrently \"mongod\" \"tsc -w -p server\" \"nodemon dist/server/app.js\"",
     "start": "concurrently \"mongod\" \"ng serve --port 4200 --host 0.0.0.0 --proxy-config proxy.config.json --open\" \"tsc -w -p server\" \"nodemon dist/server/app.js\"",
     "build": "concurrently \"mongod\" \"ng build --aot --prod && tsc -p server && node dist/server/app.js\"",
     "test": "ng test",
