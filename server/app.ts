@@ -1,9 +1,12 @@
-import * as Koa from 'koa';
 import * as path from 'path';
 import * as mongoose from 'mongoose';
+
+import * as Koa from 'koa';
 import * as serveStatic from 'koa-static';
 import * as bodyParser from 'koa-bodyparser';
-import { routes } from './config/routes';
+
+import { router } from './routers/routes';
+
 
 const app = new Koa();
 const dbURL = 'mongodb://localhost/gradingSystem';
@@ -17,7 +20,8 @@ mongoose.connect(dbURL)
   .then(db => {
     console.log('Connected to MongoDB');
 
-    routes(app);
+    app.use(router.routes())
+      .use(router.allowedMethods());
 
     app.listen(port);
   })
