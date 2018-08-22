@@ -107,10 +107,11 @@ export class RegisterComponent {
     if (this.form.invalid) return;
 
     this.loading = true;
+    this.form.value.role = parseInt(this.form.value.role);
     this.passportService.postRegister(this.form.value).subscribe();
     setTimeout(() => {
       this.loading = false;
-      this.router.navigate(['/']);
+      // this.router.navigate(['/']);
     }, 1000);
   }
 
