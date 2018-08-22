@@ -7,7 +7,6 @@ import * as bodyParser from 'koa-bodyparser';
 
 import { router } from './routers/routes';
 
-
 const app = new Koa();
 const dbURL = 'mongodb://localhost/gradingSystem';
 const port = process.env.PORT || 3000;
