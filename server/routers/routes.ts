@@ -1,10 +1,8 @@
 import * as Router from 'koa-router';
 import { userRouter } from './user';
 
-const router = new Router({
-  prefix: '/api'
-});
+const router = new Router();
 
-router.use('/', userRouter.routes(), userRouter.allowedMethods());
+router.use('/api', userRouter.routes(), userRouter.allowedMethods());
 
 export { router };
