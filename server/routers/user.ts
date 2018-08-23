@@ -2,9 +2,8 @@ import * as Router from 'koa-router';
 import { UserCtrl } from '../app/controllers/user';
 
 const router = new Router();
-const userCtrl = new UserCtrl();
 
 router
-  .post('/passport/register', userCtrl.register);
+  .post('/passport/register', UserCtrl.register);
 
-export { router as userRouter }
+export { router as userRouter };

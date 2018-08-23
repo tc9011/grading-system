@@ -7,24 +7,27 @@ import * as bodyParser from 'koa-bodyparser';
 
 import { router } from './routers/routes';
 
-const app = new Koa();
 const dbURL = 'mongodb://localhost/gradingSystem';
 const port = process.env.PORT || 3000;
 
-app.use(bodyParser());
-app.use(serveStatic(path.join(__dirname, '../grading-system')));
 
-mongoose.Promise = global.Promise;
+(<any>mongoose).Promise = global.Promise;
 mongoose.connect(dbURL)
   .then(db => {
     console.log('Connected to MongoDB');
 
-    app.use(router.routes())
-      .use(router.allowedMethods());
+    const app = new Koa();
+
+    app.use(bodyParser());
+
+    app.use(serveStatic(path.join(__dirname, '../grading-system')));
+
+    app.use(router.routes()).use(router.allowedMethods());
 
     app.listen(port);
+
+    console.log(`Server running on port ${port}`);
   })
   .catch(err => console.error(err));
 
 
-export { app };

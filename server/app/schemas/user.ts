@@ -1,9 +1,9 @@
-import * as mongoose from 'mongoose';
+import { Document, Schema, Model, model } from 'mongoose';
 import * as bcrypt from 'bcryptjs';
 
 const SALT_WORK_FACTOR = 10;
 
-const UserSchema = new mongoose.Schema({
+const UserSchema: Schema = new Schema({
   workNumber: {
     unique: true,
     type: String,
@@ -31,8 +31,8 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.pre('save', (next) => {
-  const user = this;
+UserSchema.pre('save', function (next) {
+  const user: any = this;
 
   if (this.isNew) {
     this.meta.createAt = this.meta.updateAt = Date.now();
@@ -41,10 +41,14 @@ UserSchema.pre('save', (next) => {
   }
 
   bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
-    if (err) return next(err);
+    if (err) {
+      return next(err);
+    }
 
     bcrypt.hash(user.password, salt, (err, hash) => {
-      if (err) return next(err);
+      if (err) {
+        return next(err);
+      }
       user.password = hash;
       console.log(user);
       next();
@@ -56,10 +60,27 @@ UserSchema.pre('save', (next) => {
 UserSchema.methods = {
   comparePassword: function (_password, cb) {
     bcrypt.compare(_password, this.password, (err, isMatch) => {
-      if (err) return cb(err);
+      if (err) {
+        return cb(err);
+      }
 
       cb(null, isMatch);
     });
+  },
+};
+
+UserSchema.statics = {
+  fetch: function (cb) {
+    return this
+      .find({})
+      .sort('meta.updateAt')
+      .exec(cb);
+  },
+
+  findById: function (id, cb) {
+    return this
+      .findOne({_id: id})
+      .exec(cb);
   },
 };
 

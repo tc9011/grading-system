@@ -60,20 +60,28 @@ export class RegisterComponent {
   }
 
   static checkPassword(control: FormControl) {
-    if (!control) return null;
+    if (!control) {
+      return null;
+    }
     const self: any = this;
     self.visible = !!control.value;
-    if (control.value && control.value.length > 9) self.status = 'ok';
-    else if (control.value && control.value.length > 5) self.status = 'pass';
-    else self.status = 'pool';
+    if (control.value && control.value.length > 9) {
+      self.status = 'ok';
+    } else if (control.value && control.value.length > 5) {
+      self.status = 'pass';
+    } else {
+      self.status = 'pool';
+    }
 
-    if (self.visible)
-      self.progress =
-        control.value.length * 10 > 100 ? 100 : control.value.length * 10;
+    if (self.visible) {
+      self.progress = control.value.length * 10 > 100 ? 100 : control.value.length * 10;
+    }
   }
 
   static passwordEquar(control: FormControl) {
-    if (!control || !control.parent) return null;
+    if (!control || !control.parent) {
+      return null;
+    }
     if (control.value !== control.parent.get('password').value) {
       return { equar: true };
     }
@@ -104,10 +112,12 @@ export class RegisterComponent {
       this.form.controls[i].markAsDirty();
       this.form.controls[i].updateValueAndValidity();
     }
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      return;
+    }
 
     this.loading = true;
-    this.form.value.role = parseInt(this.form.value.role);
+    this.form.value.role = parseInt(this.form.value.role, 10);
     this.passportService.postRegister(this.form.value).subscribe();
     setTimeout(() => {
       this.loading = false;
