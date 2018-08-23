@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as mongoose from 'mongoose';
 
 import * as Koa from 'koa';
+import * as kcors from 'kcors'
 import * as serveStatic from 'koa-static';
 import * as bodyParser from 'koa-bodyparser';
 
@@ -18,6 +19,8 @@ mongoose.connect(dbURL)
 
     const app = new Koa();
 
+    app.use(kcors());
+
     app.use(bodyParser());
 
     app.use(serveStatic(path.join(__dirname, '../grading-system')));
@@ -26,7 +29,6 @@ mongoose.connect(dbURL)
 
     app.listen(port);
 
-    console.log(`Server running on port ${port}`);
   })
   .catch(err => console.error(err));
 
