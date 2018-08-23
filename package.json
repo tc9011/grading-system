@@ -24,6 +24,7 @@
     "@angular/router": "^6.0.3",
     "bcryptjs": "^2.4.3",
     "core-js": "^2.5.4",
+    "kcors": "^2.2.2",
     "koa": "^2.5.2",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
