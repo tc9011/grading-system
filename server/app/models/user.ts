@@ -5,6 +5,7 @@ export interface User extends Document {
   workNumber: string;
   password: string;
   role: number;
+  group: string;
   meta: any;
 }
 
