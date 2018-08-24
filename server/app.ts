@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000;
 
 
 (<any>mongoose).Promise = global.Promise;
-mongoose.connect(dbURL)
+mongoose.connect(dbURL, { useNewUrlParser: true })
   .then(db => {
     console.log('Connected to MongoDB');
 
@@ -29,6 +29,7 @@ mongoose.connect(dbURL)
 
     app.listen(port);
 
+    console.log(`server listen at ${port}`);
   })
   .catch(err => console.error(err));
 

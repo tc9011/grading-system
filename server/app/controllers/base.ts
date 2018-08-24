@@ -1,4 +1,4 @@
-abstract class BaseCtrl {
+export abstract class BaseCtrl {
 
   abstract model: any;
 
@@ -58,6 +58,7 @@ abstract class BaseCtrl {
   };
 }
 
+/*
 export default BaseCtrl;
 
 export interface IRead<T> {
@@ -114,3 +115,4 @@ export class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IW
   }
 
 }
+*/
