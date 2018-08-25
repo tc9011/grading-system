@@ -7,15 +7,28 @@ export class UserCtrl {
   public model = UserModel;
 
   public static async login(ctx: Context) {
-    /*this.model.findOne({ email: req.body.email }, (err, user) => {
-      if (!user) { return res.sendStatus(403); }
-      user.comparePassword(req.body.password, (error, isMatch) => {
-        if (!isMatch) { return res.sendStatus(403); }
-        const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
-        res.status(200).json({ token: token });
-      });
-    });*/
-    ctx.body = 'Hello Koa';
+    const userBody: any = ctx.request.body;
+    const {workNumber, password} = userBody;
+
+    const user: any = await UserModel.findOne({ workNumber: workNumber }).catch(err => {
+      console.log(err);
+      ctx.throw(500, '查找数据时出错!');
+    });
+
+    if (!user) {
+      ctx.status =400;
+      handleError({ctx, message: '用户不存在!'});
+    }
+    user.comparePassword(password, (error, isMatch) => {
+      if (!isMatch) {
+        ctx.status =400;
+        handleError({ctx, message: '密码错误!'});
+      } else {
+        // const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
+        // res.status(200).json({ token: token });
+        console.log('ok');
+      }
+    });
   }
 
   public static async register(ctx: Context) {
@@ -24,7 +37,7 @@ export class UserCtrl {
 
     const user: any = await UserModel.find({workNumber: workNumber}).catch(err => {
       console.log(err);
-      ctx.throw(500, '查找数据时出错!')
+      ctx.throw(500, '查找数据时出错!');
     });
     // console.log(user);
     if (user.length) {
