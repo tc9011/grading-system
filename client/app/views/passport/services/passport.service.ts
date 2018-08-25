@@ -10,4 +10,8 @@ export class PassportService {
   postRegister(data): Observable<any> {
     return this.httpService.postData('/api/passport/register', data);
   }
+
+  postLogin(data): Observable<any> {
+    return this.httpService.postData('/api/passport/login', data);
+  }
 }

@@ -15,20 +15,21 @@ export class UserCtrl {
       ctx.throw(500, '查找数据时出错!');
     });
 
+    console.log(user);
     if (!user) {
       ctx.status =400;
       handleError({ctx, message: '用户不存在!'});
     }
-    user.comparePassword(password, (error, isMatch) => {
-      if (!isMatch) {
-        ctx.status =400;
-        handleError({ctx, message: '密码错误!'});
-      } else {
-        // const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
-        // res.status(200).json({ token: token });
-        console.log('ok');
-      }
-    });
+
+    const isMatch = await user.comparePassword(password);
+    if (isMatch) {
+      // const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
+      // res.status(200).json({ token: token });
+      handleSuccess({ctx, message: '登陆成功!'});
+    } else {
+      ctx.status =400;
+      handleError({ctx, message: '密码错误!'});
+    }
   }
 
   public static async register(ctx: Context) {
