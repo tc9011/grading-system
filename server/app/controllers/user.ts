@@ -22,25 +22,22 @@ export class UserCtrl {
     const userBody: any = ctx.request.body;
     const {workNumber} = userBody;
 
-    console.log(userBody);
-    console.log(workNumber);
     const user: any = await UserModel.find({workNumber: workNumber}).catch(err => {
       console.log(err);
       ctx.throw(500, '查找数据时出错!')
     });
-    console.log(user);
+    // console.log(user);
     if (user.length) {
-      console.log(user.length);
+      ctx.status = 409;
       handleError({ctx, message: '用户名已存在!'});
     } else {
       const user = new UserModel(userBody);
-      console.log('new user:');
-      console.log(user);
+      // console.log('new user:');
+      // console.log(user);
       await user.save().catch(err => {
         console.log(err);
         ctx.throw(500, '保存数据库时出错')
       });
-      console.log('ok?');
       handleSuccess({ctx, message: '创建成功!'});
     }
   }
