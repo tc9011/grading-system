@@ -24,7 +24,10 @@ export class UserCtrl {
 
     console.log(userBody);
     console.log(workNumber);
-    const user: any[] = await UserModel.find({name: workNumber}).catch(err => ctx.throw(500, '查找数据时出错!'));
+    const user: any = await UserModel.find({workNumber: workNumber}).catch(err => {
+      console.log(err);
+      ctx.throw(500, '查找数据时出错!')
+    });
     console.log(user);
     if (user.length) {
       console.log(user.length);
@@ -33,7 +36,10 @@ export class UserCtrl {
       const user = new UserModel(userBody);
       console.log('new user:');
       console.log(user);
-      await user.save().catch(err => ctx.throw(500, '保存数据库时出错'));
+      await user.save().catch(err => {
+        console.log(err);
+        ctx.throw(500, '保存数据库时出错')
+      });
       console.log('ok?');
       handleSuccess({ctx, message: '创建成功!'});
     }
