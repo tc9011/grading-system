@@ -38,7 +38,7 @@ const UserSchema: Schema = new Schema({
   },
 });
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', async function (next) {
   console.log(this);
   const user: User = <User>this;
 
@@ -48,20 +48,11 @@ UserSchema.pre('save', function (next) {
     user.meta.updateAt = Date.now();
   }
 
-  bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
-    if (err) {
-      return next(err);
-    }
+  const salt = await bcrypt.genSalt(SALT_WORK_FACTOR).catch(err => console.log(err));
 
-    bcrypt.hash(user.password, salt, (err, hash) => {
-      if (err) {
-        return next(err);
-      }
-      user.password = hash;
-      next();
-    });
-  });
+  user.password = await bcrypt.hash(user.password, salt).catch(err => console.log(err));
 
+  next();
 });
 
 UserSchema.methods = {
@@ -71,17 +62,15 @@ UserSchema.methods = {
 };
 
 UserSchema.statics = {
-  fetch: function (cb) {
-    return this
+  fetch: async function () {
+    return await this
       .find({})
-      .sort('meta.updateAt')
-      .exec(cb);
+      .sort('meta.updateAt');
   },
 
-  findById: function (id, cb) {
-    return this
-      .findOne({_id: id})
-      .exec(cb);
+  findById: async function (id) {
+    return await this
+      .findOne({_id: id});
   },
 };
 

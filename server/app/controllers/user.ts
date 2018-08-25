@@ -52,6 +52,7 @@ export class UserCtrl {
         console.log(err);
         ctx.throw(500, '保存数据库时出错')
       });
+      // console.log(user);
       handleSuccess({ctx, message: '创建成功!'});
     }
   }
