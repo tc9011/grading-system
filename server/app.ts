@@ -5,6 +5,7 @@ import * as Koa from 'koa';
 import * as kcors from 'kcors'
 import * as serveStatic from 'koa-static';
 import * as bodyParser from 'koa-bodyparser';
+import * as logger from 'koa-logger'
 
 import { router } from './routers/routes';
 
@@ -20,6 +21,8 @@ mongoose.connect(dbURL, { useNewUrlParser: true })
     const app = new Koa();
 
     app.use(kcors());
+
+    app.use(logger());
 
     app.use(bodyParser());
 

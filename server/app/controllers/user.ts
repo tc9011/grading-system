@@ -15,7 +15,7 @@ export class UserCtrl {
       ctx.throw(500, '查找数据时出错!');
     });
 
-    console.log(user);
+    // console.log(user);
     if (!user) {
       ctx.status =400;
       handleError({ctx, message: '用户不存在!'});
