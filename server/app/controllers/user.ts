@@ -20,11 +20,11 @@ export class UserCtrl {
 
   public static async register(ctx: Context) {
     const userBody: any = ctx.request.body;
-    const {workNumber, password, role, group} = userBody;
+    const {workNumber} = userBody;
 
     console.log(userBody);
     console.log(workNumber);
-    const user = await UserModel.find({name: workNumber}).catch(err => ctx.throw(500, '查找数据时出错!'));
+    const user: any[] = await UserModel.find({name: workNumber}).catch(err => ctx.throw(500, '查找数据时出错!'));
     console.log(user);
     if (user.length) {
       console.log(user.length);
