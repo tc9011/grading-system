@@ -1,4 +1,4 @@
-export interface User {
+export class User {
   workNumber: string;
   password: string;
   confirm?: string;
