@@ -40,7 +40,6 @@ const UserSchema: Schema = new Schema({
 });
 
 UserSchema.pre('save', async function (next) {
-  console.log(this);
   const user: User = <User>this;
 
   if (this.isNew) {
