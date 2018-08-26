@@ -56,13 +56,14 @@ UserSchema.pre('save', async function (next) {
     console.log(err)
   }
 
-
   next();
 });
 
 UserSchema.methods = {
   comparePassword: async function (_password) {
-    return await bcrypt.compare(_password, this.password).catch(err => console.log(err));
+    return await bcrypt
+      .compare(_password, this.password)
+      .catch(err => console.log(err));
   },
 };
 

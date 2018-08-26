@@ -29,7 +29,7 @@ export class UserCtrl {
       return;
     }
 
-    console.log(user);
+    // console.log(user);
     try {
       const isMatch = await user.comparePassword(password);
       if (isMatch) {
