@@ -1,4 +1,5 @@
 import { Document, Model, model } from 'mongoose';
+
 import { UserSchema } from '../schemas/user';
 
 export interface User extends Document {

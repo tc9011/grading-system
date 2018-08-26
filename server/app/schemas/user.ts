@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose';
 import * as bcrypt from 'bcryptjs';
+
 import { User } from '../models/user';
 
 const SALT_WORK_FACTOR = 10;

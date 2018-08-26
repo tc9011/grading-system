@@ -6,33 +6,42 @@ import * as kcors from 'kcors'
 import * as serveStatic from 'koa-static';
 import * as bodyParser from 'koa-bodyparser';
 import * as logger from 'koa-logger'
+import * as jwt from 'koa-jwt'
 
+import { DBURL, Port, Secret } from './config/config';
 import { router } from './routers/routes';
-
-const dbURL = 'mongodb://localhost/gradingSystem';
-const port = process.env.PORT || 3000;
+import { errorHandle } from './middlewares/errorHandle';
 
 
 (<any>mongoose).Promise = global.Promise;
-mongoose.connect(dbURL, { useNewUrlParser: true })
+mongoose.connect(DBURL, { useNewUrlParser: true })
   .then(db => {
     console.log('Connected to MongoDB');
 
     const app = new Koa();
 
-    app.use(kcors());
+    // koa-jwt errors handle
+    app.use(errorHandle);
+
+    app.use(jwt({
+      secret: Secret
+    }).unless({
+      path: [/\/register/],
+    }));
 
     app.use(logger());
 
     app.use(bodyParser());
 
+    app.use(kcors());
+
     app.use(serveStatic(path.join(__dirname, '../grading-system')));
 
     app.use(router.routes()).use(router.allowedMethods());
 
-    app.listen(port);
+    app.listen(Port);
 
-    console.log(`server listen at ${port}`);
+    console.log(`server listen at ${Port}`);
   })
   .catch(err => console.error(err));
 

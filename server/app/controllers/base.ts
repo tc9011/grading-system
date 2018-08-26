@@ -1,3 +1,5 @@
+import { Model, Query, Types } from 'mongoose';
+
 export abstract class BaseCtrl {
 
   abstract model: any;
@@ -58,27 +60,27 @@ export abstract class BaseCtrl {
   };
 }
 
-/*
 export default BaseCtrl;
 
+/*
 export interface IRead<T> {
   retrieve: (callback: (error: any, result: any) => void) => void;
   findById: (id: string, callback: (error: any, result: T) => void) => void;
-  findOne(cond?: Object, callback?: (err: any, res: T) => void): mongoose.Query<T>;
-  find(cond: Object, fields: Object, options: Object, callback?: (err: any, res: T[]) => void): mongoose.Query<T[]>;
+  findOne(cond?: Object, callback?: (err: any, res: T) => void): Query<T>;
+  find(cond: Object, fields: Object, options: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
 }
 
 export interface IWrite<T> {
   create: (item: T, callback: (error: any, result: any) => void) => void;
-  update: (_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void) => void;
+  update: (_id: Types.ObjectId, item: T, callback: (error: any, result: any) => void) => void;
   delete: (_id: string, callback: (error: any, result: any) => void) => void;
 }
 
-export class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T> {
+export class RepositoryBase<T extends Document> implements IRead<T>, IWrite<T> {
 
-  private _model: mongoose.Model<mongoose.Document>;
+  private _model: Model<Document>;
 
-  constructor(schemaModel: mongoose.Model<mongoose.Document>) {
+  constructor(schemaModel: Model<Document>) {
     this._model = schemaModel;
   }
 
@@ -90,7 +92,7 @@ export class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IW
     this._model.find({}, callback);
   }
 
-  update(_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void) {
+  update(_id: Types.ObjectId, item: T, callback: (error: any, result: any) => void) {
     this._model.update({ _id: _id }, item, callback);
   }
 
@@ -102,16 +104,16 @@ export class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IW
     this._model.findById(_id, callback);
   }
 
-  findOne(cond?: Object, callback?: (err: any, res: T) => void): mongoose.Query<T> {
+  findOne(cond?: Object, callback?: (err: any, res: T) => void): Query<T> {
     return this._model.findOne(cond, callback);
   }
 
-  find(cond?: Object, fields?: Object, options?: Object, callback?: (err: any, res: T[]) => void): mongoose.Query<T[]> {
+  find(cond?: Object, fields?: Object, options?: Object, callback?: (err: any, res: T[]) => void): Query<T[]> {
     return this._model.find(cond, options, callback);
   }
 
-  private toObjectId(_id: string): mongoose.Types.ObjectId {
-    return mongoose.Types.ObjectId.createFromHexString(_id);
+  private toObjectId(_id: string): Types.ObjectId {
+    return Types.ObjectId.createFromHexString(_id);
   }
 
 }
