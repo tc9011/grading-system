@@ -54,7 +54,9 @@ export class LoginComponent {
     // 默认配置中对所有HTTP请求都会强制[校验](https://ng-alain.com/auth/getting-started) 用户 Token
     // 然一般来说登录请求不需要校验，因此可以在请求URL加上：`/login?_allow_anonymous=true` 表示不触发用户 Token 校验
     this.loading = true;
-    this.passportService.postLogin(this.form.value).subscribe();    // TODO after post doing something and handle error
+    this.passportService.postLogin(this.form.value).subscribe(data => {
+      this.loading = false;
+    });    // TODO after post doing something and handle error
     setTimeout(() => {
       this.loading = false;
 

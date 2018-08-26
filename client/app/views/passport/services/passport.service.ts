@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../../../core/http/http.service';
 import { Observable } from 'rxjs';
+
+import { HttpService } from '../../../core/http/http.service';
+import { Login, User } from '../../../shared/interfaces/passport';
 
 @Injectable()
 export class PassportService {
 
   constructor(private httpService: HttpService) { }
 
-  postRegister(data): Observable<any> {
-    return this.httpService.postData('/api/passport/register', data);
+  postRegister(user: User): Observable<User> {
+    return this.httpService.postData('/api/passport/register', user);
   }
 
-  postLogin(data): Observable<any> {
-    return this.httpService.postData('/api/passport/login', data);
+  postLogin(login: Login): Observable<Login> {
+    return this.httpService.postData('/api/passport/login', login);
   }
 }
