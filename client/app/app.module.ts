@@ -9,8 +9,6 @@ import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { ViewsModule } from './views/views.module';
-import { InterceptorService } from './core/http/interceptor.service';
-import { HttpService } from './core/http/http.service';
 
 
 @NgModule({
@@ -27,10 +25,7 @@ import { HttpService } from './core/http/http.service';
     CoreModule,
     ViewsModule,
   ],
-  providers: [
-    InterceptorService,
-    HttpService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
