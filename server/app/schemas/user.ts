@@ -48,9 +48,13 @@ UserSchema.pre('save', async function (next) {
     user.meta.updateAt = Date.now();
   }
 
-  const salt = await bcrypt.genSalt(SALT_WORK_FACTOR).catch(err => console.log(err));
+  try {
+    const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+    user.password = await bcrypt.hash(user.password, salt);
+  } catch (err) {
+    console.log(err)
+  }
 
-  user.password = await bcrypt.hash(user.password, salt).catch(err => console.log(err));
 
   next();
 });

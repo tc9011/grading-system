@@ -9,11 +9,14 @@ export class UserCtrl {
   public static async login(ctx: Context) {
     const userBody: any = ctx.request.body;
     const {workNumber, password} = userBody;
+    let user: any;
 
-    const user: any = await UserModel.findOne({ workNumber: workNumber }).catch(err => {
-      console.log(err);
+    try {
+      user = await UserModel.findOne({ workNumber: workNumber });
+    } catch (e) {
+      console.log(e);
       ctx.throw(500, '查找数据时出错!');
-    });
+    }
 
     // console.log(user);
     if (!user) {
@@ -35,11 +38,15 @@ export class UserCtrl {
   public static async register(ctx: Context) {
     const userBody: any = ctx.request.body;
     const {workNumber} = userBody;
+    let user: any;
 
-    const user: any = await UserModel.find({workNumber: workNumber}).catch(err => {
-      console.log(err);
+    try {
+      user = await UserModel.find({workNumber: workNumber})
+    } catch (e) {
+      console.log(e);
       ctx.throw(500, '查找数据时出错!');
-    });
+    }
+
     // console.log(user);
     if (user.length) {
       ctx.status = 409;
@@ -48,10 +55,14 @@ export class UserCtrl {
       const user = new UserModel(userBody);
       // console.log('new user:');
       // console.log(user);
-      await user.save().catch(err => {
-        console.log(err);
+
+      try {
+        await user.save();
+      } catch (e) {
+        console.log(e);
         ctx.throw(500, '保存数据库时出错')
-      });
+      }
+
       // console.log(user);
       handleSuccess({ctx, message: '创建成功!'});
     }
