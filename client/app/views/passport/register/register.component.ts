@@ -118,11 +118,14 @@ export class RegisterComponent {
 
     this.loading = true;
     this.form.value.role = parseInt(this.form.value.role, 10);
-    this.passportService.postRegister(this.form.value).subscribe();   // TODO after post doing something and handle error
-    setTimeout(() => {
-      this.loading = false;
-      // this.router.navigate(['/']);
-    }, 1000);
+    this.passportService.postRegister(this.form.value).subscribe(
+      res => {
+        this.loading = false;
+      },
+      error => {
+        this.loading = false;
+      }
+    );   // TODO after post doing something and handle error
   }
 
 }

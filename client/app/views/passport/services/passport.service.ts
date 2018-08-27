@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { HttpService } from '../../../core/http/http.service';
-import { Login, User } from '../interfaces/passport';
+import { LoginInfo, User } from '../interfaces/passport';
 
 
 @Injectable()
@@ -14,7 +14,7 @@ export class PassportService {
     return this.httpService.postData('/api/passport/register', user);
   }
 
-  postLogin(login: Login): Observable<Login> {
-    return this.httpService.postData('/api/passport/login', login);
+  postLogin(loginInfo: LoginInfo): Observable<LoginInfo> {
+    return this.httpService.postData('/api/passport/login', loginInfo);
   }
 }

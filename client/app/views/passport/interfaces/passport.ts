@@ -6,7 +6,7 @@ export class User {
   role: number;
 }
 
-export interface Login {
+export interface LoginInfo {
   workNumber: string;
   password: string;
 }

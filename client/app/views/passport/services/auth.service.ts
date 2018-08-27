@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { map } from 'rxjs/operators';
 
 import { PassportService } from './passport.service';
-import { User } from '../interfaces/passport';
+import { LoginInfo, User } from '../interfaces/passport';
+import { StorageService } from '../../../core/storage/storage.service';
 
 @Injectable()
 export class AuthService {
@@ -12,12 +15,37 @@ export class AuthService {
   currentUser: User = new User();
 
   constructor(private jwtHelperService: JwtHelperService,
-              private passportService: PassportService) {
+              private router: Router,
+              private passportService: PassportService,
+              private storageService: StorageService) {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedUser = this.decodeUserFromToken(token);
       this.setCurrentUser(decodedUser);
     }
+  }
+
+  login(loginInfo: LoginInfo) {
+    return this.passportService.postLogin(loginInfo).pipe(map(
+      (res: any) => {
+          const loginRes = res.json();
+          return loginRes.map((loginRes) => {
+            this.storageService.setLocalStorage('token', res.token);
+            const decodedUser = this.decodeUserFromToken(res.token);
+            this.setCurrentUser(decodedUser);
+            return this.loggedIn;
+          });
+        }
+      )
+    );
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.loggedIn = false;
+    this.isAdmin = false;
+    this.currentUser = new User();
+    this.router.navigate(['/']);
   }
 
   decodeUserFromToken(token) {

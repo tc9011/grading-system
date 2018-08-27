@@ -6,6 +6,7 @@ import { LoginComponent } from './passport/login/login.component';
 import { ViewsRoutingModule } from './views-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { PassportService } from './passport/services/passport.service';
+import { AuthService } from './passport/services/auth.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,6 @@ import { PassportService } from './passport/services/passport.service';
     ViewsRoutingModule
   ],
   declarations: [RegisterComponent, LoginComponent],
-  providers: [PassportService]
+  providers: [PassportService, AuthService]
 })
 export class ViewsModule { }
