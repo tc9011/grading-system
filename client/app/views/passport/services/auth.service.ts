@@ -28,20 +28,17 @@ export class AuthService {
   login(loginInfo: LoginInfo) {
     return this.passportService.postLogin(loginInfo).pipe(map(
       (res: any) => {
-          const loginRes = res.json();
-          return loginRes.map((loginRes) => {
-            this.storageService.setLocalStorage('token', res.token);
-            const decodedUser = this.decodeUserFromToken(res.token);
-            this.setCurrentUser(decodedUser);
-            return this.loggedIn;
-          });
+          this.storageService.setLocalStorage('token', res.token);
+          const decodedUser = this.decodeUserFromToken(res.token);
+          this.setCurrentUser(decodedUser);
+          return this.loggedIn;
         }
       )
     );
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.storageService.removeLocalStorage('token');
     this.loggedIn = false;
     this.isAdmin = false;
     this.currentUser = new User();
@@ -57,7 +54,7 @@ export class AuthService {
     this.currentUser.workNumber = decodedUser.workNumber;
     this.currentUser.group = decodedUser.group;
     this.currentUser.role = decodedUser.role;
-    decodedUser.role > 10 ? this.isAdmin = true : this.isAdmin = false;
+    this.isAdmin = decodedUser.role > 10;
     delete decodedUser.role;
   }
 }

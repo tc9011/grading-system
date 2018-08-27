@@ -121,9 +121,11 @@ export class RegisterComponent {
     this.passportService.postRegister(this.form.value).subscribe(
       res => {
         this.loading = false;
+        this.router.navigate(['/passport/login']);
       },
       error => {
         this.loading = false;
+        console.log(error);
       }
     );   // TODO after post doing something and handle error
   }
