@@ -12,7 +12,7 @@ export class UserCtrl {
 
   public static async login(ctx: Context) {
     const userBody: any = ctx.request.body;
-    const {workNumber, password, role, group} = userBody;
+    const {workNumber, password} = userBody;
     let user: any;
 
     try {
@@ -35,9 +35,12 @@ export class UserCtrl {
       if (isMatch) {
         // 生成 token 返回给客户端
         const token = jsonwebtoken.sign({
-          workNumber: workNumber,
-          role: role,
-          group: group,
+          user: {
+            workNumber: user.workNumber,
+            group: user.group,
+            role: user.role
+          },
+
           // 设置 token 过期时间
           exp: Math.floor(Date.now() / 1000) + (60 * 60),   // 1小时
         }, Secret);
