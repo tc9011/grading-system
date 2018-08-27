@@ -1,9 +1,9 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { PassportService } from '../services/passport.service';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../../core/http/auth.service';
 
 @Component({
   selector: 'app-login',

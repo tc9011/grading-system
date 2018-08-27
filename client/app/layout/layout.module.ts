@@ -5,6 +5,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SharedModule } from '../shared/shared.module';
 import { GlobalComponent } from './global/global.component';
 import { PassportComponent } from './passport/passport.component';
+import { UserComponent } from './header/component/user/user.component';
 
 const LAYOUTCOMPONENT = [
   HeaderComponent,
@@ -18,7 +19,7 @@ const LAYOUTCOMPONENT = [
     CommonModule,
     SharedModule
   ],
-  declarations: [...LAYOUTCOMPONENT],
+  declarations: [...LAYOUTCOMPONENT, UserComponent],
   exports: [...LAYOUTCOMPONENT],
   providers: []
 })

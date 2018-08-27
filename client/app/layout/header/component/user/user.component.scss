@@ -1,0 +1,13 @@
+@import "../../../../../assets/css/variable/color";
+
+.user-place {
+  display: flex;
+  align-items: center;
+  padding-right: 8px;
+  padding-left: 8px;
+  color: $white;
+}
+
+.mr-sm {
+  margin-right: 8px;
+}

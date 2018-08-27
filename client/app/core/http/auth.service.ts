@@ -4,15 +4,17 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 
-import { PassportService } from './passport.service';
-import { LoginInfo, User } from '../interfaces/passport';
-import { StorageService } from '../../../core/storage/storage.service';
+import { LoginInfo, User } from '../../views/passport/interfaces/passport';
+import { PassportService } from '../../views/passport/services/passport.service';
+import { StorageService } from '../storage/storage.service';
+
+
 
 @Injectable()
 export class AuthService {
-  loggedIn = false;
-  isAdmin = false;
-  currentUser: User = new User();
+  public loggedIn = false;
+  public isAdmin = false;
+  public currentUser: User = new User();
 
   constructor(private jwtHelperService: JwtHelperService,
               private router: Router,
@@ -42,7 +44,7 @@ export class AuthService {
     this.loggedIn = false;
     this.isAdmin = false;
     this.currentUser = new User();
-    this.router.navigate(['/']);
+    this.router.navigateByUrl('/password/login');
   }
 
   decodeUserFromToken(token) {
