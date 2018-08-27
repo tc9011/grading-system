@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 
-import { jsonwebtoken } from 'jsonwebtoken'
+import * as jsonwebtoken from 'jsonwebtoken';
 
 import { BaseCtrl } from './base';
 import { UserModel } from '../models/user';
@@ -16,7 +16,7 @@ export class UserCtrl {
     let user: any;
 
     try {
-      user = await UserModel.findOne({ workNumber: workNumber });
+      user = await UserModel.findOne({workNumber: workNumber});
     } catch (e) {
       console.log(e);
       ctx.throw(500, '查找数据时出错!');
@@ -24,7 +24,7 @@ export class UserCtrl {
 
     // console.log(user);
     if (!user) {
-      ctx.status =400;
+      ctx.status = 400;
       handleError({ctx, message: '用户不存在!'});
       return;
     }
@@ -51,7 +51,7 @@ export class UserCtrl {
           }
         });
       } else {
-        ctx.status =400;
+        ctx.status = 400;
         handleError({ctx, message: '密码错误!'});
       }
     } catch (e) {
@@ -67,7 +67,7 @@ export class UserCtrl {
     let user: any;
 
     try {
-      user = await UserModel.find({workNumber: workNumber})
+      user = await UserModel.find({workNumber: workNumber});
     } catch (e) {
       console.log(e);
       ctx.throw(500, '查找数据时出错!');
@@ -83,7 +83,7 @@ export class UserCtrl {
         await user.save();
       } catch (e) {
         console.log(e);
-        ctx.throw(500, '保存数据库时出错')
+        ctx.throw(500, '保存数据库时出错');
       }
 
       handleSuccess({ctx, message: '创建成功!'});

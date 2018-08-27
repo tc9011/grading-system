@@ -20,16 +20,16 @@ mongoose.connect(DBURL, { useNewUrlParser: true })
 
     const app = new Koa();
 
+    app.use(logger());
+
     // koa-jwt errors handle
     app.use(errorHandle);
 
     app.use(jwt({
       secret: Secret
     }).unless({
-      path: [/\/register/],
+      path: [/\/register/, /\/login/],
     }));
-
-    app.use(logger());
 
     app.use(bodyParser());
 
