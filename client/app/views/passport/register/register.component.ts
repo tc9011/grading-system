@@ -38,7 +38,8 @@ export class RegisterComponent {
         [
           Validators.required,
           Validators.minLength(8),
-          Validators.maxLength(8)
+          Validators.maxLength(8),
+          RegisterComponent.checkWorkNumber,
         ]
       ],
       password: [
@@ -61,6 +62,17 @@ export class RegisterComponent {
       role: [null, [Validators.required]],
     });
     this.loadingService.end();
+  }
+
+  static checkWorkNumber(control: FormControl) {
+    if (!control) {
+      return null;
+    }
+    const reg = /^\d{8}$/;
+    if (!reg.test(control.value)) {
+      return { isNumber: true };
+    }
+    return null;
   }
 
   static checkPassword(control: FormControl) {

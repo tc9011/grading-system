@@ -7,6 +7,7 @@ import { NzModalService } from 'ng-zorro-antd';
 import { PassportService } from '../services/passport.service';
 import { AuthService } from '../../../core/http/auth.service';
 import { LoadingService } from '../../../core/http/loading.service';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,15 @@ export class LoginComponent {
     public loadingService: LoadingService,
   ) {
     this.form = fb.group({
-      workNumber: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+      workNumber: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(8),
+          RegisterComponent.checkWorkNumber,
+        ]
+      ],
       password: [null, Validators.required],
     });
     this.loadingService.end();

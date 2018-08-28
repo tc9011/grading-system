@@ -7,7 +7,10 @@
       <nz-input-group nzSize="large" nzPrefixIcon="anticon anticon-user">
         <input nz-input formControlName="workNumber" placeholder="工号">
       </nz-input-group>
-      <nz-form-explain *ngIf="workNumber.dirty && workNumber.errors">请输入八位数工号！</nz-form-explain>
+      <ng-container *ngIf="workNumber.dirty && workNumber.errors">
+        <nz-form-explain *ngIf="workNumber.errors.required">请输入工号！</nz-form-explain>
+        <nz-form-explain *ngIf="workNumber.errors.minlength || workNumber.errors.maxlength || workNumber.errors.isNumber">工号为8位数字！</nz-form-explain>
+      </ng-container>
     </nz-form-control>
   </nz-form-item>
 
