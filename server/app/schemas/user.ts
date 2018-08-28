@@ -19,7 +19,7 @@ const UserSchema: Schema = new Schema({
   // >10: admin
   // >50: super admin
   role: {
-    type: String,
+    type: Number,
     default: 0,
   },
 
