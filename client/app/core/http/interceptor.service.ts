@@ -45,12 +45,12 @@ export class InterceptorService implements HttpInterceptor {
       case 200:
         // 业务层级错误处理，以下是假定restful有一套统一输出格式（指不管成功与否都有相应的数据格式）情况下进行处理
         // 例如响应内容：
-        //  错误内容：{ status: 0, msg: '非法参数' }
-        //  正确内容：{ status: 1, response: {  } }
+        //  错误内容：{ status: 1, message: '非法参数' }
+        //  正确内容：{ status: 0, response: {  } }
         // 则以下代码片断可直接适用
         if (event instanceof HttpResponse) {
             const body: any = event.body;
-            if (body && body.status !== 1) {
+            if (body && body.status !== 0) {
                 this.msg.error(body.message);
                 // 继续抛出错误中断后续所有 Pipe、subscribe 操作，因此：
                 // this.http.get('/').subscribe() 并不会触发
@@ -63,7 +63,7 @@ export class InterceptorService implements HttpInterceptor {
             }
         }
         break;
-      case 400:
+      case 400:   // 请求地址不存在或包含不支持参数
         if (event instanceof HttpErrorResponse) {
           this.msg.error(event.error.message);
         }
@@ -71,11 +71,20 @@ export class InterceptorService implements HttpInterceptor {
       case 401: // 未登录状态码
         this.goTo('/passport/login');
         break;
-      case 403:
+      case 403: // 被禁止访问
+        if (event instanceof HttpErrorResponse) {
+          this.msg.error(event.error.message);
+        }
         break;
-      case 404:
+      case 404: // 请求的资源不存在
+        this.goTo(`/${event.status}`);
         break;
-      case 500:
+      case 409: // 用户已存在
+        if (event instanceof HttpErrorResponse) {
+          this.msg.error(event.error.message);
+        }
+        break;
+      case 500: // 内部错误
         this.goTo(`/${event.status}`);
         break;
       default:
