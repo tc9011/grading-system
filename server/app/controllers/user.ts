@@ -13,9 +13,8 @@ export class UserCtrl {
   public static async login(ctx: Context) {
     const userBody: any = ctx.request.body;
     const {workNumber, password} = userBody;
-    let user: any;
 
-    user = await UserModel
+    let user: any = await UserModel
       .findOne({workNumber: workNumber})
       .catch(err => {
         console.log(err);
@@ -40,7 +39,7 @@ export class UserCtrl {
           },
 
           // 设置 token 过期时间
-          exp: Math.floor(Date.now() / 1000) + (60 * 60),   // 1小时
+          exp: Math.floor(Date.now() / 1000) + (60),   // 1分钟
         }, Secret);
 
         handleSuccess({
@@ -65,7 +64,7 @@ export class UserCtrl {
   public static async register(ctx: Context) {
     const userBody: any = ctx.request.body;
     const {workNumber, password, role, group} = userBody;
-    let user: any;
+    let isExist = false;
 
     // region: user parameter check
     const reg = /^\d{8}$/;
@@ -85,19 +84,37 @@ export class UserCtrl {
     }
     // endregion
 
-    user = await UserModel
+    let users: any = await UserModel
       .find({workNumber: workNumber})
       .catch(err => {
         console.log(err);
         ctx.throw(500, '查找数据时出错!');
       });
 
-    if (user.length) {
+    let groups: any = await UserModel
+      .find({group: group})
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, '查找数据时出错!');
+      });
+
+    if (groups.length) {
+      for (let group of groups) {
+        if (group.role > 10 && group.role === role) {
+          isExist = true;
+          console.log('循环内' + isExist);
+        }
+      }
+    }
+
+    if (users.length) {
       ctx.status = 409;
       handleError({ctx, message: '用户名已存在!'});
+    } else if (isExist) {
+      ctx.status = 409;
+      handleError({ctx, message: '该团队中已经存在管理员，请重新选择角色!'});
     } else {
       const user = new UserModel(userBody);
-
       await user
         .save()
         .catch(err => {
@@ -108,5 +125,4 @@ export class UserCtrl {
       handleSuccess({ctx, message: '创建成功!'});
     }
   }
-
 }
