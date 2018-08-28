@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd';
 
 import { PassportService } from '../services/passport.service';
-import { AuthService } from '../../../core/http/auth.service';
+import { AuthService } from '../../../core/auth/auth.service';
 import { LoadingService } from '../../../core/http/loading.service';
 import { RegisterComponent } from '../register/register.component';
 
