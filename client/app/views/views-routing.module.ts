@@ -11,7 +11,8 @@ const routes: Routes = [
   {
     path: '',
     component: GlobalComponent,
-    canActivate: [AuthGuardLogin]
+    canActivate: [AuthGuardLogin],
+    canActivateChild: [AuthGuardLogin]
   },
   {
     path: 'passport',
