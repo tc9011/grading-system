@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
 
 import { HttpService } from '../../../core/http/http.service';
 import { LoginInfo, User } from '../interfaces/passport';
-
 
 @Injectable()
 export class PassportService {

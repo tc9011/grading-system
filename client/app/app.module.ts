@@ -11,7 +11,6 @@ import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { ViewsModule } from './views/views.module';
-import { InterceptorService } from './core/http/interceptor.service';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
