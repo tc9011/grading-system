@@ -25,7 +25,7 @@ export class UserCtrl {
     // console.log(user);
     if (!user) {
       ctx.status = 400;
-      handleError({ctx, message: '用户不存在!'});
+      handleError({ctx, message: '帐号或密码错误!'});
       return;
     }
 
@@ -55,7 +55,7 @@ export class UserCtrl {
         });
       } else {
         ctx.status = 400;
-        handleError({ctx, message: '密码错误!'});
+        handleError({ctx, message: '帐号或密码错误!'});
       }
     } catch (e) {
       console.log(e);
