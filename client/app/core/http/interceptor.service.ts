@@ -63,11 +63,18 @@ export class InterceptorService implements HttpInterceptor {
             }
         }
         break;
+      case 400:
+        if (event instanceof HttpErrorResponse) {
+          this.msg.error(event.error.message);
+        }
+        break;
       case 401: // 未登录状态码
         this.goTo('/passport/login');
         break;
       case 403:
+        break;
       case 404:
+        break;
       case 500:
         this.goTo(`/${event.status}`);
         break;

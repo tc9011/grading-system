@@ -25,6 +25,7 @@
 
   <!--按钮-->
   <nz-form-item>
-    <button nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="loading" class="ant-btn__block">登录</button>
+    <button nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="loadingService.loading" class="ant-btn__block">登录</button>
+    <a class="login" routerLink="/passport/register">注册账户</a>
   </nz-form-item>
 </form>

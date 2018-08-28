@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { LoginInfo, User } from '../../views/passport/interfaces/passport';
 import { PassportService } from '../../views/passport/services/passport.service';
 import { StorageService } from '../storage/storage.service';
+import { NzMessageService } from 'ng-zorro-antd';
 
 
 
@@ -18,6 +19,7 @@ export class AuthService {
 
   constructor(private jwtHelperService: JwtHelperService,
               private router: Router,
+              private injector: Injector,
               private passportService: PassportService,
               private storageService: StorageService) {
     const token = localStorage.getItem('token');
@@ -27,12 +29,17 @@ export class AuthService {
     }
   }
 
+  get msg(): NzMessageService {
+    return this.injector.get(NzMessageService);
+  }
+
   login(loginInfo: LoginInfo) {
     return this.passportService.postLogin(loginInfo).pipe(map(
       (res: any) => {
           this.storageService.setLocalStorage('token', res.token);
           const decodedUser = this.decodeUserFromToken(res.token);
           this.setCurrentUser(decodedUser);
+          this.msg.success('登录成功!');
           return this.loggedIn;
         }
       )
@@ -44,7 +51,6 @@ export class AuthService {
     this.loggedIn = false;
     this.isAdmin = false;
     this.currentUser = new User();
-    this.router.navigateByUrl('/password/login');
   }
 
   decodeUserFromToken(token) {

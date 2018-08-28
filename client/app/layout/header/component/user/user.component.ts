@@ -11,12 +11,13 @@ import { AuthService } from '../../../../core/http/auth.service';
 export class UserComponent implements OnInit {
 
   constructor(public authService: AuthService,
-              private router: Router,) { }
+              private router: Router) { }
 
   ngOnInit() {
   }
 
   logout() {
     this.authService.logout();
+    this.router.navigateByUrl('/passport/login');
   }
 }

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { NzMessageService } from 'ng-zorro-antd';
+
 import { PassportService } from '../services/passport.service';
+import { LoadingService } from '../../../core/http/loading.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +16,6 @@ export class RegisterComponent {
 
   form: FormGroup;
   error = '';
-  loading = false;
   visible = false;
   status = 'pool';
   progress = 0;
@@ -27,7 +29,8 @@ export class RegisterComponent {
     private fb: FormBuilder,
     private router: Router,
     public msg: NzMessageService,
-    private passportService: PassportService
+    private passportService: PassportService,
+    public loadingService: LoadingService,
   ) {
     this.form = fb.group({
       workNumber: [
@@ -57,6 +60,7 @@ export class RegisterComponent {
       group: [null, [Validators.required]],
       role: [null, [Validators.required]],
     });
+    this.loadingService.end();
   }
 
   static checkPassword(control: FormControl) {
@@ -116,18 +120,14 @@ export class RegisterComponent {
       return;
     }
 
-    this.loading = true;
+    this.loadingService.begin();
     this.form.value.role = parseInt(this.form.value.role, 10);
     this.passportService.postRegister(this.form.value).subscribe(
       res => {
-        this.loading = false;
+        this.loadingService.end();
         this.router.navigate(['/passport/login']);
-      },
-      error => {
-        this.loading = false;
-        console.log(error);
       }
-    );   // TODO after post doing something and handle error
+    );
   }
 
 }
