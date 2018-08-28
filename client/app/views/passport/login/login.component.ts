@@ -6,7 +6,7 @@ import { NzModalService } from 'ng-zorro-antd';
 
 import { PassportService } from '../services/passport.service';
 import { AuthService } from '../../../core/auth/auth.service';
-import { LoadingService } from '../../../core/http/loading.service';
+import { LoadingService } from '../../../core/loading/loading.service';
 import { RegisterComponent } from '../register/register.component';
 
 @Component({

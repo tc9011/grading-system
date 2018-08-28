@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 
 import { PassportService } from '../services/passport.service';
-import { LoadingService } from '../../../core/http/loading.service';
+import { LoadingService } from '../../../core/loading/loading.service';
 
 @Component({
   selector: 'app-register',
