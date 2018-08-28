@@ -15,21 +15,19 @@ export class UserCtrl {
     const {workNumber, password} = userBody;
     let user: any;
 
-    try {
-      user = await UserModel.findOne({workNumber: workNumber});
-    } catch (e) {
-      console.log(e);
-      ctx.throw(500, '查找数据时出错!');
-    }
+    user = await UserModel
+      .findOne({workNumber: workNumber})
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, '查找数据时出错!');
+      });
 
-    // console.log(user);
     if (!user) {
       ctx.status = 400;
       handleError({ctx, message: '帐号或密码错误!'});
       return;
     }
 
-    // console.log(user);
     try {
       const isMatch = await user.comparePassword(password);
       if (isMatch) {
@@ -66,15 +64,33 @@ export class UserCtrl {
 
   public static async register(ctx: Context) {
     const userBody: any = ctx.request.body;
-    const {workNumber} = userBody;
+    const {workNumber, password, role, group} = userBody;
     let user: any;
 
-    try {
-      user = await UserModel.find({workNumber: workNumber});
-    } catch (e) {
-      console.log(e);
-      ctx.throw(500, '查找数据时出错!');
+    // region: user parameter check
+    const reg = /^\d{8}$/;
+    if (!reg.test(workNumber)) {
+      handleError({ctx, message: '工号须为8位数字!'});
+      return;
     }
+
+    if (password.length < 6) {
+      handleError({ctx, message: '密码不够安全!'});
+      return;
+    }
+
+    if (Object.prototype.toString.call(role) !== '[object Number]') {
+      handleError({ctx, message: '角色类型错误'});
+      return;
+    }
+    // endregion
+
+    user = await UserModel
+      .find({workNumber: workNumber})
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, '查找数据时出错!');
+      });
 
     if (user.length) {
       ctx.status = 409;
@@ -82,12 +98,12 @@ export class UserCtrl {
     } else {
       const user = new UserModel(userBody);
 
-      try {
-        await user.save();
-      } catch (e) {
-        console.log(e);
-        ctx.throw(500, '保存数据库时出错');
-      }
+      await user
+        .save()
+        .catch(err => {
+          console.log(err);
+          ctx.throw(500, '保存数据库时出错');
+        });
 
       handleSuccess({ctx, message: '创建成功!'});
     }
