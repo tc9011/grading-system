@@ -137,6 +137,7 @@ export class RegisterComponent {
     this.passportService.postRegister(this.form.value).subscribe(
       res => {
         this.loadingService.end();
+        this.msg.success('注册成功!');
         this.router.navigate(['/passport/login']);
       }
     );
