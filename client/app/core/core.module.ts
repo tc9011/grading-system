@@ -6,6 +6,8 @@ import { InterceptorService } from './http/interceptor.service';
 import { HttpService } from './http/http.service';
 import { StorageService } from './storage/storage.service';
 import { AuthService } from './auth/auth.service';
+import { AuthGuardLoginService } from './auth/auth-guard-login.service';
+import { AuthGuardAdminService } from './auth/auth-guard-admin.service';
 
 @NgModule({
   imports: [
@@ -16,7 +18,9 @@ import { AuthService } from './auth/auth.service';
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
     HttpService,
     AuthService,
-    StorageService
+    StorageService,
+    AuthGuardLoginService,
+    AuthGuardAdminService
   ]
 })
 export class CoreModule { }
