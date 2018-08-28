@@ -102,7 +102,7 @@ export class UserCtrl {
       for (let group of groups) {
         if (group.role > 10 && group.role === role) {
           isExist = true;
-          console.log('循环内' + isExist);
+          break;
         }
       }
     }
