@@ -77,14 +77,14 @@ export class InterceptorService implements HttpInterceptor {
         }
         break;
       case 404: // 请求的资源不存在
-        this.goTo(`/${event.status}`);
+        this.goTo(`/${event.status}`);    // TODO add 404 page
         break;
       case 409: // 用户已存在
         if (event instanceof HttpErrorResponse) {
           this.msg.error(event.error.message);
         }
         break;
-      case 500: // 内部错误
+      case 500: // 内部错误         // TODO add 500 page
         this.goTo(`/${event.status}`);
         break;
       default:
