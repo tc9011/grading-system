@@ -109,10 +109,10 @@ export class UserCtrl {
 
     if (users.length) {
       ctx.status = 409;
-      handleError({ctx, message: '用户名已存在!'});
+      handleError({ctx, message: '用户已存在!'});
     } else if (isExist) {
       ctx.status = 409;
-      handleError({ctx, message: '该团队中已经存在管理员，请重新选择角色!'});
+      handleError({ctx, message: '该团队中已经存在管理员，请重新选择角色或者重新选择团队!'});
     } else {
       const user = new UserModel(userBody);
       await user
