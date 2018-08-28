@@ -21,7 +21,7 @@
       <nz-popover [nzPlacement]="'right'" [nzTrigger]="'focus'" [(nzVisible)]="visible" nzOverlayClassName="register-password-cdk"
                   [nzOverlayStyle]="{'width.px': 240}">
         <nz-input-group nzSize="large" nz-popover nzAddonBeforeIcon="anticon anticon-lock">
-          <input nz-input type="password" formControlName="password" placeholder="至少6位密码，区分大小写">
+          <input nz-input type="password" (blur)="visible = false" formControlName="password" placeholder="至少6位密码，区分大小写">
         </nz-input-group>
         <nz-form-explain *ngIf="password.dirty && password.errors">请输入密码！</nz-form-explain>
         <ng-template #nzTemplate>
