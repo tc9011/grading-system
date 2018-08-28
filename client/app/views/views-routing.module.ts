@@ -5,11 +5,13 @@ import { GlobalComponent } from '../layout/global/global.component';
 import { PassportComponent } from '../layout/passport/passport.component';
 import { LoginComponent } from './passport/login/login.component';
 import { RegisterComponent } from './passport/register/register.component';
+import { AuthGuardLogin } from '../core/auth/auth-guard-login.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: GlobalComponent
+    component: GlobalComponent,
+    canActivate: [AuthGuardLogin]
   },
   {
     path: 'passport',
