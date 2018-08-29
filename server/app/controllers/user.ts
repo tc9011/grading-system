@@ -14,6 +14,19 @@ export class UserCtrl {
     const userBody: any = ctx.request.body;
     const {workNumber, password} = userBody;
 
+    // region: user parameter check
+    const reg = /^\d{8}$/;
+    if (!reg.test(workNumber)) {
+      handleError({ctx, message: '工号须为8位数字!'});
+      return;
+    }
+
+    if (password.length < 6) {
+      handleError({ctx, message: '密码不够安全!'});
+      return;
+    }
+    // endregion
+
     let user: any = await UserModel
       .findOne({workNumber: workNumber})
       .catch(err => {
