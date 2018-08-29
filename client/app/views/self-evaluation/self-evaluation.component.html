@@ -1,3 +1,42 @@
-<p>
-  self-evaluation works!
-</p>
+<h3>自评</h3>
+<form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
+  <!--业绩-->
+  <nz-form-item>
+    <nz-form-label nzXs="24" nzSm="7" nzRequired nzFor="achievement">业绩</nz-form-label>
+    <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+      <textarea nz-input formControlName="achievement" id="achievement" [nzAutosize]="{minRows: 4}"></textarea>
+      <ng-container *ngIf="achievement.dirty && achievement.errors">
+        <nz-form-explain *ngIf="achievement.errors.required">请输入内容！</nz-form-explain>
+      </ng-container>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--共享,主动性-->
+  <nz-form-item>
+    <nz-form-label nzXs="24" nzSm="7" nzRequired nzFor="share">共享和主动性</nz-form-label>
+    <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+      <textarea nz-input formControlName="share" id="share" [nzAutosize]="{minRows: 4}"></textarea>
+      <ng-container *ngIf="share.dirty && share.errors">
+        <nz-form-explain *ngIf="share.errors.required">请输入内容！</nz-form-explain>
+      </ng-container>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--团队贡献-->
+  <nz-form-item>
+    <nz-form-label nzXs="24" nzSm="7" nzRequired nzFor="contribution">团队贡献</nz-form-label>
+    <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+      <textarea nz-input formControlName="contribution" id="contribution" [nzAutosize]="{minRows: 4}"></textarea>
+      <ng-container *ngIf="contribution.dirty && contribution.errors">
+        <nz-form-explain *ngIf="contribution.errors.required">请输入内容！</nz-form-explain>
+      </ng-container>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--按钮-->
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+      <button nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="loadingService.loading" class="ant-btn__block">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
