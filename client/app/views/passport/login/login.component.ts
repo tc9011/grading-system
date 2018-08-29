@@ -56,11 +56,11 @@ export class LoginComponent {
   submit() {
     this.error = '';
 
-    this.workNumber.markAsDirty();
-    this.workNumber.updateValueAndValidity();
-    this.password.markAsDirty();
-    this.password.updateValueAndValidity();
-    if (this.workNumber.invalid || this.password.invalid) {
+    for (const i in this.form.controls) {
+      this.form.controls[i].markAsDirty();
+      this.form.controls[i].updateValueAndValidity();
+    }
+    if (this.form.invalid) {
       return;
     }
 
