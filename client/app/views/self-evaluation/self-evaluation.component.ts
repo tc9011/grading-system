@@ -10,6 +10,7 @@ import { LoadingService } from '../../core/loading/loading.service';
 })
 export class SelfEvaluationComponent implements OnInit {
   form: FormGroup;
+  isVisible = false;
 
   constructor(private fb: FormBuilder,
               public loadingService: LoadingService) {
@@ -39,6 +40,16 @@ export class SelfEvaluationComponent implements OnInit {
   }
 
   submit() {
+    window.setTimeout(() => {
+      this.isVisible = false;
+    }, 3000);
+  }
 
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
 }
