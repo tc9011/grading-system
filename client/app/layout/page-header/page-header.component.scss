@@ -1,0 +1,26 @@
+@import "../../../assets/css/variable/color";
+@import "../../../assets/css/variable/font";
+
+.detail {
+  padding: 0 32px 0;
+  border-bottom: 1px solid $grey-5;
+  margin-bottom: 24px;
+}
+
+::ng-deep .breadcrumb {
+  padding: 0 32px 0;
+  margin-bottom: 16px;
+}
+
+.row {
+  margin-bottom: 16px;
+  .title {
+    font-size: $font-size-large;
+    font-weight: 500;
+    color: $grey-9;
+  }
+  .desc {
+    font-size: $font-size-base;
+    color: $grey-8;
+  }
+}
