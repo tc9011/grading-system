@@ -40,7 +40,20 @@ export class SelfEvaluationComponent implements OnInit {
   }
 
   submit() {
+    this.achievement.markAsDirty();
+    this.achievement.updateValueAndValidity();
+    this.share.markAsDirty();
+    this.share.updateValueAndValidity();
+    this.contribution.markAsDirty();
+    this.contribution.updateValueAndValidity();
+
+    if (this.achievement.invalid || this.share.invalid || this.contribution.invalid) {
+      return;
+    }
+
+    this.loadingService.begin();
     window.setTimeout(() => {
+      this.loadingService.end();
       this.isVisible = false;
     }, 3000);
   }
