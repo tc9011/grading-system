@@ -27,3 +27,8 @@
     white-space: nowrap;
   }
 }
+
+.ant-menu-item:focus {
+  outline: none;
+}
+
