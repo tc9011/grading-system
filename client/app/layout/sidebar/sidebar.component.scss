@@ -1,6 +1,29 @@
+@import "../../../assets/css/variable/color";
+
 .sider {
   position: absolute;
   top: 64px;
   bottom: 0;
   background:#fff
+}
+
+.sidebar-info{
+  display: flex;
+  align-items: center;
+  height: 90px;
+  margin: 0 auto;
+  width: 152px;
+  .avatar {
+    margin-right: 8px;
+  }
+  .info {
+    width: 104px;
+    height: 32px;
+    line-height: 16px;
+    color: $grey-8;
+  }
+  .text-truncate {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }

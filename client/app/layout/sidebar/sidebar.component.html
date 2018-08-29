@@ -1,13 +1,14 @@
 <nz-sider class="sider" [nzWidth]="200">
   <ul nz-menu [nzMode]="'inline'" style="height:100%">
-    <li nz-submenu>
+    <li class="sidebar-info">
+      <nz-avatar class="avatar" nzIcon="anticon anticon-user"></nz-avatar>
+      <div class="info">
+        <strong>{{authService.currentUser.workNumber}}</strong>
+        <p class="text-truncate">{{authService.currentUser.group}}</p>
+      </div>
+    </li>
+    <li nz-menu-item>
       <span title><i class="anticon anticon-user"></i>自评</span>
-      <ul>
-        <li nz-menu-item>option1</li>
-        <li nz-menu-item>option2</li>
-        <li nz-menu-item>option3</li>
-        <li nz-menu-item>option4</li>
-      </ul>
     </li>
     <li nz-submenu>
       <span title><i class="anticon anticon-laptop"></i>互评</span>
