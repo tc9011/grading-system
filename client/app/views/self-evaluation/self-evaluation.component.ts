@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { LoadingService } from '../../core/loading/loading.service';
 
 @Component({
@@ -15,6 +14,7 @@ export class SelfEvaluationComponent implements OnInit {
   constructor(private fb: FormBuilder,
               public loadingService: LoadingService) {
     this.form = this.fb.group({
+      month: [null, Validators.required],
       achievement: [null, Validators.required],
       share: [null, Validators.required],
       contribution: [null, Validators.required],
@@ -22,7 +22,11 @@ export class SelfEvaluationComponent implements OnInit {
     this.loadingService.end();
   }
 
-  // region: fields       // TODO 增加时间选择
+  // region: fields
+  get month() {
+    return this.form.controls.month;
+  }
+
   get achievement() {
     return this.form.controls.achievement;
   }
@@ -40,16 +44,11 @@ export class SelfEvaluationComponent implements OnInit {
   }
 
   submit() {
-    this.achievement.markAsDirty();
-    this.achievement.updateValueAndValidity();
-    this.share.markAsDirty();
-    this.share.updateValueAndValidity();
-    this.contribution.markAsDirty();
-    this.contribution.updateValueAndValidity();
-
-    if (this.achievement.invalid || this.share.invalid || this.contribution.invalid) {
-      return;
+    for (const i in this.form.controls) {
+      this.form.controls[i].markAsDirty();
+      this.form.controls[i].updateValueAndValidity();
     }
+    if (this.form.invalid) return;
 
     this.loadingService.begin();
     window.setTimeout(() => {
@@ -64,5 +63,6 @@ export class SelfEvaluationComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+    this.form.reset();
   }
 }
