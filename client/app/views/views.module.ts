@@ -10,6 +10,8 @@ import { Exception403Component } from './exception/403/exception403.component';
 import { Exception404Component } from './exception/404/exception404.component';
 import { Exception500Component } from './exception/500/exception500.component';
 import { ExceptionComponent } from './exception/exception/exception.component';
+import { SelfEvaluationComponent } from './self-evaluation/self-evaluation.component';
+import { MutualEvaluationComponent } from './mutual-evaluation/mutual-evaluation.component';
 
 @NgModule({
   imports: [
@@ -23,7 +25,9 @@ import { ExceptionComponent } from './exception/exception/exception.component';
     Exception403Component,
     Exception404Component,
     Exception500Component,
-    ExceptionComponent
+    ExceptionComponent,
+    SelfEvaluationComponent,
+    MutualEvaluationComponent
   ],
   providers: [PassportService]
 })

@@ -9,6 +9,8 @@ import { AuthGuardLogin } from '../core/auth/auth-guard-login.service';
 import { Exception500Component } from './exception/500/exception500.component';
 import { Exception404Component } from './exception/404/exception404.component';
 import { Exception403Component } from './exception/403/exception403.component';
+import { SelfEvaluationComponent } from './self-evaluation/self-evaluation.component';
+import { MutualEvaluationComponent } from './mutual-evaluation/mutual-evaluation.component';
 
 const routes: Routes = [
   {
@@ -16,11 +18,21 @@ const routes: Routes = [
     component: GlobalComponent,
     canActivate: [AuthGuardLogin],
     canActivateChild: [AuthGuardLogin],
-    /*children: [
+    children: [
       {
-
+        path: '',
+        redirectTo: 'selfevaluation',
+        pathMatch: 'full'
+      },
+      {
+        path: 'selfevaluation',
+        component: SelfEvaluationComponent
+      },
+      {
+        path: 'mutualevaluation',
+        component: MutualEvaluationComponent
       }
-    ]*/
+    ]
   },
   {
     path: 'passport',
