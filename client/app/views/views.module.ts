@@ -12,12 +12,14 @@ import { Exception500Component } from './exception/500/exception500.component';
 import { ExceptionComponent } from './exception/exception/exception.component';
 import { SelfEvaluationComponent } from './self-evaluation/self-evaluation.component';
 import { MutualEvaluationComponent } from './mutual-evaluation/mutual-evaluation.component';
+import { LayoutModule } from '../layout/layout.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    ViewsRoutingModule
+    ViewsRoutingModule,
+    LayoutModule,
   ],
   declarations: [
     RegisterComponent,
