@@ -1,83 +1,52 @@
-import { Schema } from 'mongoose';
 import * as bcrypt from 'bcryptjs';
-
-import { User } from '../models/user';
+import { pre, prop, Typegoose, instanceMethod } from 'typegoose';
 
 const SALT_WORK_FACTOR = 10;
 
-const UserSchema: Schema = new Schema({
-  workNumber: {
-    unique: true,
-    type: String,
-  },
+@pre<UserSchema>('save', async function (next) {
+  if (this.isNew) {
+    this.createAt = this.updateAt = Date.now();
+  } else {
+    this.updateAt = Date.now();
+  }
 
-  password: String,
+  try {
+    const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+    this.password = await bcrypt.hash(this.password, salt);
+  } catch (err) {
+    console.log(err);
+  }
+
+  next();
+})
+export class UserSchema extends Typegoose {
+  @prop({required: true, unique: true})
+  workNumber: string;
+
+  @prop({required: true})
+  password: string;
 
   // 0: normal user
   // 1: verified user
   // 2: professional user
   // >10: admin
   // >50: super admin
-  role: {
-    type: Number,
-    default: 0,
-  },
+  @prop({required: true, default: 0})
+  role: number;
 
-  group: {
-    type: String,
-  },
+  @prop({required: true})
+  group: string;
 
-  meta: {
-    createAt: {
-      type: Date,
-      default: Date.now(),
-    },
-    updateAt: {
-      type: Date,
-      default: Date.now(),
-    },
-  },
-});
+  @prop({ default: Date.now() })
+  createAt: any;
 
-UserSchema.pre('save', async function (next) {
-  const user: User = <User>this;
+  @prop({ default: Date.now() })
+  updateAt: any;
 
-  if (this.isNew) {
-    user.meta.createAt = user.meta.updateAt = Date.now();
-  } else {
-    user.meta.updateAt = Date.now();
-  }
-
-  try {
-    const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
-    user.password = await bcrypt.hash(user.password, salt);
-  } catch (err) {
-    console.log(err);
-  }
-
-  next();
-});
-
-UserSchema.methods = {
-  comparePassword: async function (_password) {
+  @instanceMethod
+  async comparePassword(_password) {
     return await bcrypt
       .compare(_password, this.password)
       .catch(err => console.log(err));
-  },
-};
-
-UserSchema.statics = {
-  fetch: async function () {
-    return await this
-      .find({})
-      .sort('meta.updateAt');
-  },
-
-  findById: async function (id) {
-    return await this
-      .findOne({_id: id});
-  },
-};
-
-export { UserSchema };
-
+  }
+}

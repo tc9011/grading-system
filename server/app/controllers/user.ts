@@ -8,13 +8,12 @@ import { handleError, handleSuccess } from '../../utils/handle';
 import { Secret } from '../../config/config';
 
 export class UserCtrl {
-  public model = UserModel;
 
   public static async login(ctx: Context) {
     const userBody: any = ctx.request.body;
     const {workNumber, password} = userBody;
 
-    // region: user parameter check
+    // region: user parameter check     //TODO typegoose的validate参数
     const reg = /^\d{8}$/;
     if (!reg.test(workNumber)) {
       handleError({ctx, message: '工号须为8位数字!'});
@@ -27,13 +26,16 @@ export class UserCtrl {
     }
     // endregion
 
-    let user: any = await UserModel
+    console.log(userBody);
+    const user: any = await UserModel
       .findOne({workNumber: workNumber})
       .catch(err => {
         console.log(err);
         ctx.throw(500, '查找数据时出错!');
       });
 
+    console.log(UserModel);
+    console.log(user);
     if (!user) {
       ctx.status = 400;
       handleError({ctx, message: '帐号或密码错误!'});
@@ -97,14 +99,14 @@ export class UserCtrl {
     }
     // endregion
 
-    let users: any = await UserModel
+    const users: any = await UserModel
       .find({workNumber: workNumber})
       .catch(err => {
         console.log(err);
         ctx.throw(500, '查找数据时出错!');
       });
 
-    let groups: any = await UserModel
+    const groups: any = await UserModel
       .find({group: group})
       .catch(err => {
         console.log(err);
@@ -112,7 +114,7 @@ export class UserCtrl {
       });
 
     if (groups.length) {
-      for (let group of groups) {
+      for (const group of groups) {
         if (group.role > 10 && group.role === role) {
           isExist = true;
           break;
