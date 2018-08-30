@@ -20,7 +20,7 @@ class SelfEvaluationSchema extends Typegoose {
   workNumber: string;
 
   @prop({required: true})
-  date: Date;
+  month: Date;
 
   @prop({required: true})
   achievement: string;
