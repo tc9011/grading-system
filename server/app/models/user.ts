@@ -21,10 +21,21 @@ const SALT_WORK_FACTOR = 10;
   next();
 })
 class UserSchema extends Typegoose {
-  @prop({required: true, unique: true})
+  @prop({
+    required: true,
+    unique: true,
+    // TODO 校验在5.3.0版本中ok, 但是作者没有把5.3.0发布到npm,后期再加上
+    /*validate: {
+      validator: val => /^\d{8}$/.test(val),
+      message: `工号为8位数字`
+    }*/
+  })
   workNumber: string;
 
-  @prop({required: true})
+  @prop({
+    required: true,
+    minlength: 6
+  })
   password: string;
 
   // 0: normal user
@@ -32,7 +43,10 @@ class UserSchema extends Typegoose {
   // 2: professional user
   // >10: admin
   // >50: super admin
-  @prop({required: true, default: 0})
+  @prop({
+    required: true,
+    default: 0
+  })
   role: number;
 
   @prop({required: true})

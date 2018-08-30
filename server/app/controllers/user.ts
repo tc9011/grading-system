@@ -13,19 +13,6 @@ export class UserCtrl {
     const userBody: any = ctx.request.body;
     const {workNumber, password} = userBody;
 
-    // region: user parameter check     //TODO typegoose的validate参数
-    const reg = /^\d{8}$/;
-    if (!reg.test(workNumber)) {
-      handleError({ctx, message: '工号须为8位数字!'});
-      return;
-    }
-
-    if (password.length < 6) {
-      handleError({ctx, message: '密码不够安全!'});
-      return;
-    }
-    // endregion
-
     const user: any = await UserModel
       .findOne({workNumber: workNumber})
       .catch(err => {
@@ -77,24 +64,6 @@ export class UserCtrl {
     const userBody: any = ctx.request.body;
     const {workNumber, password, role, group} = userBody;
     let isExist = false;
-
-    // region: user parameter check
-    const reg = /^\d{8}$/;
-    if (!reg.test(workNumber)) {
-      handleError({ctx, message: '工号须为8位数字!'});
-      return;
-    }
-
-    if (password.length < 6) {
-      handleError({ctx, message: '密码不够安全!'});
-      return;
-    }
-
-    if (Object.prototype.toString.call(role) !== '[object Number]') {
-      handleError({ctx, message: '角色类型错误'});
-      return;
-    }
-    // endregion
 
     const users: any = await UserModel
       .find({workNumber: workNumber})
