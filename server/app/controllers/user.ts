@@ -3,9 +3,9 @@ import { Context } from 'koa';
 import * as jsonwebtoken from 'jsonwebtoken';
 
 import { BaseCtrl } from './base';
-import { UserModel } from '../models/user';
 import { handleError, handleSuccess } from '../../utils/handle';
 import { Secret } from '../../config/config';
+import { UserModel } from '../models/user';
 
 export class UserCtrl {
 
@@ -26,7 +26,6 @@ export class UserCtrl {
     }
     // endregion
 
-    console.log(userBody);
     const user: any = await UserModel
       .findOne({workNumber: workNumber})
       .catch(err => {
@@ -34,8 +33,6 @@ export class UserCtrl {
         ctx.throw(500, '查找数据时出错!');
       });
 
-    console.log(UserModel);
-    console.log(user);
     if (!user) {
       ctx.status = 400;
       handleError({ctx, message: '帐号或密码错误!'});
