@@ -15,12 +15,12 @@ const SALT_WORK_FACTOR = 10;
 class SelfEvaluationSchema extends Typegoose {
   @prop({
     required: true,
-    unique: true
+    unique: true,
   })
-  workNumber: string;
+  month: Date;
 
   @prop({required: true})
-  month: Date;
+  workNumber: string;
 
   @prop({required: true})
   achievement: string;
