@@ -2,14 +2,13 @@ import { Context } from 'koa';
 
 import * as jsonwebtoken from 'jsonwebtoken';
 
-import { BaseCtrl } from './base';
 import { handleError, handleSuccess } from '../../utils/handle';
 import { Secret } from '../../config/config';
 import { UserModel } from '../models/user';
 
 export class UserCtrl {
 
-  public static async login(ctx: Context) {
+  public async login(ctx: Context) {
     const userBody: any = ctx.request.body;
     const {workNumber, password} = userBody;
 
@@ -60,7 +59,7 @@ export class UserCtrl {
 
   }
 
-  public static async register(ctx: Context) {
+  public async register(ctx: Context) {
     const userBody: any = ctx.request.body;
     const {workNumber, password, role, group} = userBody;
     let isExist = false;

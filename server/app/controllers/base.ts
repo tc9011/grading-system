@@ -1,120 +1,73 @@
-import { Model, Query, Types } from 'mongoose';
+import { handleSuccess } from '../../utils/handle';
 
 export abstract class BaseCtrl {
 
   abstract model: any;
 
   // Get all
-  getAll = (req, res) => {
-    this.model.find({}, (err, docs) => {
-      if (err) { return console.error(err); }
-      res.status(200).json(docs);
-    });
+  getAll = async (ctx) => {
+    const docs = await this.model
+      .find({})
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, 'getAll出错');
+      });
+    handleSuccess({ctx, message: undefined, response: docs});
   };
 
   // Count all
-  count = (req, res) => {
-    this.model.count((err, count) => {
-      if (err) { return console.error(err); }
-      res.status(200).json(count);
-    });
+  count = async (ctx) => {
+    const count = await this.model
+      .count()
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, 'count出错');
+      });
+    handleSuccess({ctx, message: undefined, response: count});
   };
 
   // Insert
-  insert = (req, res) => {
-    const obj = new this.model(req.body);
-    obj.save((err, item) => {
-      // 11000 is the code for duplicate key error
-      if (err && err.code === 11000) {
-        res.sendStatus(400);
-      }
-      if (err) {
-        return console.error(err);
-      }
-      res.status(200).json(item);
-    });
+  insert = async (ctx) => {
+    const obj = new this.model(ctx.request.body);
+    const item = await obj
+      .save()
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, 'insert出错');
+      });
+    handleSuccess({ctx, message: undefined, response: item});
   };
 
   // Get by id
-  get = (req, res) => {
-    this.model.findOne({ _id: req.params.id }, (err, item) => {
-      if (err) { return console.error(err); }
-      res.status(200).json(item);
-    });
+  get = async (ctx) => {
+    const item = await this.model
+      .findOne({ _id: ctx.params.id })
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, 'get出错');
+      });
+    handleSuccess({ctx, message: undefined, response: item});
   };
 
   // Update by id
-  update = (req, res) => {
-    this.model.findOneAndUpdate({ _id: req.params.id }, req.body, (err) => {
-      if (err) { return console.error(err); }
-      res.sendStatus(200);
-    });
+  update = async (ctx) => {
+    await this.model
+      .findOneAndUpdate({ _id: ctx.params.id }, ctx.request.body)
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, 'get出错');
+      });
+    handleSuccess({ctx, message: undefined});
   };
 
   // Delete by id
-  delete = (req, res) => {
-    this.model.findOneAndRemove({ _id: req.params.id }, (err) => {
-      if (err) { return console.error(err); }
-      res.sendStatus(200);
-    });
+  delete = async (ctx) => {
+    this.model
+      .findOneAndRemove({ _id: ctx.params.id })
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, 'get出错');
+      });
+    handleSuccess({ctx, message: undefined});
   };
 }
-
-export default BaseCtrl;
-
-/*
-export interface IRead<T> {
-  retrieve: (callback: (error: any, result: any) => void) => void;
-  findById: (id: string, callback: (error: any, result: T) => void) => void;
-  findOne(cond?: Object, callback?: (err: any, res: T) => void): Query<T>;
-  find(cond: Object, fields: Object, options: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
-}
-
-export interface IWrite<T> {
-  create: (item: T, callback: (error: any, result: any) => void) => void;
-  update: (_id: Types.ObjectId, item: T, callback: (error: any, result: any) => void) => void;
-  delete: (_id: string, callback: (error: any, result: any) => void) => void;
-}
-
-export class RepositoryBase<T extends Document> implements IRead<T>, IWrite<T> {
-
-  private _model: Model<Document>;
-
-  constructor(schemaModel: Model<Document>) {
-    this._model = schemaModel;
-  }
-
-  create(item: T, callback: (error: any, result: T) => void) {
-    this._model.create(item, callback);
-  }
-
-  retrieve(callback: (error: any, result: T) => void) {
-    this._model.find({}, callback);
-  }
-
-  update(_id: Types.ObjectId, item: T, callback: (error: any, result: any) => void) {
-    this._model.update({ _id: _id }, item, callback);
-  }
-
-  delete(_id: string, callback: (error: any, result: any) => void) {
-    this._model.remove({ _id: this.toObjectId(_id) }, (err) => callback(err, null));
-  }
-
-  findById(_id: string, callback: (error: any, result: T) => void) {
-    this._model.findById(_id, callback);
-  }
-
-  findOne(cond?: Object, callback?: (err: any, res: T) => void): Query<T> {
-    return this._model.findOne(cond, callback);
-  }
-
-  find(cond?: Object, fields?: Object, options?: Object, callback?: (err: any, res: T[]) => void): Query<T[]> {
-    return this._model.find(cond, options, callback);
-  }
-
-  private toObjectId(_id: string): Types.ObjectId {
-    return Types.ObjectId.createFromHexString(_id);
-  }
-
-}
-*/
