@@ -37,7 +37,7 @@ export class UserCtrl {
           },
 
           // 设置 token 过期时间
-          exp: Math.floor(Date.now() / 1000) + (60),   // 1分钟
+          exp: Math.floor(Date.now() / 1000) + (60 * 60),   // 1小时
         }, Secret);
 
         handleSuccess({
