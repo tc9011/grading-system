@@ -12,6 +12,7 @@ const SALT_WORK_FACTOR = 10;
 
   try {
     const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+    this.salt = salt;
     this.password = await bcrypt.hash(this.password, salt);
   } catch (err) {
     console.log(err);
@@ -36,6 +37,9 @@ class UserSchema extends Typegoose {
 
   @prop({required: true})
   group: string;
+
+  @prop()
+  salt: string;
 
   @prop({ default: Date.now() })
   createAt: any;
