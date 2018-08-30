@@ -13,6 +13,7 @@ import { ExceptionComponent } from './exception/exception/exception.component';
 import { SelfEvaluationComponent } from './self-evaluation/self-evaluation.component';
 import { MutualEvaluationComponent } from './mutual-evaluation/mutual-evaluation.component';
 import { LayoutModule } from '../layout/layout.module';
+import { SelfEvaluationService } from './self-evaluation/services/self-evaluation.service';
 
 @NgModule({
   imports: [
@@ -31,6 +32,6 @@ import { LayoutModule } from '../layout/layout.module';
     SelfEvaluationComponent,
     MutualEvaluationComponent
   ],
-  providers: [PassportService]
+  providers: [PassportService, SelfEvaluationService]
 })
 export class ViewsModule { }

@@ -36,9 +36,7 @@ export function tokenGetter() {
     ViewsModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: tokenGetter,
-        // whitelistedDomains: ['localhost:3000'],
-        // blacklistedRoutes: ['localhost:3000/passport/register', 'localhost:3000/passport/login']
+        tokenGetter: tokenGetter
       }
     })
   ],
