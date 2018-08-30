@@ -22,7 +22,7 @@ export class SelfEvaluationComponent implements OnInit {
               private authService: AuthService,
               public msg: NzMessageService,) {
     this.form = this.fb.group({
-      workNumber: this.authService.currentUser.workNumber,
+      workNumber: '',
       month: [null, Validators.required],
       achievement: [null, Validators.required],
       share: [null, Validators.required],
@@ -32,6 +32,10 @@ export class SelfEvaluationComponent implements OnInit {
   }
 
   // region: fields
+  get workNumber() {
+    return this.form.controls.workNumber;
+  }
+
   get month() {
     return this.form.controls.month;
   }
@@ -60,6 +64,8 @@ export class SelfEvaluationComponent implements OnInit {
     if (this.form.invalid) return;
 
     this.loadingService.begin();
+
+    this.workNumber.setValue(this.authService.currentUser.workNumber);
 
     this.selfEvaluationService.postSelfEvaluation(this.form.value).subscribe(
       data => {
