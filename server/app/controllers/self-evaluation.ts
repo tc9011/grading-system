@@ -9,7 +9,7 @@ export class SelfEvaluationCtrl extends Base{
 
   async save (ctx: Context) {
     const body: any = ctx.request.body;
-    const {workNumber, month, achievement, share, contribution} = body;
+    const {workNumber, month} = body;
 
     if (!workNumber) {
       ctx.status = 404;
@@ -23,7 +23,6 @@ export class SelfEvaluationCtrl extends Base{
         ctx.throw(500, '查找数据时出错!');
       });
 
-    console.log(selfEvaluations);
     if (selfEvaluations.length) {
       for (const selfEvaluation of selfEvaluations) {
         if (new Date(month).getMonth() === new Date(selfEvaluation.month).getMonth()) {
@@ -34,7 +33,6 @@ export class SelfEvaluationCtrl extends Base{
       }
     }
 
-    console.log(body);
     const selfEvaluation = new SelfEvaluationModel(body);
     await selfEvaluation
       .save()
