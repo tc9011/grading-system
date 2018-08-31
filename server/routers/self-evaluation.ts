@@ -5,7 +5,8 @@ const router = new Router();
 const selfEvaluationCtrl = new SelfEvaluationCtrl();
 
 router
-  .post('/', selfEvaluationCtrl.save);
+  .post('/', selfEvaluationCtrl.save)
+  .get('/:id', selfEvaluationCtrl.getByWorkNumber);
 
 export { router as selfEvaluationRouter };
 

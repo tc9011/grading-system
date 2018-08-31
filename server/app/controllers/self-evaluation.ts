@@ -1,10 +1,10 @@
 import { Context } from 'koa';
 
 import { SelfEvaluationModel } from '../models/self-evaluation';
-import { Base } from '../models/base';
 import { handleError, handleSuccess } from '../../utils/handle';
+import { BaseCtrl } from './base';
 
-export class SelfEvaluationCtrl extends Base{
+export class SelfEvaluationCtrl extends BaseCtrl {
   model = SelfEvaluationModel;
 
   async save (ctx: Context) {
@@ -41,6 +41,6 @@ export class SelfEvaluationCtrl extends Base{
         ctx.throw(500, '保存数据库时出错');
       });
 
-    handleSuccess({ctx, message: '创建成功'})
+    handleSuccess({ctx, message: '创建成功'});
   }
 }

@@ -38,10 +38,10 @@ export abstract class BaseCtrl {
     handleSuccess({ctx, message: undefined, response: item});
   };
 
-  // Get by id
-  get = async (ctx) => {
+  // Get by workNumber
+  getByWorkNumber = async (ctx) => {
     const item = await this.model
-      .findOne({ _id: ctx.params.id })
+      .find({ workNumber: ctx.params.id })
       .catch(err => {
         console.log(err);
         ctx.throw(500, 'get出错');
@@ -68,6 +68,6 @@ export abstract class BaseCtrl {
         console.log(err);
         ctx.throw(500, 'get出错');
       });
-    handleSuccess({ctx, message: undefined});
+    handleSuccess({ctx, message: '删除成功!'});
   };
 }
