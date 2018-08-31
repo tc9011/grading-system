@@ -61,4 +61,16 @@ export class SelfEvaluationCtrl extends BaseCtrl {
 
     handleSuccess({ctx, message: '删除成功!'});
   }
+
+  async getByMonth(ctx: Context) {
+    const body: any = ctx.request.body;
+
+    const item = await SelfEvaluationModel
+      .find({ workNumber: body.workNumber, month: body.month })
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, 'get出错');
+      });
+    handleSuccess({ctx, message: undefined, response: item});
+  }
 }

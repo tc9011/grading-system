@@ -6,7 +6,7 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { LoadingService } from '../../core/loading/loading.service';
 import { SelfEvaluationService } from './services/self-evaluation.service';
 import { AuthService } from '../../core/auth/auth.service';
-import { DisplayTableData } from './interfaces/self-evaluation';
+import { DisplayTableData, SelfEvaluation } from './interfaces/self-evaluation';
 
 @Component({
   selector: 'app-self-evaluation',
@@ -71,7 +71,7 @@ export class SelfEvaluationComponent implements OnInit {
 
   getTableInfo(): void {
     this.selfEvaluationService.getAllSelfEvaluation(this.user).subscribe(
-      data => {
+      (data: any[]) => {
         this.tableData = data;
         this.tableData.forEach(value => {
           this.spliceWords(value);
@@ -121,8 +121,22 @@ export class SelfEvaluationComponent implements OnInit {
     this.refreshStatus();
   }
 
-  edit(month: string) {
+  showEdit(month: Date) {
     this.showModal();
+    this.selfEvaluationService.getSelfEvaluationByMonth(this.user, month).subscribe(
+      (data: SelfEvaluation) => {
+        console.log(data);
+        const formData = {
+          workNumber: data[0].workNumber,
+          month: data[0].month,
+          achievement: data[0].achievement,
+          share: data[0].share,
+          contribution: data[0].contribution,
+        };
+        console.log(formData);
+        this.form.setValue(formData);
+      }
+    );
   }
 
   showDeleteConfirm(): void {
@@ -146,7 +160,7 @@ export class SelfEvaluationComponent implements OnInit {
     });
 
     this.selfEvaluationService.deleteSelfEvaluation(this.user, checkedData).subscribe(
-      data => {
+      () => {
         this.msg.success('删除成功!');
         this.getTableInfo();
       }
@@ -165,7 +179,7 @@ export class SelfEvaluationComponent implements OnInit {
     this.workNumber.setValue(this.user);
 
     this.selfEvaluationService.postSelfEvaluation(this.form.value).subscribe(
-      data => {
+      () => {
         this.loadingService.end();
         this.msg.success('提交成功!');
         this.isVisible = false;

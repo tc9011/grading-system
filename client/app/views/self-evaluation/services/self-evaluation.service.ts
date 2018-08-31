@@ -11,15 +11,19 @@ export class SelfEvaluationService {
   constructor(private httpService: HttpService) {
   }
 
-  postSelfEvaluation(data: SelfEvaluation): Observable<SelfEvaluation> {
+  postSelfEvaluation(data: SelfEvaluation): Observable<any> {
     return this.httpService.postData('/api/v1/self', data);
   }
 
   getAllSelfEvaluation(workNumber: string): Observable<SelfEvaluation[]> {
-    return this.httpService.getData('/api/v1/self/' + workNumber);
+    return this.httpService.getData('/api/v1/self/workNumber/' + workNumber);
   }
 
-  deleteSelfEvaluation(workNumber: string, data): Observable<any> {
-    return this.httpService.postData('/api/v1/self/' + workNumber + '/batch', data);
+  getSelfEvaluationByMonth(workNumber: string, month: Date): Observable<any> {
+    return this.httpService.postData('/api/v1/self/monthInfo',{ workNumber, month });
+  }
+
+  deleteSelfEvaluation(workNumber: string, data: string[]): Observable<any> {
+    return this.httpService.postData('/api/v1/self/workNumber/' + workNumber + '/batch', data);
   }
 }
