@@ -1,11 +1,12 @@
 import { handleSuccess } from '../../utils/handle';
+import { Context } from 'koa';
 
 export abstract class BaseCtrl {
 
   abstract model: any;
 
   // Get all
-  getAll = async (ctx) => {
+  getAll = async (ctx: Context) => {
     const docs = await this.model
       .find({})
       .catch(err => {
@@ -16,7 +17,7 @@ export abstract class BaseCtrl {
   };
 
   // Count all
-  count = async (ctx) => {
+  count = async (ctx: Context) => {
     const count = await this.model
       .count()
       .catch(err => {
@@ -27,7 +28,7 @@ export abstract class BaseCtrl {
   };
 
   // Insert
-  insert = async (ctx) => {
+  insert = async (ctx: Context) => {
     const obj = new this.model(ctx.request.body);
     const item = await obj
       .save()
@@ -39,7 +40,7 @@ export abstract class BaseCtrl {
   };
 
   // Get by workNumber
-  getByWorkNumber = async (ctx) => {
+  getByWorkNumber = async (ctx: Context) => {
     const item = await this.model
       .find({ workNumber: ctx.params.workNumber })
       .catch(err => {
@@ -50,7 +51,7 @@ export abstract class BaseCtrl {
   };
 
   // Update by id
-  update = async (ctx) => {
+  update = async (ctx: Context) => {
     await this.model
       .findOneAndUpdate({ _id: ctx.params.id }, ctx.request.body)
       .catch(err => {
@@ -61,7 +62,7 @@ export abstract class BaseCtrl {
   };
 
   // Delete by id
-  delete = async (ctx) => {
+  delete = async (ctx: Context) => {
     this.model
       .findOneAndRemove({ _id: ctx.params.id })
       .catch(err => {

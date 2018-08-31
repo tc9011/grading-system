@@ -7,7 +7,7 @@ import { BaseCtrl } from './base';
 export class SelfEvaluationCtrl extends BaseCtrl {
   model = SelfEvaluationModel;
 
-  async save(ctx: Context) {
+  public async save(ctx: Context) {
     const body: any = ctx.request.body;
     const {workNumber, month} = body;
 
@@ -46,7 +46,7 @@ export class SelfEvaluationCtrl extends BaseCtrl {
     handleSuccess({ctx, message: '创建成功'});
   }
 
-  async delteByMonth(ctx: Context) {
+  public async delteByMonth(ctx: Context) {
     const body: any = ctx.request.body;
     const workNumber = ctx.params.workNumber;
 
@@ -62,7 +62,7 @@ export class SelfEvaluationCtrl extends BaseCtrl {
     handleSuccess({ctx, message: '删除成功!'});
   }
 
-  async getByMonth(ctx: Context) {
+  public async getByMonth(ctx: Context) {
     const body: any = ctx.request.body;
 
     const item = await SelfEvaluationModel
@@ -74,7 +74,7 @@ export class SelfEvaluationCtrl extends BaseCtrl {
     handleSuccess({ctx, message: undefined, response: item});
   }
 
-  async modify(ctx: Context) {
+  public async modify(ctx: Context) {
     const body: any = ctx.request.body;
     const {oldMonth, data} = body;
     const {workNumber, month}= data;
