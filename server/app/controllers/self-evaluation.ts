@@ -7,7 +7,7 @@ import { BaseCtrl } from './base';
 export class SelfEvaluationCtrl extends BaseCtrl {
   model = SelfEvaluationModel;
 
-  async save (ctx: Context) {
+  async save(ctx: Context) {
     const body: any = ctx.request.body;
     const {workNumber, month} = body;
 
@@ -42,5 +42,21 @@ export class SelfEvaluationCtrl extends BaseCtrl {
       });
 
     handleSuccess({ctx, message: '创建成功'});
+  }
+
+  async delteByMonth(ctx: Context) {
+    const body: any = ctx.request.body;
+    const workNumber = ctx.params.workNumber;
+
+    for (const month of body.delete) {
+      await SelfEvaluationModel
+        .findOneAndRemove({ workNumber: workNumber, month: month })
+        .catch(err => {
+          console.log(err);
+          handleError({ctx, message: '删除失败!', err: err});
+        });
+    }
+
+    handleSuccess({ctx, message: '删除成功!'});
   }
 }

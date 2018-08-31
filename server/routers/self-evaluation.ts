@@ -7,7 +7,7 @@ const selfEvaluationCtrl = new SelfEvaluationCtrl();
 router
   .post('/', selfEvaluationCtrl.save)
   .get('/:workNumber', selfEvaluationCtrl.getByWorkNumber)
-  .delete('/');
+  .post('/:workNumber/batch', selfEvaluationCtrl.delteByMonth);
 
 export { router as selfEvaluationRouter };
 
