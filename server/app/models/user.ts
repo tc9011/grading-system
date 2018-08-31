@@ -32,6 +32,9 @@ class UserSchema extends Typegoose {
   })
   workNumber: string;
 
+  @prop({required: true})
+  realName: string;
+
   @prop({
     required: true,
     minlength: 6

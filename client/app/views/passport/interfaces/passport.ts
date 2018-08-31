@@ -1,5 +1,6 @@
 export class User {
   workNumber: string;
+  realName: string;
   password: string;
   confirm?: string;
   group: string;

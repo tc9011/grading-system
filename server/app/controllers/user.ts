@@ -32,6 +32,7 @@ export class UserCtrl {
         const token = jsonwebtoken.sign({
           user: {
             workNumber: user.workNumber,
+            realName: user.realName,
             group: user.group,
             role: user.role
           },
@@ -64,6 +65,7 @@ export class UserCtrl {
     const {workNumber, password, role, group} = userBody;
     let isExist = false;
 
+    // 是否存在重复的工号
     const users: any = await UserModel
       .find({workNumber: workNumber})
       .catch(err => {
@@ -71,6 +73,7 @@ export class UserCtrl {
         ctx.throw(500, '查找数据时出错!');
       });
 
+    // 同一组下面只有一个管理员
     const groups: any = await UserModel
       .find({group: group})
       .catch(err => {

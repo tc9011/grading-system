@@ -42,6 +42,7 @@ export class RegisterComponent {
           RegisterComponent.checkWorkNumber,
         ]
       ],
+      realName: [null, Validators.required],
       password: [
         null,
         [
@@ -107,6 +108,9 @@ export class RegisterComponent {
   // region: fields
   get workNumber() {
     return this.form.controls.workNumber;
+  }
+  get realName() {
+    return this.form.controls.realName;
   }
   get password() {
     return this.form.controls.password;

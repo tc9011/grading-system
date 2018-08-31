@@ -60,6 +60,7 @@ export class AuthService {
   setCurrentUser(decodedUser) {
     this.loggedIn = true;
     this.currentUser.workNumber = decodedUser.workNumber;
+    this.currentUser.realName = decodedUser.realName;
     this.currentUser.group = decodedUser.group;
     this.currentUser.role = decodedUser.role;
     this.isAdmin = decodedUser.role > 10;
