@@ -1,13 +1,39 @@
 <app-page-header [title]="'自评'"></app-page-header>
 
 <button nz-button nzType="primary" (click)="showModal()">
-  <span>Show Modal</span>
+  <span>新建</span>
 </button>
+
+<nz-table #selfTable
+          [nzData]="tableData"
+          (nzCurrentPageDataChange)="currentPageDataChange($event)"
+          (nzPageIndexChange)="refreshStatus()"
+          (nzPageSizeChange)="refreshStatus()">
+  <thead (nzSortChange)="sort($event)" nzSingleSort>
+  <tr>
+    <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+    <th nzShowSort nzSortKey="month">月份</th>
+    <th>业绩</th>
+    <th>共享和主动性</th>
+    <th>团队贡献</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of selfTable.data">
+    <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+    <td>{{data.month | date: 'yyyy/MM'}}</td>
+    <td>{{data.achievement}}</td>
+    <td>{{data.share}}</td>
+    <td>{{data.contribution}}</td>
+  </tr>
+  </tbody>
+</nz-table>
+
 <nz-modal [(nzVisible)]="isVisible" nzWidth="900" nzMaskClosable="false" nzTitle="Modal Title" (nzOnCancel)="handleCancel()" (nzOnOk)="submit()" [nzOkLoading]="loadingService.loading">
   <form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
     <!--日期-->
     <nz-form-item>
-      <nz-form-label nzXs="24" nzSm="7" nzRequired nzFor="month">日期</nz-form-label>
+      <nz-form-label nzXs="24" nzSm="7" nzRequired nzFor="month">月份</nz-form-label>
       <nz-form-control nzXs="24" nzSm="12" nzMd="10">
         <nz-month-picker formControlName="month" id="month"></nz-month-picker>
         <ng-container *ngIf="month.dirty && month.errors">
