@@ -24,8 +24,10 @@ export class SelfEvaluationCtrl extends BaseCtrl {
       });
 
     if (selfEvaluations.length) {
+      const newDate = new Date(month);
       for (const selfEvaluation of selfEvaluations) {
-        if (new Date(month).getMonth() === new Date(selfEvaluation.month).getMonth()) {
+        const oldDate = new Date(selfEvaluation.month);
+        if (newDate.getMonth() === oldDate.getMonth() && newDate.getFullYear() === oldDate.getFullYear()) {
           ctx.status = 409;
           handleError({ctx, message: '该月已存在自评!'});
           return;
