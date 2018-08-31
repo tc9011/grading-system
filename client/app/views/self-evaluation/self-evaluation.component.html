@@ -1,37 +1,40 @@
 <app-page-header [title]="'自评'"></app-page-header>
 
-<button nz-button nzType="primary" (click)="showModal()">
-  <span>新建</span>
-</button>
+<section class="table-area">
+  <div class="button-group">
+    <button nz-button nzType="primary" [nzSize]="'large'" (click)="showModal()">新建</button>
+    <button nz-button nzType="danger" [nzSize]="'large'" [disabled]="disabledButton">删除</button>
+  </div>
 
-<nz-table #selfTable
-          [nzData]="tableData"
-          (nzCurrentPageDataChange)="currentPageDataChange($event)"
-          (nzPageIndexChange)="refreshStatus()"
-          (nzPageSizeChange)="refreshStatus()">
-  <thead (nzSortChange)="sort($event)" nzSingleSort>
-  <tr>
-    <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
-    <th nzShowSort nzSortKey="month">月份</th>
-    <th>业绩</th>
-    <th>共享和主动性</th>
-    <th>团队贡献</th>
-    <th>操作</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let data of selfTable.data">
-    <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
-    <td>{{data.month | date: 'yyyy/MM'}}</td>
-    <td>{{data.achievement}}</td>
-    <td>{{data.share}}</td>
-    <td>{{data.contribution}}</td>
-    <td>
+  <nz-table #selfTable
+            [nzData]="tableData"
+            (nzCurrentPageDataChange)="currentPageDataChange($event)"
+            (nzPageIndexChange)="refreshStatus()"
+            (nzPageSizeChange)="refreshStatus()">
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+      <th nzShowSort nzSortKey="month">月份</th>
+      <th>业绩</th>
+      <th>共享和主动性</th>
+      <th>团队贡献</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of selfTable.data">
+      <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+      <td>{{data.month | date: 'yyyy/MM'}}</td>
+      <td>{{data.achievement}}</td>
+      <td>{{data.share}}</td>
+      <td>{{data.contribution}}</td>
+      <td>
         <a>编辑</a>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</section>
 
 <nz-modal [(nzVisible)]="isVisible" nzWidth="900" nzMaskClosable="false" nzTitle="Modal Title" (nzOnCancel)="handleCancel()" (nzOnOk)="submit()" [nzOkLoading]="loadingService.loading">
   <form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">

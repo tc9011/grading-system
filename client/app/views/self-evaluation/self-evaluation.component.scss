@@ -1,1 +1,10 @@
+.table-area {
+  margin: 0 24px 24px;
+}
 
+.button-group {
+  margin-bottom: 24px;
+  button:first-child {
+    margin-right: 24px;
+  }
+}
