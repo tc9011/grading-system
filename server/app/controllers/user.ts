@@ -37,7 +37,7 @@ export class UserCtrl {
           },
 
           // 设置 token 过期时间
-          exp: Math.floor(Date.now() / 1000) + (60 * 60),   // 1小时
+          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),   // 1天
         }, Secret);
 
         handleSuccess({
@@ -45,7 +45,7 @@ export class UserCtrl {
           message: '登陆成功!',
           response: {
             token,
-            lifeTime: Math.floor(Date.now() / 1000) + (60 * 60)
+            lifeTime: Math.floor(Date.now() / 1000) + (60 * 60 * 24)   // 1天
           }
         });
       } else {
