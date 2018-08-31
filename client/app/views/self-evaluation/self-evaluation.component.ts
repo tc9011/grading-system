@@ -124,6 +124,10 @@ export class SelfEvaluationComponent implements OnInit {
     this.refreshStatus();
   }
 
+  edit(month: string) {
+    this.showModal();
+  }
+
   submit(): void {
     for (const i in this.form.controls) {
       this.form.controls[i].markAsDirty();
@@ -141,6 +145,7 @@ export class SelfEvaluationComponent implements OnInit {
         this.msg.success('提交成功!');
         this.isVisible = false;
         this.form.reset();
+        this.getTableInfo();
       }
     );
   }
