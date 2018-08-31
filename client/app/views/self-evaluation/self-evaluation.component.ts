@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 
 import { LoadingService } from '../../core/loading/loading.service';
 import { SelfEvaluationService } from './services/self-evaluation.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { DisplayTableData } from './interfaces/self-evaluation';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-self-evaluation',
@@ -18,19 +17,20 @@ export class SelfEvaluationComponent implements OnInit {
   form: FormGroup;
   isVisible = false;
   tableData = [];     // 所有表格数据
-  displayData: Array<DisplayTableData> = [];   // 当前页数据
   tmpData: Array<DisplayTableData>;
   sortName = null;
   sortValue = null;
   allChecked = false;
   indeterminate = false;
   disabledButton = false;
+  user: string;
 
   constructor(private fb: FormBuilder,
               public loadingService: LoadingService,
               private selfEvaluationService: SelfEvaluationService,
               private authService: AuthService,
-              public msg: NzMessageService) {
+              public msg: NzMessageService,
+              private modalService: NzModalService) {
     this.form = this.fb.group({
       workNumber: '',
       month: [null, Validators.required],
@@ -65,11 +65,12 @@ export class SelfEvaluationComponent implements OnInit {
   // endregion
 
   ngOnInit() {
+    this.user = this.authService.currentUser.workNumber;
     this.getTableInfo();
   }
 
   getTableInfo(): void {
-    this.selfEvaluationService.getAllSelfEvaluation(this.authService.currentUser.workNumber).subscribe(
+    this.selfEvaluationService.getAllSelfEvaluation(this.user).subscribe(
       data => {
         this.tableData = data;
         this.tableData.forEach(value => {
@@ -86,10 +87,6 @@ export class SelfEvaluationComponent implements OnInit {
       value[attr] = value[attr].length > 20 ? <string>value[attr].substring(0, 20) + '....' : value[attr];
     }
     return value;
-  }
-
-  currentPageDataChange($event: Array<DisplayTableData>): void {
-    this.displayData = $event;
   }
 
   sort(sort: { key: string, value: string }): void {
@@ -112,15 +109,15 @@ export class SelfEvaluationComponent implements OnInit {
   }
 
   refreshStatus(): void {
-    const allChecked = this.displayData.every(value => value.checked === true);
-    const allUnChecked = this.displayData.every(value => !value.checked);
+    const allChecked = this.tableData.every(value => value.checked === true);
+    const allUnChecked = this.tableData.every(value => !value.checked);
     this.allChecked = allChecked;
     this.indeterminate = (!allChecked) && (!allUnChecked);
     this.disabledButton = !this.tableData.some(value => value.checked);
   }
 
   checkAll(value: boolean): void {
-    this.displayData.forEach(data => data.checked = value);
+    this.tableData.forEach(data => data.checked = value);
     this.refreshStatus();
   }
 
@@ -128,8 +125,32 @@ export class SelfEvaluationComponent implements OnInit {
     this.showModal();
   }
 
-  delete() {
+  showDeleteConfirm(): void {
+    this.modalService.confirm({
+      nzTitle     : '确定要删除选中的自评吗?',
+      nzOkText    : '确定',
+      nzOkType    : 'danger',
+      nzOnOk      : this.delete.bind(this),
+      nzCancelText: '取消',
+      nzIconType: 'exclamation-circle'
+    });
+  }
 
+  delete(): void {
+    const checkedData = [];
+
+    this.tableData.forEach(data => {
+      if (data.checked) {
+        checkedData.push(data.month);
+      }
+    });
+
+    this.selfEvaluationService.deleteSelfEvaluation(this.user, checkedData).subscribe(
+      data => {
+        this.msg.success('删除成功!');
+        this.getTableInfo();
+      }
+    );
   }
 
   submit(): void {
@@ -141,7 +162,7 @@ export class SelfEvaluationComponent implements OnInit {
 
     this.loadingService.begin();
 
-    this.workNumber.setValue(this.authService.currentUser.workNumber);
+    this.workNumber.setValue(this.user);
 
     this.selfEvaluationService.postSelfEvaluation(this.form.value).subscribe(
       data => {

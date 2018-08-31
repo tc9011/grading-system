@@ -3,12 +3,11 @@
 <section class="table-area">
   <div class="button-group">
     <button nz-button nzType="primary" [nzSize]="'large'" (click)="showModal()">新建</button>
-    <button nz-button nzType="danger" [nzSize]="'large'" [disabled]="disabledButton" (click)="delete()">删除</button>
+    <button nz-button nzType="danger" [nzSize]="'large'" [disabled]="disabledButton" (click)="showDeleteConfirm()">删除</button>
   </div>
 
   <nz-table #selfTable
             [nzData]="tableData"
-            (nzCurrentPageDataChange)="currentPageDataChange($event)"
             (nzPageIndexChange)="refreshStatus()"
             (nzPageSizeChange)="refreshStatus()">
     <thead (nzSortChange)="sort($event)" nzSingleSort>
