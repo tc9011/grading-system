@@ -48,7 +48,7 @@ export class SelfEvaluationCtrl extends BaseCtrl {
     const body: any = ctx.request.body;
     const workNumber = ctx.params.workNumber;
 
-    for (const month of body.delete) {
+    for (const month of body) {
       await SelfEvaluationModel
         .findOneAndRemove({ workNumber: workNumber, month: month })
         .catch(err => {
