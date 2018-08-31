@@ -92,7 +92,7 @@ export class SelfEvaluationComponent implements OnInit {
     return value;
   }
 
-  currentPageDataChange($event: Array<DisplayTableData>): void {    // TODO 选择全选按钮时候，删除是删除整个表格，体验不好
+  currentPageDataChange($event: Array<DisplayTableData>): void {
     this.displayData = $event;
   }
 
@@ -116,15 +116,15 @@ export class SelfEvaluationComponent implements OnInit {
   }
 
   refreshStatus(): void {
-    const allChecked = this.tableData.every(value => value.checked === true);
-    const allUnChecked = this.tableData.every(value => !value.checked);
+    const allChecked = this.displayData.every(value => value.checked === true);
+    const allUnChecked = this.displayData.every(value => !value.checked);
     this.allChecked = allChecked;
     this.indeterminate = (!allChecked) && (!allUnChecked);
     this.disabledButton = !this.tableData.some(value => value.checked);
   }
 
   checkAll(value: boolean): void {
-    this.tableData.forEach(data => data.checked = value);
+    this.displayData.forEach(data => data.checked = value);
     this.refreshStatus();
   }
 
