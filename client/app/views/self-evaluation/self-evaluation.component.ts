@@ -7,6 +7,7 @@ import { LoadingService } from '../../core/loading/loading.service';
 import { SelfEvaluationService } from './services/self-evaluation.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { DisplayTableData } from './interfaces/self-evaluation';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-self-evaluation',
@@ -72,10 +73,19 @@ export class SelfEvaluationComponent implements OnInit {
       data => {
         this.tableData = data;
         this.tableData.forEach(value => {
+          this.spliceWords(value);
           value.checked = false;
         });
       }
     );
+  }
+
+  spliceWords(value: DisplayTableData) {
+    const attrArray = ['achievement', 'share', 'contribution'];
+    for (const attr of attrArray) {
+      value[attr] = value[attr].length > 20 ? <string>value[attr].substring(0, 20) + '....' : value[attr];
+    }
+    return value;
   }
 
   currentPageDataChange($event: Array<DisplayTableData>): void {
