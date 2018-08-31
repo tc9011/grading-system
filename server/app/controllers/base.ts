@@ -41,7 +41,7 @@ export abstract class BaseCtrl {
   // Get by workNumber
   getByWorkNumber = async (ctx) => {
     const item = await this.model
-      .find({ workNumber: ctx.params.id })
+      .find({ workNumber: ctx.params.workNumber })
       .catch(err => {
         console.log(err);
         ctx.throw(500, 'get出错');

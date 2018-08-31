@@ -11,10 +11,10 @@ export class PassportService {
   constructor(private httpService: HttpService) { }
 
   postRegister(user: User): Observable<User> {
-    return this.httpService.postData('/api/passport/register', user);
+    return this.httpService.postData('/api/v1/passport/register', user);
   }
 
   postLogin(loginInfo: LoginInfo): Observable<LoginInfo> {
-    return this.httpService.postData('/api/passport/login', loginInfo);
+    return this.httpService.postData('/api/v1/passport/login', loginInfo);
   }
 }

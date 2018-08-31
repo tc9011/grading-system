@@ -6,7 +6,8 @@ const selfEvaluationCtrl = new SelfEvaluationCtrl();
 
 router
   .post('/', selfEvaluationCtrl.save)
-  .get('/:id', selfEvaluationCtrl.getByWorkNumber);
+  .get('/:workNumber', selfEvaluationCtrl.getByWorkNumber)
+  .delete('/');
 
 export { router as selfEvaluationRouter };
 

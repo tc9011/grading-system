@@ -12,10 +12,10 @@ export class SelfEvaluationService {
   }
 
   postSelfEvaluation(data: SelfEvaluation): Observable<SelfEvaluation> {
-    return this.httpService.postData('/api/self', data);
+    return this.httpService.postData('/api/v1/self', data);
   }
 
   getAllSelfEvaluation(workNumber: string): Observable<SelfEvaluation[]> {
-    return this.httpService.getData('/api/self/' + workNumber);
+    return this.httpService.getData('/api/v1/self/' + workNumber);
   }
 }
