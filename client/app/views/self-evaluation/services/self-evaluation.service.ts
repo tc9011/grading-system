@@ -18,4 +18,8 @@ export class SelfEvaluationService {
   getAllSelfEvaluation(workNumber: string): Observable<SelfEvaluation[]> {
     return this.httpService.getData('/api/v1/self/' + workNumber);
   }
+
+  deleteSelfEvaluation(workNumber: string, data): Observable<any> {
+    return this.httpService.postData('/api/v1/self/' + workNumber + '/batch', data);
+  }
 }

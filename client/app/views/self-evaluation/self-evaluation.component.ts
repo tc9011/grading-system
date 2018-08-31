@@ -128,6 +128,10 @@ export class SelfEvaluationComponent implements OnInit {
     this.showModal();
   }
 
+  delete() {
+
+  }
+
   submit(): void {
     for (const i in this.form.controls) {
       this.form.controls[i].markAsDirty();
