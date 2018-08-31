@@ -73,4 +73,61 @@ export class SelfEvaluationCtrl extends BaseCtrl {
       });
     handleSuccess({ctx, message: undefined, response: item});
   }
+
+  async modify(ctx: Context) {
+    const body: any = ctx.request.body;
+    const {oldMonth, data} = body;
+    const {workNumber, month}= data;
+
+    // 新的月份和原月份不等时，先检查新月份在数据库中是否有重复，再删除数据库中老数据
+    if (oldMonth != month) {
+      const selfEvaluations: any = await SelfEvaluationModel
+        .find({workNumber: workNumber})
+        .catch(err => {
+          console.log(err);
+          ctx.throw(500, '查找数据时出错!');
+        });
+
+      if (selfEvaluations.length) {
+        const newDate = new Date(month);
+        for (const selfEvaluation of selfEvaluations) {
+          const oldDate = new Date(selfEvaluation.month);
+          if (newDate.getMonth() === oldDate.getMonth() &&
+            newDate.getFullYear() === oldDate.getFullYear()) {
+            ctx.status = 409;
+            handleError({ctx, message: '该月已存在自评!'});
+            return;
+          }
+        }
+      }
+
+      // 删除老数据
+      await SelfEvaluationModel
+        .findOneAndRemove({ workNumber: workNumber, month: oldMonth })
+        .catch(err => {
+          console.log(err);
+          handleError({ctx, message: '删除失败!', err: err});
+        });
+
+      // 保存新数据
+      const selfEvaluation = new SelfEvaluationModel(data);
+      await selfEvaluation
+        .save()
+        .catch(err => {
+          console.log(err);
+          ctx.throw(500, '保存数据库时出错');
+        });
+
+      handleSuccess({ctx, message: '创建成功'});
+    } else {
+      // 更新
+      await SelfEvaluationModel
+        .findOneAndUpdate({ workNumber: data.workNumber, month: data.month }, data)
+        .catch(err => {
+          console.log(err);
+          ctx.throw(500, 'get出错');
+        });
+      handleSuccess({ctx, message: undefined});
+    }
+  }
 }

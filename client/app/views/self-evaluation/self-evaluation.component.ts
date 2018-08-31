@@ -18,12 +18,15 @@ export class SelfEvaluationComponent implements OnInit {
   isVisible = false;
   tableData = [];     // 所有表格数据
   tmpData: Array<DisplayTableData>;
+  displayData = [];   // 当前页表格
   sortName = null;
   sortValue = null;
   allChecked = false;
   indeterminate = false;
   disabledButton = false;
   user: string;
+  isEdit = false;
+  oldMonth: Date;
 
   constructor(private fb: FormBuilder,
               public loadingService: LoadingService,
@@ -89,6 +92,10 @@ export class SelfEvaluationComponent implements OnInit {
     return value;
   }
 
+  currentPageDataChange($event: Array<DisplayTableData>): void {    // TODO 选择全选按钮时候，删除是删除整个表格，体验不好
+    this.displayData = $event;
+  }
+
   sort(sort: { key: string, value: string }): void {
     this.sortName = sort.key;
     this.sortValue = sort.value;
@@ -122,10 +129,11 @@ export class SelfEvaluationComponent implements OnInit {
   }
 
   showEdit(month: Date) {
+    this.isEdit = true;
     this.showModal();
     this.selfEvaluationService.getSelfEvaluationByMonth(this.user, month).subscribe(
       (data: SelfEvaluation) => {
-        console.log(data);
+        this.oldMonth = data[0].month;
         const formData = {
           workNumber: data[0].workNumber,
           month: data[0].month,
@@ -133,7 +141,6 @@ export class SelfEvaluationComponent implements OnInit {
           share: data[0].share,
           contribution: data[0].contribution,
         };
-        console.log(formData);
         this.form.setValue(formData);
       }
     );
@@ -178,15 +185,31 @@ export class SelfEvaluationComponent implements OnInit {
 
     this.workNumber.setValue(this.user);
 
-    this.selfEvaluationService.postSelfEvaluation(this.form.value).subscribe(
-      () => {
-        this.loadingService.end();
-        this.msg.success('提交成功!');
-        this.isVisible = false;
-        this.form.reset();
-        this.getTableInfo();
-      }
-    );
+    this.isEdit ?
+      this.selfEvaluationService.putSelfEvaluation(this.oldMonth, this.form.value).subscribe(
+        () => {
+          this.loadingService.end();
+          this.msg.success('修改成功!');
+          this.isVisible = false;
+          this.form.reset();
+          this.getTableInfo();
+        }
+      )
+      :
+      this.selfEvaluationService.postSelfEvaluation(this.form.value).subscribe(
+        () => {
+          this.loadingService.end();
+          this.msg.success('提交成功!');
+          this.isVisible = false;
+          this.form.reset();
+          this.getTableInfo();
+        }
+      );
+  }
+
+  create(): void {
+    this.isEdit = false;
+    this.showModal();
   }
 
   showModal(): void {
@@ -194,6 +217,7 @@ export class SelfEvaluationComponent implements OnInit {
   }
 
   handleCancel(): void {
+    this.isEdit = false;
     this.isVisible = false;
     this.form.reset();
   }

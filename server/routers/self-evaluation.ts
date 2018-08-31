@@ -8,7 +8,8 @@ router
   .post('/', selfEvaluationCtrl.save)
   .post('/workNumber/:workNumber/batch', selfEvaluationCtrl.delteByMonth)
   .post('/monthInfo', selfEvaluationCtrl.getByMonth)
-  .get('/workNumber/:workNumber', selfEvaluationCtrl.getByWorkNumber);
+  .get('/workNumber/:workNumber', selfEvaluationCtrl.getByWorkNumber)
+  .put('/', selfEvaluationCtrl.modify);
 
 export { router as selfEvaluationRouter };
 
