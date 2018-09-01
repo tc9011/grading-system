@@ -28,8 +28,6 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
           ctx.throw(500, '查找数据时出错!');
         });
 
-      console.log('循环');
-      console.log(status);
       if (!status) {
         const date = new Date(Date.now());
         const newMonth = date.getFullYear() + '-' + (date.getMonth() + 1);
