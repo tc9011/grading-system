@@ -14,6 +14,7 @@ import { SelfEvaluationComponent } from './self-evaluation/self-evaluation.compo
 import { MutualEvaluationComponent } from './mutual-evaluation/mutual-evaluation.component';
 import { LayoutModule } from '../layout/layout.module';
 import { SelfEvaluationService } from './self-evaluation/services/self-evaluation.service';
+import { MutualEvaluationService } from './mutual-evaluation/services/mutual-evaluation.service';
 
 @NgModule({
   imports: [
@@ -32,6 +33,6 @@ import { SelfEvaluationService } from './self-evaluation/services/self-evaluatio
     SelfEvaluationComponent,
     MutualEvaluationComponent
   ],
-  providers: [PassportService, SelfEvaluationService]
+  providers: [PassportService, SelfEvaluationService, MutualEvaluationService]
 })
 export class ViewsModule { }
