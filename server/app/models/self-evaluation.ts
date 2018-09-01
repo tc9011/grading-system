@@ -1,7 +1,4 @@
-import * as bcrypt from 'bcryptjs';
 import { pre, prop, Typegoose } from 'typegoose';
-
-const SALT_WORK_FACTOR = 10;
 
 @pre<SelfEvaluationSchema>('save', async function (next) {
   if (this.isNew) {
