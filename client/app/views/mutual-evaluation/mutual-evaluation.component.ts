@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mutual-evaluation.component.scss']
 })
 export class MutualEvaluationComponent implements OnInit {
+  date: null;
+  tableData = [];
 
   constructor() { }
 

@@ -1,1 +1,52 @@
 <app-page-header [title]="'互评'"></app-page-header>
+
+<div class="mutual">
+  <header nz-row>
+    <nz-month-picker [(ngModel)]="date" nzPlaceHolder="选择月份"></nz-month-picker>
+  </header>
+  <section class="container">
+    <div class="progress">
+      <p>当月互评进度</p>
+      <nz-progress [nzPercent]="75" [nzWidth]="200" nzType="circle"></nz-progress>
+    </div>
+    <div class="teammate">
+      <nz-table #mutualTable
+                [nzData]="tableData">
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>工号</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of mutualTable.data">
+          <td>{{data.realName}}</td>
+          <td>{{data.workNumber}}</td>
+          <td>{{data.status}}</td>
+          <td>
+            <a>互评</a>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </section>
+  <!--<div>
+    <nz-radio-group [(ngModel)]="q.status" class="mr-md">
+      <label nz-radio-button [nzValue]="'all'">
+        <span>全部</span>
+      </label>
+      <label nz-radio-button [nzValue]="'progress'">
+        <span>进行中</span>
+      </label>
+      <label nz-radio-button [nzValue]="'waiting'">
+        <span>等待中</span>
+      </label>
+    </nz-radio-group>
+    <nz-input-group nzSuffixIcon="anticon anticon-search" style="width: 270px;">
+      <input type="text" nz-input placeholder="请输入" [(ngModel)]="q.q" name="q">
+    </nz-input-group>
+  </div>-->
+</div>
