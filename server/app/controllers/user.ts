@@ -5,8 +5,10 @@ import * as jsonwebtoken from 'jsonwebtoken';
 import { handleError, handleSuccess } from '../../utils/handle';
 import { Secret } from '../../config/config';
 import { UserModel } from '../models/user';
+import { BaseCtrl } from './base';
 
-export class UserCtrl {
+export class UserCtrl extends BaseCtrl{
+  model = UserModel;
 
   public async login(ctx: Context) {
     const userBody: any = ctx.request.body;
