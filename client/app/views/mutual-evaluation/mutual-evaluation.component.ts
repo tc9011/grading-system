@@ -20,7 +20,8 @@ export class MutualEvaluationComponent implements OnInit {
 
   constructor(public MutualEvaluationService: MutualEvaluationService,
               private authService: AuthService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.date = new Date(Date.now());
@@ -61,7 +62,11 @@ export class MutualEvaluationComponent implements OnInit {
       this.formatDate.getFullYear(),
       this.formatDate.getMonth() + 1,
       workNumber
-    ])
+    ], {
+      queryParams: {
+        'realName': realName
+      }
+    });
   }
 
   statusFilter(): void {
