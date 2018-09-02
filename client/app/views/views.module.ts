@@ -15,6 +15,7 @@ import { MutualEvaluationComponent } from './mutual-evaluation/mutual-evaluation
 import { LayoutModule } from '../layout/layout.module';
 import { SelfEvaluationService } from './self-evaluation/services/self-evaluation.service';
 import { MutualEvaluationService } from './mutual-evaluation/services/mutual-evaluation.service';
+import { AddAndEditComponent } from './mutual-evaluation/add-and-edit/add-and-edit.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { MutualEvaluationService } from './mutual-evaluation/services/mutual-eva
     Exception500Component,
     ExceptionComponent,
     SelfEvaluationComponent,
-    MutualEvaluationComponent
+    MutualEvaluationComponent,
+    AddAndEditComponent
   ],
   providers: [PassportService, SelfEvaluationService, MutualEvaluationService]
 })

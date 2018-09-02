@@ -11,6 +11,7 @@ import { Exception404Component } from './exception/404/exception404.component';
 import { Exception403Component } from './exception/403/exception403.component';
 import { SelfEvaluationComponent } from './self-evaluation/self-evaluation.component';
 import { MutualEvaluationComponent } from './mutual-evaluation/mutual-evaluation.component';
+import { AddAndEditComponent } from './mutual-evaluation/add-and-edit/add-and-edit.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'mutualevaluation',
         component: MutualEvaluationComponent
+      },
+      {
+        path: 'mutualevaluation/add',
+        component: AddAndEditComponent
       }
     ]
   },
