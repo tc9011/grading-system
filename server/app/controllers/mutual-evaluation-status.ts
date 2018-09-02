@@ -29,9 +29,7 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
           ctx.throw(500, '查找数据时出错!');
         });
 
-      console.log(status);
       if (!status) {
-        console.log('ok');
         const date = new Date(month ? month : Date.now());
         const newMonth = date.getFullYear() + '-' + (date.getMonth() + 1);
         const newStatus = {
