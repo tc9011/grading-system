@@ -2,6 +2,9 @@ import { prop, Typegoose } from 'typegoose';
 
 class MutualEvaluationStatusSchema extends Typegoose {
   @prop({required: true})
+  owner: string;
+
+  @prop({required: true})
   month: string;
 
   @prop({required: true})

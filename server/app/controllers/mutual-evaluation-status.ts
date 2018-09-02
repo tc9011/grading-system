@@ -21,37 +21,40 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
       });
 
     for (const user of users) {
-      // 是否已存在指定月份和工号的数据，如果没有就新建一个
-      const status = await MutualEvaluationStatusModel
-        .findOne({workNumber: user.workNumber, month: month})
-        .catch(err => {
-          console.log(err);
-          ctx.throw(500, '查找数据时出错!');
-        });
-
-      if (!status) {
-        const date = new Date(month ? month : Date.now());
-        const newMonth = date.getFullYear() + '-' + (date.getMonth() + 1);
-        const newStatus = {
-          month: newMonth,
-          workNumber: user.workNumber,
-          realName: user.realName,
-          group: user.group,
-          role: user.role,
-          status: false,
-        };
-        const mutualEvaluationStatus = new MutualEvaluationStatusModel(newStatus);
-        await mutualEvaluationStatus
-          .save()
+      if (user.workNumber !== workNumber) {
+        // 是否已存在指定月份和工号的数据，如果没有就新建一个
+        const status = await MutualEvaluationStatusModel
+          .findOne({workNumber: user.workNumber, month: month})
           .catch(err => {
             console.log(err);
-            ctx.throw(500, '保存数据库时出错');
+            ctx.throw(500, '查找数据时出错!');
           });
+
+        if (!status) {
+          const date = new Date(month ? month : Date.now());
+          const newMonth = date.getFullYear() + '-' + (date.getMonth() + 1);
+          const newStatus = {
+            owner: workNumber,
+            month: newMonth,
+            workNumber: user.workNumber,
+            realName: user.realName,
+            group: user.group,
+            role: user.role,
+            status: false,
+          };
+          const mutualEvaluationStatus = new MutualEvaluationStatusModel(newStatus);
+          await mutualEvaluationStatus
+            .save()
+            .catch(err => {
+              console.log(err);
+              ctx.throw(500, '保存数据库时出错');
+            });
+        }
       }
     }
 
     const allStatus = await MutualEvaluationStatusModel
-      .find({month: month})
+      .find({owner: workNumber, month: month})
       .catch(err => {
         console.log(err);
         ctx.throw(500, '查找数据时出错!');
