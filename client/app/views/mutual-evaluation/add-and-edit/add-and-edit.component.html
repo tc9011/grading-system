@@ -10,14 +10,42 @@
 </app-page-header>
 
 <section class="container">
-  <nz-card nzTitle="业绩">
-    <div>
-      <p>{{realName}}的自评</p>
-      <p>
+  <nz-card class="card" nzTitle="业绩">
+    <h3>{{realName}}的自评</h3>
+    <p>
+      {{selfAchievement}}
+    </p>
 
-      </p>
-    </div>
-    <p>Card content</p>
-    <p>Card content</p>
+    <h3>评分</h3>
+    <nz-rate [ngModel]="0" [nzCount]="10"></nz-rate>
+
+    <h3 style="margin-top: 10px">简评</h3>
+    <textarea nz-input [nzAutosize]="{minRows: 4}"></textarea>
+  </nz-card>
+
+  <nz-card class="card" nzTitle="共享和主动性">
+    <h3>{{realName}}的自评</h3>
+    <p>
+      {{selfShare}}
+    </p>
+
+    <h3>评分</h3>
+    <nz-rate [ngModel]="0" [nzCount]="10"></nz-rate>
+
+    <h3 style="margin-top: 10px">简评</h3>
+    <textarea nz-input [nzAutosize]="{minRows: 4}"></textarea>
+  </nz-card>
+
+  <nz-card class="card" nzTitle="团队贡献">
+    <h3>{{realName}}的自评</h3>
+    <p>
+      {{selfContribution}}
+    </p>
+
+    <h3>评分</h3>
+    <nz-rate [ngModel]="0" [nzCount]="10"></nz-rate>
+
+    <h3 style="margin-top: 10px">简评</h3>
+    <textarea nz-input [nzAutosize]="{minRows: 4}"></textarea>
   </nz-card>
 </section>

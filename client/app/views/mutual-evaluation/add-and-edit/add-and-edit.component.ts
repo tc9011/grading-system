@@ -12,16 +12,18 @@ export class AddAndEditComponent implements OnInit {
   realName: string;
   year: string;
   month: string;
+  selfAchievement: string;
+  selfShare: string;
+  selfContribution: string;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private mutualEvaluationService: MutualEvaluationService) {
-
+    this.selfAchievement = '好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的好的';
   }
 
   ngOnInit() {
     this.realName = this.route.snapshot.queryParams.realName;
-    console.log(this.realName);
     this.route.params.subscribe((params: Params) => {
       this.workNumber = params['workNumber'];
       this.year = params['year'];
