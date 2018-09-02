@@ -52,8 +52,6 @@ export class MutualEvaluationComponent implements OnInit {
         finished++;
       }
     }
-    console.log(finished);
-    console.log(allPeople);
 
     this.progress = Math.round((finished / allPeople) * 100);
     this.progress = isNaN(this.progress) ? 0 : this.progress;
