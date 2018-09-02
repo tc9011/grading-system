@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { MutualEvaluationService } from './services/mutual-evaluation.service';
 import { AuthService } from '../../core/auth/auth.service';
-import { InfoForGetStatus, Status } from './interfaces/mutaul-evaluation';
+import { InfoForGetStatus, Status } from './interfaces/mutual-evaluation';
 
 @Component({
   selector: 'app-mutual-evaluation',
@@ -77,6 +77,8 @@ export class MutualEvaluationComponent implements OnInit {
           this.displayData.push(item);
         }
       }
+    } else {
+      this.displayData = this.tableData;
     }
   }
 }
