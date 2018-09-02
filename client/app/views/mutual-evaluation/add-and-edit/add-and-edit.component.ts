@@ -13,7 +13,7 @@ export class AddAndEditComponent implements OnInit {
   workNumber: string;
   realName: string;
   year: string;
-  month: string;    // TODO 修改自评month为string，且存为2018-9
+  month: string;
 
   mutualEvaluation = {
     selfAchievement: '',
