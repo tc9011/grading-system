@@ -6,6 +6,7 @@ const router = new Router();
 const mutualEvaluationCtrl = new MutualEvaluationCtrl();
 
 router
-  .post('/getMutualEvaluation', mutualEvaluationCtrl.getMutualEvaluation);
+  .post('/getMutualEvaluation', mutualEvaluationCtrl.getMutualEvaluation)
+  .post('/', mutualEvaluationCtrl.save);
 
 export { router as mutualEvaluationRouter };

@@ -25,7 +25,7 @@ class MutualEvaluationSchema extends Typegoose {
     required: true,
     default: 0,
   })
-  role: number;
+  role: number;       // owner的role
 
   @prop({
     required: true,
@@ -34,7 +34,6 @@ class MutualEvaluationSchema extends Typegoose {
   status: boolean;
 
   @prop({
-    required: true,
     default: '',
   })
   mutualAchievement: string;
@@ -46,7 +45,6 @@ class MutualEvaluationSchema extends Typegoose {
   achievementRate: number;
 
   @prop({
-    required: true,
     default: '',
   })
   mutualShare: string;
@@ -58,7 +56,6 @@ class MutualEvaluationSchema extends Typegoose {
   shareRate: number;
 
   @prop({
-    required: true,
     default: '',
   })
   mutualContribution: string;

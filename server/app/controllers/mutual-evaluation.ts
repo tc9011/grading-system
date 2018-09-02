@@ -4,6 +4,7 @@ import { BaseCtrl } from './base';
 import { MutualEvaluationModel } from '../models/mutual-evaluation';
 import { SelfEvaluationModel } from '../models/self-evaluation';
 import { handleSuccess } from '../../utils/handle';
+import { MutualEvaluationStatusModel } from '../models/mutual-evaluation-status';
 
 export class MutualEvaluationCtrl extends BaseCtrl {
   model = MutualEvaluationModel;
@@ -53,6 +54,26 @@ export class MutualEvaluationCtrl extends BaseCtrl {
     }
 
     handleSuccess({ctx, message: undefined, response: responseData});
+  }
 
+  public async save(ctx: Context) {
+    const body: any = ctx.request.body;
+    const {owner, workNumber, group, month, status} = body;
+
+    // 更新status中的状态
+    await MutualEvaluationStatusModel
+      .update({owner: owner, workNumber: workNumber, group: group, month: month}, {status: status})
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, 'update出错');
+      });
+
+    await MutualEvaluationModel
+      .update({owner: owner, workNumber: workNumber, month: month, group: group}, body, {upsert: true})
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, 'update出错');
+      });
+    handleSuccess({ctx, message: undefined});
   }
 }
