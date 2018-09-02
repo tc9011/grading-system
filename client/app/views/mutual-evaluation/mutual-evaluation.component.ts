@@ -52,8 +52,10 @@ export class MutualEvaluationComponent implements OnInit {
         finished++;
       }
     }
+    console.log(finished);
+    console.log(allPeople);
 
-    this.progress = Math.round(finished / allPeople) * 100;
+    this.progress = Math.round((finished / allPeople) * 100);
   }
 
   goToAdd(workNumber: string, realName: string): void {
