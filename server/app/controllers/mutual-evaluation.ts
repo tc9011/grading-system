@@ -52,7 +52,6 @@ export class MutualEvaluationCtrl extends BaseCtrl {
       responseData.contributionRate = mutualEvaluation.contributionRate;
     }
 
-    console.log(responseData);
     handleSuccess({ctx, message: undefined, response: responseData});
 
   }

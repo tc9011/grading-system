@@ -13,40 +13,40 @@
   <nz-card class="card" nzTitle="业绩">
     <h3>{{realName}}的自评</h3>
     <p>
-      {{selfAchievement}}
+      {{mutualEvaluation.selfAchievement}}
     </p>
 
     <h3>评分</h3>
-    <nz-rate [ngModel]="0" [nzCount]="10"></nz-rate>
+    <nz-rate [ngModel]="mutualEvaluation.achievementRate" [nzCount]="10"></nz-rate>
 
     <h3 style="margin-top: 10px">简评</h3>
-    <textarea nz-input [nzAutosize]="{minRows: 4}"></textarea>
+    <textarea nz-input [ngModel]="mutualEvaluation.mutualAchievement" [nzAutosize]="{minRows: 4}"></textarea>
   </nz-card>
 
   <nz-card class="card" nzTitle="共享和主动性">
     <h3>{{realName}}的自评</h3>
     <p>
-      {{selfShare}}
+      {{mutualEvaluation.selfShare}}
     </p>
 
     <h3>评分</h3>
-    <nz-rate [ngModel]="0" [nzCount]="10"></nz-rate>
+    <nz-rate [ngModel]="mutualEvaluation.shareRate" [nzCount]="10"></nz-rate>
 
     <h3 style="margin-top: 10px">简评</h3>
-    <textarea nz-input [nzAutosize]="{minRows: 4}"></textarea>
+    <textarea nz-input [ngModel]="mutualEvaluation.mutualShare" [nzAutosize]="{minRows: 4}"></textarea>
   </nz-card>
 
   <nz-card class="card" nzTitle="团队贡献">
     <h3>{{realName}}的自评</h3>
     <p>
-      {{selfContribution}}
+      {{mutualEvaluation.selfContribution}}
     </p>
 
     <h3>评分</h3>
-    <nz-rate [ngModel]="0" [nzCount]="10"></nz-rate>
+    <nz-rate [ngModel]="mutualEvaluation.contributionRate" [nzCount]="10"></nz-rate>
 
     <h3 style="margin-top: 10px">简评</h3>
-    <textarea nz-input [nzAutosize]="{minRows: 4}"></textarea>
+    <textarea nz-input [ngModel]="mutualEvaluation.mutualContribution" [nzAutosize]="{minRows: 4}"></textarea>
   </nz-card>
 
   <div class="button-group">

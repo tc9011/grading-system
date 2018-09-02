@@ -14,3 +14,22 @@ export interface Status {
   role: number;
   status: boolean,
 }
+
+export interface InfoForGetMutualEvaluation {
+  owner: string;
+  workNumber: string;
+  group: string;
+  month: string;
+}
+
+export interface GetMutualEvaluation {
+  selfAchievement: string;
+  selfShare: string;
+  selfContribution: string;
+  mutualAchievement: string;
+  achievementRate: number;
+  mutualShare: string;
+  shareRate: number;
+  mutualContribution: string;
+  contributionRate: number;
+}
