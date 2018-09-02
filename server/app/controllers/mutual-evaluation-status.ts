@@ -21,6 +21,7 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
       });
 
     for (const user of users) {
+      // users中剔除登录者的信息
       if (user.workNumber !== workNumber) {
         // 是否已存在指定月份和工号的数据，如果没有就新建一个
         const status = await MutualEvaluationStatusModel

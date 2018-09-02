@@ -5,6 +5,7 @@ export interface InfoForGetStatus {
 }
 
 export interface Status {
+  owner: string;
   statusId: string;
   month: string;
   workNumber: string;

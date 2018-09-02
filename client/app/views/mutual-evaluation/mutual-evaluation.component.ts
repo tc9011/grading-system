@@ -55,12 +55,12 @@ export class MutualEvaluationComponent implements OnInit {
     this.progress = Math.round(finished / allPeople) * 100;
   }
 
-  goToAdd(): void {
+  goToAdd(workNumber: string, realName: string): void {
     this.router.navigate([
       '/mutualevaluation',
       this.formatDate.getFullYear(),
       this.formatDate.getMonth() + 1,
-      this.authService.currentUser.workNumber
+      workNumber
     ])
   }
 
