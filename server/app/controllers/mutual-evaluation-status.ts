@@ -25,7 +25,7 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
       if (user.workNumber !== workNumber && user.role < 10) {
         // 是否已存在指定月份和工号的数据，如果没有就新建一个
         const status = await MutualEvaluationStatusModel
-          .findOne({workNumber: user.workNumber, month: month})
+          .findOne({owner: workNumber, workNumber: user.workNumber, month: month})
           .catch(err => {
             console.log(err);
             ctx.throw(500, '查找数据时出错!');
