@@ -10,10 +10,7 @@ import { pre, prop, Typegoose } from 'typegoose';
   next();
 })
 class SelfEvaluationSchema extends Typegoose {
-  @prop({
-    required: true,
-    unique: true,
-  })
+  @prop({required: true})
   month: string;
 
   @prop({required: true})
