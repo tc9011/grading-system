@@ -12,6 +12,8 @@ import { Exception403Component } from './exception/403/exception403.component';
 import { SelfEvaluationComponent } from './self-evaluation/self-evaluation.component';
 import { MutualEvaluationComponent } from './mutual-evaluation/mutual-evaluation.component';
 import { AddAndEditComponent } from './mutual-evaluation/add-and-edit/add-and-edit.component';
+import { AuthGuardAdmin } from '../core/auth/auth-guard-admin.service';
+import { AuthGuardCustomer } from '../core/auth/auth-guard-customer.service';
 
 const routes: Routes = [
   {
@@ -27,15 +29,23 @@ const routes: Routes = [
       },
       {
         path: 'selfevaluation',
-        component: SelfEvaluationComponent
+        component: SelfEvaluationComponent,
+        canActivate: [AuthGuardCustomer],
       },
       {
         path: 'mutualevaluation',
-        component: MutualEvaluationComponent
+        component: MutualEvaluationComponent,
+        canActivate: [AuthGuardCustomer],
       },
       {
         path: 'mutualevaluation/:year/:month/:workNumber',
-        component: AddAndEditComponent
+        component: AddAndEditComponent,
+        canActivate: [AuthGuardCustomer],
+      },
+      {
+        path: 'peoplemanage',
+        loadChildren: './people-manage/people-manage.module#PeopleManageModule',
+        canLoad: [AuthGuardAdmin],
       }
     ]
   },
