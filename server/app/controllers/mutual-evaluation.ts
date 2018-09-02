@@ -29,7 +29,7 @@ export class MutualEvaluationCtrl extends BaseCtrl {
         console.log(err);
         ctx.throw(500, '查找数据时出错!');
       });
-    console.log(selfEvaluation);
+
     if (selfEvaluation) {
       responseData.selfAchievement = selfEvaluation.achievement;
       responseData.selfShare = selfEvaluation.share;
@@ -52,7 +52,6 @@ export class MutualEvaluationCtrl extends BaseCtrl {
       responseData.contributionRate = mutualEvaluation.contributionRate;
     }
 
-    console.log(responseData);
     handleSuccess({ctx, message: undefined, response: responseData});
 
   }
