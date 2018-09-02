@@ -14,7 +14,7 @@ class SelfEvaluationSchema extends Typegoose {
     required: true,
     unique: true,
   })
-  month: Date;
+  month: string;
 
   @prop({required: true})
   workNumber: string;

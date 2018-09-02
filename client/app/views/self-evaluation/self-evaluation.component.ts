@@ -128,7 +128,7 @@ export class SelfEvaluationComponent implements OnInit {
     this.refreshStatus();
   }
 
-  showEdit(month: Date) {
+  showEdit(month: string) {
     this.isEdit = true;
     this.showModal();
     this.selfEvaluationService.getSelfEvaluationByMonth(this.user, month).subscribe(
@@ -136,7 +136,7 @@ export class SelfEvaluationComponent implements OnInit {
         this.oldMonth = data[0].month;
         const formData = {
           workNumber: data[0].workNumber,
-          month: data[0].month,
+          month: new Date(data[0].month),
           achievement: data[0].achievement,
           share: data[0].share,
           contribution: data[0].contribution,
@@ -184,6 +184,11 @@ export class SelfEvaluationComponent implements OnInit {
     this.loadingService.begin();
 
     this.workNumber.setValue(this.user);
+
+    const unFormatMonth: any = this.form.controls.month.value;
+    const date = new Date(unFormatMonth);
+    const formatMonth = date.getFullYear() + '-' + (date.getMonth() + 1);
+    this.month.setValue(formatMonth);
 
     this.isEdit ?
       this.selfEvaluationService.putSelfEvaluation(this.oldMonth, this.form.value).subscribe(

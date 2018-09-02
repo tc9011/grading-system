@@ -24,7 +24,7 @@
     <tbody>
     <tr *ngFor="let data of selfTable.data">
       <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
-      <td>{{data.month | date: 'yyyy/MM'}}</td>
+      <td>{{data.month}}</td>
       <td>{{data.achievement}}</td>
       <td>{{data.share}}</td>
       <td>{{data.contribution}}</td>

@@ -24,10 +24,10 @@ export class SelfEvaluationCtrl extends BaseCtrl {
       });
 
     if (selfEvaluations.length) {
-      const newDate = new Date(month);
+      const newDataArray = month.split('-');
       for (const selfEvaluation of selfEvaluations) {
-        const oldDate = new Date(selfEvaluation.month);
-        if (newDate.getMonth() === oldDate.getMonth() && newDate.getFullYear() === oldDate.getFullYear()) {
+        const oldDateArray = selfEvaluation.month.split('-');
+        if (newDataArray[0] === oldDateArray[0] && newDataArray[1] === oldDateArray[1]) {
           ctx.status = 409;
           handleError({ctx, message: '该月已存在自评!'});
           return;
@@ -89,11 +89,11 @@ export class SelfEvaluationCtrl extends BaseCtrl {
         });
 
       if (selfEvaluations.length) {
-        const newDate = new Date(month);
+        const newDateArray = month.split('-');
         for (const selfEvaluation of selfEvaluations) {
-          const oldDate = new Date(selfEvaluation.month);
-          if (newDate.getMonth() === oldDate.getMonth() &&
-            newDate.getFullYear() === oldDate.getFullYear()) {
+          const oldDateArray = selfEvaluation.month.split('-');
+          if (newDateArray[0] === oldDateArray[0] &&
+            newDateArray[1] === oldDateArray[1]) {
             ctx.status = 409;
             handleError({ctx, message: '该月已存在自评!'});
             return;

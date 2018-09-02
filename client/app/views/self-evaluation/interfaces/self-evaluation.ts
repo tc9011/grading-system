@@ -1,6 +1,6 @@
 export interface SelfEvaluation {
   workNumber: string;
-  month: Date;
+  month: string;
   achievement: string;
   share: string;
   contribution: string;
