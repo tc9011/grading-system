@@ -34,7 +34,7 @@ const routes: Routes = [
         component: MutualEvaluationComponent
       },
       {
-        path: 'mutualevaluation/add',
+        path: 'mutualevaluation/:year/:month/:workNumber',
         component: AddAndEditComponent
       }
     ]

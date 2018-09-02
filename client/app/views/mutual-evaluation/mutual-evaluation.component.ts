@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MutualEvaluationService } from './services/mutual-evaluation.service';
 import { AuthService } from '../../core/auth/auth.service';
@@ -12,10 +13,14 @@ import { InfoForGetStatus, Status } from './interfaces/mutaul-evaluation';
 export class MutualEvaluationComponent implements OnInit {
   date = null;
   tableData = [];
+  displayData = [];
   progress = 0;
+  formatDate: Date;
+  status = 'all';
 
   constructor(public MutualEvaluationService: MutualEvaluationService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
     this.date = new Date(Date.now());
@@ -23,15 +28,16 @@ export class MutualEvaluationComponent implements OnInit {
   }
 
   getStatus(result: Date): void {
-    const date = new Date(result);
-    const data: InfoForGetStatus = {
+    this.formatDate = new Date(result);
+    const infoForGetStatus: InfoForGetStatus = {
       workNumber: this.authService.currentUser.workNumber,
       group: this.authService.currentUser.group,
-      month: date.getFullYear() + '-' + (date.getMonth() + 1),
+      month: this.formatDate.getFullYear() + '-' + (this.formatDate.getMonth() + 1),
     };
-    this.MutualEvaluationService.getStatus(data).subscribe(
+    this.MutualEvaluationService.getStatus(infoForGetStatus).subscribe(
       (data: Status[]) => {
         this.tableData = data;
+        this.displayData = data;
         this.setProgress();
       }
     );
@@ -46,6 +52,26 @@ export class MutualEvaluationComponent implements OnInit {
       }
     }
 
-    this.progress = Math.round(finished / allPeople);
+    this.progress = Math.round(finished / allPeople) * 100;
+  }
+
+  goToAdd(): void {
+    this.router.navigate([
+      '/mutualevaluation',
+      this.formatDate.getFullYear(),
+      this.formatDate.getMonth() + 1,
+      this.authService.currentUser.workNumber
+    ])
+  }
+
+  statusFilter(): void {
+    if (this.status === 'unfinished') {
+      this.displayData = [];
+      for (const item of this.tableData) {
+        if (!item.status) {
+          this.displayData.push(item);
+        }
+      }
+    }
   }
 }
