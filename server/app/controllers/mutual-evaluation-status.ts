@@ -12,6 +12,7 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
     const body: any = ctx.request.body;
     const {workNumber, group, month} = body;    // 这里前端传过来的month不是Date，是类似'2018-9'的字符串
 
+    // 查user表中同组人员
     const users: any = await UserModel
       .find({group: group})
       .catch(err => {
@@ -28,11 +29,12 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
           ctx.throw(500, '查找数据时出错!');
         });
 
+      console.log(status);
       if (!status) {
-        const date = new Date(Date.now());
+        console.log('ok');
+        const date = new Date(month ? month : Date.now());
         const newMonth = date.getFullYear() + '-' + (date.getMonth() + 1);
         const newStatus = {
-          statusId: newMonth + '-' + user.workNumber,
           month: newMonth,
           workNumber: user.workNumber,
           realName: user.realName,

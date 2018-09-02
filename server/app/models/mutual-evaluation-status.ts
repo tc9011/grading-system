@@ -1,12 +1,6 @@
 import { prop, Typegoose } from 'typegoose';
 
 class MutualEvaluationStatusSchema extends Typegoose {
-  @prop({
-    required: true,
-    unique: true,
-  })
-  statusId: string;
-
   @prop({required: true})
   month: string;
 
