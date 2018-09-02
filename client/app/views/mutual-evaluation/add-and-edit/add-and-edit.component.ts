@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MutualEvaluationService } from '../services/mutual-evaluation.service';
 import { AuthService } from '../../../core/auth/auth.service';
-import { GetMutualEvaluation } from '../interfaces/mutaul-evaluation';
+import { GetMutualEvaluation, MutualEvaluation } from '../interfaces/mutual-evaluation';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-add-and-edit',
@@ -32,6 +33,7 @@ export class AddAndEditComponent implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
+              public msg: NzMessageService,
               private mutualEvaluationService: MutualEvaluationService,
               private authService: AuthService) {
 
@@ -47,7 +49,7 @@ export class AddAndEditComponent implements OnInit {
     })
   }
 
-  getMutualEvaluation() {
+  getMutualEvaluation(): void {
     const infoForGetMutualEvaluation = {
       owner: this.authService.currentUser.workNumber,
       workNumber: this.workNumber,
@@ -61,4 +63,29 @@ export class AddAndEditComponent implements OnInit {
     );
   }
 
+  saveMutualEvaluation(): void {
+    const isFinished = this.mutualEvaluation.achievementRate !== 0 && this.mutualEvaluation.shareRate !== 0 && this.mutualEvaluation.contributionRate !== 0;
+    const data: MutualEvaluation = {
+      owner: this.authService.currentUser.workNumber,
+      month: this.year + '-' + this.month,
+      workNumber: this.workNumber,
+      realName: this.realName,
+      group: this.authService.currentUser.group,
+      role: this.authService.currentUser.role,
+      status: isFinished,
+      mutualAchievement: this.mutualEvaluation.mutualAchievement,
+      achievementRate: this.mutualEvaluation.achievementRate,
+      mutualShare: this.mutualEvaluation.mutualShare,
+      shareRate: this.mutualEvaluation.shareRate,
+      mutualContribution: this.mutualEvaluation.mutualContribution,
+      contributionRate: this.mutualEvaluation.contributionRate,
+    };
+
+    this.mutualEvaluationService.postMutualEvaluation(data).subscribe(
+      () => {
+        this.msg.success('保存成功！');
+        this.router.navigate(['/mutualevaluation']);
+      }
+    );
+  }
 }

@@ -7,8 +7,9 @@ import {
   GetMutualEvaluation,
   InfoForGetMutualEvaluation,
   InfoForGetStatus,
+  MutualEvaluation,
   Status
-} from '../interfaces/mutaul-evaluation';
+} from '../interfaces/mutual-evaluation';
 
 
 @Injectable()
@@ -22,5 +23,9 @@ export class MutualEvaluationService {
 
   public getMutualEvaluation(data: InfoForGetMutualEvaluation): Observable<GetMutualEvaluation> {
     return this.httpService.postData('/api/v1/mutual/getMutualEvaluation', data);
+  }
+
+  public postMutualEvaluation(data: MutualEvaluation): Observable<any> {
+    return this.httpService.postData('/api/v1/mutual', data);
   }
 }

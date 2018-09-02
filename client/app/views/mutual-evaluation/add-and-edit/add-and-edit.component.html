@@ -17,10 +17,10 @@
     </p>
 
     <h3>评分</h3>
-    <nz-rate [ngModel]="mutualEvaluation.achievementRate" [nzCount]="10"></nz-rate>
+    <nz-rate [(ngModel)]="mutualEvaluation.achievementRate" [nzCount]="10"></nz-rate>
 
     <h3 style="margin-top: 10px">简评</h3>
-    <textarea nz-input [ngModel]="mutualEvaluation.mutualAchievement" [nzAutosize]="{minRows: 4}"></textarea>
+    <textarea nz-input [(ngModel)]="mutualEvaluation.mutualAchievement" [nzAutosize]="{minRows: 4}"></textarea>
   </nz-card>
 
   <nz-card class="card" nzTitle="共享和主动性">
@@ -30,10 +30,10 @@
     </p>
 
     <h3>评分</h3>
-    <nz-rate [ngModel]="mutualEvaluation.shareRate" [nzCount]="10"></nz-rate>
+    <nz-rate [(ngModel)]="mutualEvaluation.shareRate" [nzCount]="10"></nz-rate>
 
     <h3 style="margin-top: 10px">简评</h3>
-    <textarea nz-input [ngModel]="mutualEvaluation.mutualShare" [nzAutosize]="{minRows: 4}"></textarea>
+    <textarea nz-input [(ngModel)]="mutualEvaluation.mutualShare" [nzAutosize]="{minRows: 4}"></textarea>
   </nz-card>
 
   <nz-card class="card" nzTitle="团队贡献">
@@ -43,14 +43,14 @@
     </p>
 
     <h3>评分</h3>
-    <nz-rate [ngModel]="mutualEvaluation.contributionRate" [nzCount]="10"></nz-rate>
+    <nz-rate [(ngModel)]="mutualEvaluation.contributionRate" [nzCount]="10"></nz-rate>
 
     <h3 style="margin-top: 10px">简评</h3>
-    <textarea nz-input [ngModel]="mutualEvaluation.mutualContribution" [nzAutosize]="{minRows: 4}"></textarea>
+    <textarea nz-input [(ngModel)]="mutualEvaluation.mutualContribution" [nzAutosize]="{minRows: 4}"></textarea>
   </nz-card>
 
   <div class="button-group">
-    <button nz-button nzType="primary" nzSize="large" type="button">
+    <button nz-button nzType="primary" nzSize="large" type="button" (click)="saveMutualEvaluation()">
       <span>保存</span>
     </button>
     <button nz-button nzType="primary" nzSize="large" type="button" routerLink="/mutualevaluation">

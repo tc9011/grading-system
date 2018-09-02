@@ -1,3 +1,5 @@
+import { prop } from 'typegoose';
+
 export interface InfoForGetStatus {
   workNumber: string;
   group: string;
@@ -26,6 +28,22 @@ export interface GetMutualEvaluation {
   selfAchievement: string;
   selfShare: string;
   selfContribution: string;
+  mutualAchievement: string;
+  achievementRate: number;
+  mutualShare: string;
+  shareRate: number;
+  mutualContribution: string;
+  contributionRate: number;
+}
+
+export interface MutualEvaluation {
+  owner: string;
+  month: string;
+  workNumber: string;
+  realName: string;
+  group: string;
+  role: number;
+  status: boolean;
   mutualAchievement: string;
   achievementRate: number;
   mutualShare: string;
