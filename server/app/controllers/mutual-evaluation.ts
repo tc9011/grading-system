@@ -24,26 +24,26 @@ export class MutualEvaluationCtrl extends BaseCtrl {
     };
 
     const selfEvaluation: any= await SelfEvaluationModel
-      .find({workNumber: workNumber, month: month})
+      .findOne({workNumber: workNumber, month: month})
       .catch(err => {
         console.log(err);
         ctx.throw(500, '查找数据时出错!');
       });
-
-    if (selfEvaluation.length) {
+    console.log(selfEvaluation);
+    if (selfEvaluation) {
       responseData.selfAchievement = selfEvaluation.achievement;
       responseData.selfShare = selfEvaluation.share;
       responseData.selfContribution = selfEvaluation.contribution;
     }
 
     const mutualEvaluation: any = await MutualEvaluationModel
-      .find({owner: owner, workNumber: workNumber, month: month, group: group})
+      .findOne({owner: owner, workNumber: workNumber, month: month, group: group})
       .catch(err => {
         console.log(err);
         ctx.throw(500, '查找数据时出错!');
       });
 
-    if (mutualEvaluation.length) {
+    if (mutualEvaluation) {
       responseData.mutualAchievement = mutualEvaluation.mutualAchievement;
       responseData.achievementRate = mutualEvaluation.achievementRate;
       responseData.mutualShare = mutualEvaluation.mutualShare;
@@ -52,6 +52,7 @@ export class MutualEvaluationCtrl extends BaseCtrl {
       responseData.contributionRate = mutualEvaluation.contributionRate;
     }
 
+    console.log(responseData);
     handleSuccess({ctx, message: undefined, response: responseData});
 
   }
