@@ -17,7 +17,7 @@ export class SelfSummaryComponent implements OnInit {
   displayData = [];
   tableData = [];
   formatDate: Date;
-  status: string;
+  status = 'all';
   progress = 0;
   achievement = '';
   share = '';
