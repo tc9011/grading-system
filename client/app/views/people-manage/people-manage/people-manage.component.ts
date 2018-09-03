@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 
@@ -25,7 +26,8 @@ export class PeopleManageComponent implements OnInit {
   constructor(private modalService: NzModalService,
               private peopleManageService: PeopleManageService,
               private authService: AuthService,
-              public msg: NzMessageService) {
+              public msg: NzMessageService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -82,7 +84,8 @@ export class PeopleManageComponent implements OnInit {
 
   showDeleteConfirm(): void {
     this.modalService.confirm({
-      nzTitle: '确定要删除选中的自评吗?',
+      nzTitle: '确定要删除选中的用户吗?',
+      nzContent: '该操作会删除该用户所有信息,请谨慎操作!',
       nzOkText: '确定',
       nzOkType: 'danger',
       nzOnOk: this.delete.bind(this),
@@ -93,6 +96,7 @@ export class PeopleManageComponent implements OnInit {
 
   delete(): void {
     const checkedData = [];
+    let hasHimself = false;   // 删除对象是否包含登陆者
 
     this.tableData.forEach(data => {
       if (data.checked) {
@@ -101,6 +105,9 @@ export class PeopleManageComponent implements OnInit {
           role: data.role,
           group: data.group,
         };
+        if (data.workNumber === this.authService.currentUser.workNumber) {
+          hasHimself = true;
+        }
         checkedData.push(tempData);
       }
     });
@@ -108,7 +115,7 @@ export class PeopleManageComponent implements OnInit {
     this.peopleManageService.deleteUsers(checkedData).subscribe(
       () => {
         this.msg.success('删除成功!');
-        this.getAllGroupUsers();
+        hasHimself ? this.router.navigate(['/passport/login']) : this.getAllGroupUsers();
       }
     );
   }
