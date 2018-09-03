@@ -23,7 +23,7 @@ export class UserCtrl extends BaseCtrl{
 
     if (!user) {
       ctx.status = 400;
-      handleError({ctx, message: '帐号或密码错误!'});
+      handleError({ctx, message: '用户不存在!'});
       return;
     }
 

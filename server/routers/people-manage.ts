@@ -6,6 +6,7 @@ const router = new Router();
 const peopleManageCtrl = new PeopleManageCtrl();
 
 router
-  .get('/group/:group', peopleManageCtrl.getAllGroupUsers);
+  .get('/group/:group', peopleManageCtrl.getAllGroupUsers)
+  .post('/batch', peopleManageCtrl.delteUsers);
 
 export { router as peopleManageRouter };
