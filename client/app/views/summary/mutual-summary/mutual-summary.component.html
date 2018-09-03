@@ -1,5 +1,14 @@
 <app-page-header [title]="'互评汇总'"></app-page-header>
 
-<section class="container">
+<section class="summary">
+  <header nz-row>
+    <nz-month-picker [(ngModel)]="date" (ngModelChange)="getStatus($event)" nzPlaceHolder="请选择月份"></nz-month-picker>
+  </header>
 
+  <div class="container">
+    <div class="progress">
+      <p>当月团队互评进度</p>
+      <nz-progress [nzPercent]="progress" [nzWidth]="200" nzType="circle"></nz-progress>
+    </div>
+  </div>
 </section>
