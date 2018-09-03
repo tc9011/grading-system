@@ -2,7 +2,7 @@
 
 <section class="summary">
   <header nz-row>
-    <nz-month-picker [(ngModel)]="date" (ngModelChange)="getStatus($event)" nzPlaceHolder="????"></nz-month-picker>
+    <nz-month-picker [(ngModel)]="date" (ngModelChange)="getStatus($event)" nzPlaceHolder="请选择月份"></nz-month-picker>
 
     <nz-radio-group [(ngModel)]="status" class="mr-md radio-group" (ngModelChange)="statusFilter()">
       <label nz-radio-button [nzValue]="'all'">
@@ -44,7 +44,7 @@
             </ng-container>
           </td>
           <td>
-            <a (click)="goToDetail(data.workNumber, data.realName)">查看</a>
+            <a [ngClass]="{'link-disabled': !data.status}" (click)="goToDetail(data.workNumber)">查看</a>
           </td>
         </tr>
         </tbody>
@@ -53,3 +53,31 @@
   </div>
 
 </section>
+
+<nz-modal [(nzVisible)]="modalService.isVisible" nzWidth="900" nzMaskClosable="false" nzTitle="自评" [nzCancelText]="null"(nzOnOk)="modalService.close()" (nzOnCancel)="modalService.close()">
+  <form nz-form role="form">
+    <!--业绩-->
+    <nz-form-item>
+      <nz-form-label nzXs="24" nzSm="7" nzRequired nzFor="achievement">业绩</nz-form-label>
+      <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+        {{achievement}}
+      </nz-form-control>
+    </nz-form-item>
+
+    <!--共享,主动性-->
+    <nz-form-item>
+      <nz-form-label nzXs="24" nzSm="7" nzRequired nzFor="share">共享和主动性</nz-form-label>
+      <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+        {{share}}
+      </nz-form-control>
+    </nz-form-item>
+
+    <!--团队贡献-->
+    <nz-form-item>
+      <nz-form-label nzXs="24" nzSm="7" nzRequired nzFor="contribution">团队贡献</nz-form-label>
+      <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+        {{contribution}}
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

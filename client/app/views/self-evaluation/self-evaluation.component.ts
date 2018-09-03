@@ -127,7 +127,7 @@ export class SelfEvaluationComponent implements OnInit {
     this.isEdit = true;
     this.showModal();
     this.selfEvaluationService.getSelfEvaluationByMonth(this.user, month).subscribe(
-      (data: SelfEvaluation) => {
+      (data: SelfEvaluation[]) => {
         this.oldMonth = data[0].month;
         const formData = {
           month: new Date(data[0].month),

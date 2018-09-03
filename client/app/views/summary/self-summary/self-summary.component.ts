@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NzModalService } from 'ng-zorro-antd';
-
 import { AuthService } from '../../../core/auth/auth.service';
 import { SummaryService } from '../services/summary.service';
 import { SelfEvaluation } from '../../self-evaluation/interfaces/self-evaluation';
 import { UntilService } from '../../../core/util/until.service';
+import { ModalService } from '../../../core/modal/modal.service';
+import { SelfEvaluationService } from '../../self-evaluation/services/self-evaluation.service';
 
 @Component({
   selector: 'app-self-summary',
@@ -19,11 +19,15 @@ export class SelfSummaryComponent implements OnInit {
   formatDate: Date;
   status: string;
   progress = 0;
+  achievement = '';
+  share = '';
+  contribution = '';
 
   constructor(private authService: AuthService,
               private summaryService: SummaryService,
               private untilService: UntilService,
-              private modalService: NzModalService) {
+              public modalService: ModalService,
+              private selfEvaluationService: SelfEvaluationService) {
   }
 
   ngOnInit() {
@@ -54,7 +58,17 @@ export class SelfSummaryComponent implements OnInit {
     this.displayData = this.untilService.statusFilter(this.status, this.tableData);
   }
 
-  goToDetail(): void {
-    // TODO 模态框封装
+  goToDetail(user: string): void {
+    const year = this.formatDate.getFullYear().toString();
+    const month = (this.formatDate.getMonth() + 1).toString();
+
+    this.selfEvaluationService.getSelfEvaluationByMonth(user, year + '-' + month).subscribe(
+      (data: SelfEvaluation[]) => {
+        this.achievement = data[0].achievement ? data[0].achievement : '';
+        this.share = data[0].share ? data[0].share : '';
+        this.contribution = data[0].contribution ? data[0].contribution : '';
+        this.modalService.open();
+      }
+    );
   }
 }

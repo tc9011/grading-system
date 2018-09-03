@@ -25,3 +25,8 @@
     }
   }
 }
+
+.link-disabled {
+  color: $grey-8;
+  pointer-events: none;
+}

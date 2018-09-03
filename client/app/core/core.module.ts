@@ -10,6 +10,7 @@ import { AuthGuardLogin } from './auth/auth-guard-login.service';
 import { AuthGuardAdmin } from './auth/auth-guard-admin.service';
 import { AuthGuardCustomer } from './auth/auth-guard-customer.service';
 import { UntilService } from './util/until.service';
+import { ModalService } from './modal/modal.service';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { UntilService } from './util/until.service';
     AuthGuardLogin,
     AuthGuardAdmin,
     AuthGuardCustomer,
-    UntilService
+    UntilService,
+    ModalService
   ]
 })
 export class CoreModule { }
