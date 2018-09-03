@@ -4,6 +4,8 @@ import { BaseCtrl } from './base';
 import { UserModel } from '../models/user';
 import { handleError, handleSuccess } from '../../utils/handle';
 import { MutualEvaluationModel } from '../models/mutual-evaluation';
+import { SelfEvaluationModel } from '../models/self-evaluation';
+import { MutualEvaluationStatusModel } from '../models/mutual-evaluation-status';
 
 export class PeopleManageCtrl extends BaseCtrl {
   model = UserModel;
@@ -43,9 +45,41 @@ export class PeopleManageCtrl extends BaseCtrl {
           handleError({ctx, message: '删除失败!', err: err});
         });
 
-      // 删除该用户的互评
+      // 删除该用户自己的互评
       await MutualEvaluationModel
-        .remove({ owner: user.workNumber, group: user.group })
+        .deleteMany({ owner: user.workNumber, group: user.group })
+        .catch(err => {
+          console.log(err);
+          handleError({ctx, message: '删除失败!', err: err});
+        });
+
+      // 删除对于该用户的互评
+      await MutualEvaluationModel
+        .deleteMany({ workNumber: user.workNumber, group: user.group })
+        .catch(err => {
+          console.log(err);
+          handleError({ctx, message: '删除失败!', err: err});
+        });
+
+      // 删除该用户自己的互评状态
+      await MutualEvaluationStatusModel
+        .deleteMany({ owner: user.workNumber, group: user.group })
+        .catch(err => {
+          console.log(err);
+          handleError({ctx, message: '删除失败!', err: err});
+        });
+
+      // 删除对该用户的互评状态
+      await MutualEvaluationStatusModel
+        .deleteMany({ workNumber: user.workNumber, group: user.group })
+        .catch(err => {
+          console.log(err);
+          handleError({ctx, message: '删除失败!', err: err});
+        });
+
+      // 删除该用户的自评
+      await SelfEvaluationModel
+        .deleteMany({ workNumber: user.workNumber })
         .catch(err => {
           console.log(err);
           handleError({ctx, message: '删除失败!', err: err});
