@@ -35,14 +35,10 @@ export class SelfEvaluationComponent implements OnInit {
               public msg: NzMessageService,
               private modalService: NzModalService) {
     this.form = this.fb.group({
-      // workNumber: '',
       month: [null, Validators.required],
       achievement: [null, Validators.required],
       share: [null, Validators.required],
       contribution: [null, Validators.required],
-      // group: '',
-      // role: 0,
-      // realName: '',
     });
     this.loadingService.end();
   }
