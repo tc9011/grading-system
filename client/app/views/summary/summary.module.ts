@@ -6,6 +6,7 @@ import { SelfSummaryComponent } from './self-summary/self-summary.component';
 import { MutualSummaryComponent } from './mutual-summary/mutual-summary.component';
 import { LayoutModule } from '../../layout/layout.module';
 import { SharedModule } from '../../shared/shared.module';
+import { SummaryService } from './services/summary.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { SharedModule } from '../../shared/shared.module';
     LayoutModule,
     SharedModule
   ],
-  declarations: [SelfSummaryComponent, MutualSummaryComponent]
+  declarations: [SelfSummaryComponent, MutualSummaryComponent],
+  providers: [SummaryService]
 })
 export class SummaryModule { }

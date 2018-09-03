@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../../../core/auth/auth.service';
+import { SummaryService } from '../services/summary.service';
+import { SelfEvaluation } from '../../self-evaluation/interfaces/self-evaluation';
 
 @Component({
   selector: 'app-self-summary',
@@ -14,7 +16,8 @@ export class SelfSummaryComponent implements OnInit {
   status: string;
   progress = 0;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private summaryService: SummaryService) {
   }
 
   ngOnInit() {
@@ -24,11 +27,18 @@ export class SelfSummaryComponent implements OnInit {
 
   getStatus(result: Date): void {
     this.formatDate = new Date(result);
-    const infoForGetStatus = {
-      workNumber: this.authService.currentUser.workNumber,
-      group: this.authService.currentUser.group,
-      month: this.formatDate.getFullYear() + '-' + (this.formatDate.getMonth() + 1),
-    };
+
+    const group = this.authService.currentUser.group;
+    const year = this.formatDate.getFullYear().toString();
+    const month = (this.formatDate.getMonth() + 1).toString();
+    this.summaryService.getAllSelfEvaluation(group, year, month).subscribe(
+      (res: SelfEvaluation[]) => {
+        this.displayData = res;
+        for (const item of this.displayData) {
+          item.status = item.share && item.contribution && item.achievement;
+        }
+      }
+    );
   }
 
   statusFilter(): void {
