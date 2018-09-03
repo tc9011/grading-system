@@ -3,12 +3,34 @@
 <section class="summary">
   <header nz-row>
     <nz-month-picker [(ngModel)]="date" (ngModelChange)="getStatus($event)" nzPlaceHolder="请选择月份"></nz-month-picker>
+    <nz-radio-group [(ngModel)]="status" class="mr-md radio-group" (ngModelChange)="statusFilter()">
+      <label nz-radio-button [nzValue]="'achievement'">
+        <span>业绩</span>
+      </label>
+      <label nz-radio-button [nzValue]="'share'">
+        <span>共享和主动性</span>
+      </label>
+      <label nz-radio-button [nzValue]="'contribution'">
+        <span>团队贡献</span>
+      </label>
+    </nz-radio-group>
   </header>
 
   <div class="container">
     <div class="progress">
       <p>当月团队互评进度</p>
       <nz-progress [nzPercent]="progress" [nzWidth]="200" nzType="circle"></nz-progress>
+    </div>
+
+    <div class="table-area">
+      <nz-card style="width:300px;" nzTitle="Top 3">
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+      </nz-card>
+      这里顶上是top3
+      下面是全团队成员表格，取成员可能要单独接口？表格里面有分数
+      成员点进去是其他人对他的评价以及分数
     </div>
   </div>
 </section>

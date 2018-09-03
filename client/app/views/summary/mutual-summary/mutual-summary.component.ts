@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class MutualSummaryComponent implements OnInit {
   date = null;
   progress = 0;
+  status = 'achievement';
 
   constructor() { }
 
@@ -18,4 +19,7 @@ export class MutualSummaryComponent implements OnInit {
   getStatus(result: Date): void {
 
   }
+
+  statusFilter() {}
+
 }
