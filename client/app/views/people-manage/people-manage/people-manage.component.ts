@@ -5,6 +5,7 @@ import { NzModalService } from 'ng-zorro-antd';
 import { DisplayTableData } from '../../self-evaluation/interfaces/self-evaluation';
 import { PeopleManageService } from '../services/people-manage.service';
 import { AuthService } from '../../../core/auth/auth.service';
+import { GetPeopleInfo } from '../interfaces/people-manage';
 
 @Component({
   selector: 'app-people-manage',
@@ -32,7 +33,7 @@ export class PeopleManageComponent implements OnInit {
   getAllGroupUsers() {
     const group = this.authService.currentUser.group;
     this.peopleManageService.getAllGroupUsers(group).subscribe(
-      res => {
+      (res: GetPeopleInfo[]) => {
         this.tableData = res;
       }
     );
