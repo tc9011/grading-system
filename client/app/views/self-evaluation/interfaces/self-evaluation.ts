@@ -4,6 +4,8 @@ export interface SelfEvaluation {
   achievement: string;
   share: string;
   contribution: string;
+  group: string;
+  role: number;
   _id?: string;
   __v?: number;
   updateAt?: number;

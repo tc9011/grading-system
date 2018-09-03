@@ -40,6 +40,8 @@ export class SelfEvaluationComponent implements OnInit {
       achievement: [null, Validators.required],
       share: [null, Validators.required],
       contribution: [null, Validators.required],
+      group: '',
+      role: 0,
     });
     this.loadingService.end();
   }
@@ -47,6 +49,14 @@ export class SelfEvaluationComponent implements OnInit {
   // region: fields
   get workNumber() {
     return this.form.controls.workNumber;
+  }
+
+  get group() {
+    return this.form.controls.group;
+  }
+
+  get role() {
+    return this.form.controls.role;
   }
 
   get month() {
@@ -184,6 +194,8 @@ export class SelfEvaluationComponent implements OnInit {
     this.loadingService.begin();
 
     this.workNumber.setValue(this.user);
+    this.role.setValue(this.authService.currentUser.role);
+    this.group.setValue(this.authService.currentUser.group);
 
     const unFormatMonth: any = this.form.controls.month.value;
     const date = new Date(unFormatMonth);

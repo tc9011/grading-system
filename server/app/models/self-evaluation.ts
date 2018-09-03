@@ -17,6 +17,12 @@ class SelfEvaluationSchema extends Typegoose {
   workNumber: string;
 
   @prop({required: true})
+  group: string;
+
+  @prop({required: true})
+  role: number;
+
+  @prop({required: true})
   achievement: string;
 
   @prop({required: true})
