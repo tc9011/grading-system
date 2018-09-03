@@ -10,14 +10,27 @@ export class PeopleManageCtrl extends BaseCtrl {
   public async getAllGroupUsers(ctx: Context) {
     const group = ctx.params.group;
 
-    const users = await UserModel
+    const users: any = await UserModel
       .find({group: group})
       .catch(err => {
         console.log(err);
         handleError({ctx, message: '查找失败!', err: err});
       });
 
-    console.log(users);
-    handleSuccess({ctx, message: undefined, response: users});
+    const tempUsers = [];
+    for (const user of users) {
+      const tempUser = {
+        workNumber: user.workNumber,
+        realName: user.realName,
+        group: user.group,
+        role: user.role,
+      };
+      tempUsers.push(tempUser);
+    }
+    handleSuccess({ctx, message: undefined, response: tempUsers});
+  }
+
+  public async delteUsers(ctx: Context) {
+
   }
 }
