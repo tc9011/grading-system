@@ -42,6 +42,7 @@ export class SelfEvaluationComponent implements OnInit {
       contribution: [null, Validators.required],
       group: '',
       role: 0,
+      realName: '',
     });
     this.loadingService.end();
   }
@@ -53,6 +54,10 @@ export class SelfEvaluationComponent implements OnInit {
 
   get group() {
     return this.form.controls.group;
+  }
+
+  get realName() {
+    return this.form.controls.realName;
   }
 
   get role() {
@@ -196,6 +201,7 @@ export class SelfEvaluationComponent implements OnInit {
     this.workNumber.setValue(this.user);
     this.role.setValue(this.authService.currentUser.role);
     this.group.setValue(this.authService.currentUser.group);
+    this.realName.setValue(this.authService.currentUser.realName);
 
     const unFormatMonth: any = this.form.controls.month.value;
     const date = new Date(unFormatMonth);
