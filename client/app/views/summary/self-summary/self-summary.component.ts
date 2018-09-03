@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { NzModalService } from 'ng-zorro-antd';
+
 import { AuthService } from '../../../core/auth/auth.service';
 import { SummaryService } from '../services/summary.service';
 import { SelfEvaluation } from '../../self-evaluation/interfaces/self-evaluation';
@@ -20,7 +22,8 @@ export class SelfSummaryComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private summaryService: SummaryService,
-              private untilService: UntilService) {
+              private untilService: UntilService,
+              private modalService: NzModalService) {
   }
 
   ngOnInit() {
@@ -48,5 +51,9 @@ export class SelfSummaryComponent implements OnInit {
 
   statusFilter(): void {
     this.displayData = this.untilService.statusFilter(this.status, this.tableData);
+  }
+
+  goToDetail(): void {
+    // TODO 模态框封装
   }
 }
