@@ -1,1 +1,29 @@
 <app-page-header [title]="'人员管理'"></app-page-header>
+
+<section class="table-area">
+  <button nz-button nzType="danger" [nzSize]="'large'" [disabled]="disabledButton" (click)="showDeleteConfirm()">删除</button>
+  <nz-table #peopleTable
+            [nzData]="tableData"
+            (nzPageIndexChange)="refreshStatus()"
+            (nzPageSizeChange)="refreshStatus()"
+            (nzCurrentPageDataChange)="currentPageDataChange($event)">
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+      <th nzShowSort nzSortKey="month">工号</th>
+      <th>姓名</th>
+      <th>团队</th>
+      <th>角色</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of peopleTable.data">
+      <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+      <td>{{data.workNumber}}</td>
+      <td>{{data.realName}}</td>
+      <td>{{data.group}}</td>
+      <td>{{data.role}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</section>
