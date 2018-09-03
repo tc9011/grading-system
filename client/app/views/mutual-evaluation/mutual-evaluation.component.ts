@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MutualEvaluationService } from './services/mutual-evaluation.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { InfoForGetStatus, Status } from './interfaces/mutual-evaluation';
+import { UntilService } from '../../core/util/until.service';
 
 @Component({
   selector: 'app-mutual-evaluation',
@@ -20,7 +21,8 @@ export class MutualEvaluationComponent implements OnInit {
 
   constructor(public mutualEvaluationService: MutualEvaluationService,
               private authService: AuthService,
-              private router: Router) {
+              private router: Router,
+              private untilService: UntilService) {
   }
 
   ngOnInit() {
@@ -39,22 +41,9 @@ export class MutualEvaluationComponent implements OnInit {
       (data: Status[]) => {
         this.tableData = data;
         this.displayData = data;
-        this.setProgress();
+        this.progress = this.untilService.setProgress(this.tableData);
       }
     );
-  }
-
-  setProgress(): void {
-    const allPeople = this.tableData.length;
-    let finished = 0;
-    for (const item of this.tableData) {
-      if (item.status) {
-        finished++;
-      }
-    }
-
-    this.progress = Math.round((finished / allPeople) * 100);
-    this.progress = isNaN(this.progress) ? 0 : this.progress;
   }
 
   goToAdd(workNumber: string, realName: string): void {
@@ -71,15 +60,6 @@ export class MutualEvaluationComponent implements OnInit {
   }
 
   statusFilter(): void {
-    if (this.status === 'unfinished') {
-      this.displayData = [];
-      for (const item of this.tableData) {
-        if (!item.status) {
-          this.displayData.push(item);
-        }
-      }
-    } else {
-      this.displayData = this.tableData;
-    }
+    this.displayData = this.untilService.statusFilter(this.status, this.tableData);
   }
 }

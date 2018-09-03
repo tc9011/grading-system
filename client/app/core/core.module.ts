@@ -9,6 +9,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuardLogin } from './auth/auth-guard-login.service';
 import { AuthGuardAdmin } from './auth/auth-guard-admin.service';
 import { AuthGuardCustomer } from './auth/auth-guard-customer.service';
+import { UntilService } from './util/until.service';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { AuthGuardCustomer } from './auth/auth-guard-customer.service';
     StorageService,
     AuthGuardLogin,
     AuthGuardAdmin,
-    AuthGuardCustomer
+    AuthGuardCustomer,
+    UntilService
   ]
 })
 export class CoreModule { }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/auth/auth.service';
 import { SummaryService } from '../services/summary.service';
 import { SelfEvaluation } from '../../self-evaluation/interfaces/self-evaluation';
+import { UntilService } from '../../../core/util/until.service';
 
 @Component({
   selector: 'app-self-summary',
@@ -12,12 +13,14 @@ import { SelfEvaluation } from '../../self-evaluation/interfaces/self-evaluation
 export class SelfSummaryComponent implements OnInit {
   date = null;
   displayData = [];
+  tableData = [];
   formatDate: Date;
   status: string;
   progress = 0;
 
   constructor(private authService: AuthService,
-              private summaryService: SummaryService) {
+              private summaryService: SummaryService,
+              private untilService: UntilService) {
   }
 
   ngOnInit() {
@@ -34,14 +37,16 @@ export class SelfSummaryComponent implements OnInit {
     this.summaryService.getAllSelfEvaluation(group, year, month).subscribe(
       (res: SelfEvaluation[]) => {
         this.displayData = res;
+        this.tableData = res;
         for (const item of this.displayData) {
           item.status = item.share && item.contribution && item.achievement;
         }
+        this.progress = this.untilService.setProgress(this.displayData);
       }
     );
   }
 
   statusFilter(): void {
-
+    this.displayData = this.untilService.statusFilter(this.status, this.tableData);
   }
 }

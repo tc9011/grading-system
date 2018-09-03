@@ -15,7 +15,6 @@ export class SelfSummaryCtrl {
         ctx.throw(500, '查找数据时出错!');
       });
 
-    console.log(selfEvaluations);
     handleSuccess({ctx, message: undefined, response: selfEvaluations});
   }
 }
