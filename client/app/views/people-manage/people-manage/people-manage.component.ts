@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DisplayTableData } from '../../self-evaluation/interfaces/self-evaluation';
+
 import { NzModalService } from 'ng-zorro-antd';
+
+import { DisplayTableData } from '../../self-evaluation/interfaces/self-evaluation';
+import { PeopleManageService } from '../services/people-manage.service';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-people-manage',
@@ -17,9 +21,21 @@ export class PeopleManageComponent implements OnInit {
   indeterminate = false;
   disabledButton = false;
 
-  constructor(private modalService: NzModalService) { }
+  constructor(private modalService: NzModalService,
+              private peopleManageService: PeopleManageService,
+              private authService: AuthService) { }
 
   ngOnInit() {
+    this.getAllGroupUsers();
+  }
+
+  getAllGroupUsers() {
+    const group = this.authService.currentUser.group;
+    this.peopleManageService.getAllGroupUsers(group).subscribe(
+      res => {
+        this.tableData = res;
+      }
+    );
   }
 
   currentPageDataChange($event: Array<DisplayTableData>): void {
@@ -36,7 +52,9 @@ export class PeopleManageComponent implements OnInit {
     this.tmpData = [...this.tableData];
     if (this.sortName && this.sortValue) {
       this.tableData = this.tmpData.sort((a, b) => {
-        return (this.sortValue === 'ascend') ? (a > b ? 1 : -1) : (a > b ? 1 : -1);
+        return (this.sortValue === 'ascend') ?
+          (parseInt(a[this.sortName], 10) > parseInt(b[this.sortName], 10) ? 1 : -1) :
+          (parseInt(b[this.sortName], 10) > parseInt(a[this.sortName], 10) ? 1 : -1);
       });
     } else {
       this.tableData = this.tmpData;
