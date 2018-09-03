@@ -35,35 +35,19 @@ export class SelfEvaluationComponent implements OnInit {
               public msg: NzMessageService,
               private modalService: NzModalService) {
     this.form = this.fb.group({
-      workNumber: '',
+      // workNumber: '',
       month: [null, Validators.required],
       achievement: [null, Validators.required],
       share: [null, Validators.required],
       contribution: [null, Validators.required],
-      group: '',
-      role: 0,
-      realName: '',
+      // group: '',
+      // role: 0,
+      // realName: '',
     });
     this.loadingService.end();
   }
 
   // region: fields
-  get workNumber() {
-    return this.form.controls.workNumber;
-  }
-
-  get group() {
-    return this.form.controls.group;
-  }
-
-  get realName() {
-    return this.form.controls.realName;
-  }
-
-  get role() {
-    return this.form.controls.role;
-  }
-
   get month() {
     return this.form.controls.month;
   }
@@ -143,14 +127,13 @@ export class SelfEvaluationComponent implements OnInit {
     this.refreshStatus();
   }
 
-  showEdit(month: string) {
+  showEdit(month: string) {   // TODO 回选不了数据
     this.isEdit = true;
     this.showModal();
     this.selfEvaluationService.getSelfEvaluationByMonth(this.user, month).subscribe(
       (data: SelfEvaluation) => {
         this.oldMonth = data[0].month;
         const formData = {
-          workNumber: data[0].workNumber,
           month: new Date(data[0].month),
           achievement: data[0].achievement,
           share: data[0].share,
@@ -198,18 +181,19 @@ export class SelfEvaluationComponent implements OnInit {
 
     this.loadingService.begin();
 
-    this.workNumber.setValue(this.user);
-    this.role.setValue(this.authService.currentUser.role);
-    this.group.setValue(this.authService.currentUser.group);
-    this.realName.setValue(this.authService.currentUser.realName);
-
     const unFormatMonth: any = this.form.controls.month.value;
     const date = new Date(unFormatMonth);
     const formatMonth = date.getFullYear() + '-' + (date.getMonth() + 1);
     this.month.setValue(formatMonth);
 
+    const submitData = this.form.value;
+    submitData.workNumber = this.user;
+    submitData.role = this.authService.currentUser.role;
+    submitData.group = this.authService.currentUser.group;
+    submitData.realName = this.authService.currentUser.realName;
+
     this.isEdit ?
-      this.selfEvaluationService.putSelfEvaluation(this.oldMonth, this.form.value).subscribe(
+      this.selfEvaluationService.putSelfEvaluation(this.oldMonth, submitData).subscribe(
         () => {
           this.loadingService.end();
           this.msg.success('修改成功!');
@@ -219,7 +203,7 @@ export class SelfEvaluationComponent implements OnInit {
         }
       )
       :
-      this.selfEvaluationService.postSelfEvaluation(this.form.value).subscribe(
+      this.selfEvaluationService.postSelfEvaluation(submitData).subscribe(
         () => {
           this.loadingService.end();
           this.msg.success('提交成功!');
