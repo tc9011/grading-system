@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { MutualEvaluationService } from './mutual-evaluation.service';
 
-describe('MutualEvaluationService', () => {
+describe('mutualEvaluationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [MutualEvaluationService]

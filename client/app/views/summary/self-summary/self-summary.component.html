@@ -1,3 +1,55 @@
-<p>
-  self-summary works!
-</p>
+<app-page-header [title]="'自评汇总'"></app-page-header>
+
+<section class="summary">
+  <header nz-row>
+    <nz-month-picker [(ngModel)]="date" (ngModelChange)="getStatus($event)" nzPlaceHolder="????"></nz-month-picker>
+
+    <nz-radio-group [(ngModel)]="status" class="mr-md radio-group" (ngModelChange)="statusFilter()">
+      <label nz-radio-button [nzValue]="'all'">
+        <span>全部</span>
+      </label>
+      <label nz-radio-button [nzValue]="'unfinished'">
+        <span>未完成</span>
+      </label>
+    </nz-radio-group>
+  </header>
+
+  <div class="container">
+    <div class="progress">
+      <p>当月自评进度</p>
+      <nz-progress [nzPercent]="progress" [nzWidth]="200" nzType="circle"></nz-progress>
+    </div>
+
+    <div class="table-area">
+      <nz-table #selfSummaryTable
+                [nzData]="displayData">
+        <thead>
+        <tr>
+          <th>姓名</th>
+          <th>工号</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of selfSummaryTable.data">
+          <td>{{data.realName}}</td>
+          <td>{{data.workNumber}}</td>
+          <td>
+            <ng-container *ngIf="data.status">
+              <nz-badge nzStatus="success" nzText="已填写"></nz-badge>
+            </ng-container>
+            <ng-container *ngIf="!data.status">
+              <nz-badge nzStatus="error" nzText="未填写"></nz-badge>
+            </ng-container>
+          </td>
+          <td>
+            <a (click)="goToAdd(data.workNumber, data.realName)">查看</a>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+
+</section>

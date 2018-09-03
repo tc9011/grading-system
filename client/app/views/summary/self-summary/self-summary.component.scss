@@ -1,0 +1,27 @@
+@import "../../../../assets/css/variable/color";
+@import "../../../../assets/css/variable/font";
+
+.summary {
+  margin: 0 24px 24px;
+  .container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 60px;
+  }
+  .radio-group {
+    float: right;
+  }
+  .table-area {
+    width: 100%;
+  }
+  .progress {
+    display: inline-block;
+    text-align: center;
+    margin-right: 30px;
+    p {
+      color: $grey-9;
+      font-size: $h4-font-size;
+      margin-bottom: 20px;
+    }
+  }
+}

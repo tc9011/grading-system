@@ -18,7 +18,7 @@ export class MutualEvaluationComponent implements OnInit {
   formatDate: Date;
   status = 'all';
 
-  constructor(public MutualEvaluationService: MutualEvaluationService,
+  constructor(public mutualEvaluationService: MutualEvaluationService,
               private authService: AuthService,
               private router: Router) {
   }
@@ -35,7 +35,7 @@ export class MutualEvaluationComponent implements OnInit {
       group: this.authService.currentUser.group,
       month: this.formatDate.getFullYear() + '-' + (this.formatDate.getMonth() + 1),
     };
-    this.MutualEvaluationService.getStatus(infoForGetStatus).subscribe(
+    this.mutualEvaluationService.getStatus(infoForGetStatus).subscribe(
       (data: Status[]) => {
         this.tableData = data;
         this.displayData = data;
