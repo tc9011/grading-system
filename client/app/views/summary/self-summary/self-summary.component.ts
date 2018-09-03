@@ -34,10 +34,11 @@ export class SelfSummaryComponent implements OnInit {
   getStatus(result: Date): void {
     this.formatDate = new Date(result);
 
+    const workNumber = this.authService.currentUser.workNumber;
     const group = this.authService.currentUser.group;
     const year = this.formatDate.getFullYear().toString();
     const month = (this.formatDate.getMonth() + 1).toString();
-    this.summaryService.getAllSelfEvaluation(group, year, month).subscribe(
+    this.summaryService.getAllSelfEvaluation(workNumber, group, year, month).subscribe(
       (res: SelfEvaluation[]) => {
         this.displayData = res;
         this.tableData = res;
