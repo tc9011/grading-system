@@ -6,7 +6,7 @@ const router = new Router();
 const selfSummaryCtrl = new SelfSummaryCtrl();
 
 router
-  .get('/group/:group/year/:year/month/:month', selfSummaryCtrl.getAllSelfEvaluationInfo)
+  .get('/workNumber/:workNumber/group/:group/year/:year/month/:month', selfSummaryCtrl.getAllSelfEvaluationInfo);
 
 export { router as selfSummaryRouter };
 
