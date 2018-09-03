@@ -36,7 +36,7 @@
   </nz-table>
 </section>
 
-<nz-modal [(nzVisible)]="isVisible" nzWidth="900" nzMaskClosable="false" nzTitle="Modal Title" (nzOnCancel)="handleCancel()" (nzOnOk)="submit()" [nzOkLoading]="loadingService.loading">
+<nz-modal [(nzVisible)]="isVisible" nzWidth="900" nzMaskClosable="false" nzTitle="自评" (nzOnCancel)="handleCancel()" (nzOnOk)="submit()" [nzOkLoading]="loadingService.loading">
   <form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
     <!--日期-->
     <nz-form-item>
