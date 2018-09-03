@@ -46,6 +46,11 @@ const routes: Routes = [
         path: 'peoplemanage',
         loadChildren: './people-manage/people-manage.module#PeopleManageModule',
         canLoad: [AuthGuardAdmin],
+      },
+      {
+        path: 'summary',
+        loadChildren: './summary/summary.module#SummaryModule',
+        canLoad: [AuthGuardAdmin],
       }
     ]
   },

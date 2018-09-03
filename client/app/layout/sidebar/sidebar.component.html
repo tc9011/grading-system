@@ -16,10 +16,10 @@
     <li *ngIf="authService.isAdmin" nz-menu-item routerLink="/peoplemanage" routerLinkActive="ant-menu-item-selected">
       <span title><i class="anticon anticon-usergroup-delete"></i>人员管理</span>
     </li>
-    <li *ngIf="authService.isAdmin" nz-menu-item routerLinkActive="ant-menu-item-selected">
+    <li *ngIf="authService.isAdmin" nz-menu-item routerLink="/summary/self" routerLinkActive="ant-menu-item-selected">
       <span title><i class="anticon anticon-form"></i>自评汇总</span>
     </li>
-    <li *ngIf="authService.isAdmin" nz-menu-item routerLinkActive="ant-menu-item-selected">
+    <li *ngIf="authService.isAdmin" nz-menu-item routerLink="/summary/mutual" routerLinkActive="ant-menu-item-selected">
       <span title><i class="anticon anticon-api"></i>互评汇总</span>
     </li>
   </ul>
