@@ -8,10 +8,8 @@ export class PeopleManageCtrl extends BaseCtrl {
   model = UserModel;
 
   public async getAllGroupUsers(ctx: Context) {
-    console.log('ok');
     const group = ctx.params.group;
 
-    console.log(group);
     const users = await UserModel
       .find({group: group})
       .catch(err => {
