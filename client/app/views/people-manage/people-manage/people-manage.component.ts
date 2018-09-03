@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NzModalService } from 'ng-zorro-antd';
+import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 
 import { DisplayTableData } from '../../self-evaluation/interfaces/self-evaluation';
 import { PeopleManageService } from '../services/people-manage.service';
@@ -24,7 +24,9 @@ export class PeopleManageComponent implements OnInit {
 
   constructor(private modalService: NzModalService,
               private peopleManageService: PeopleManageService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              public msg: NzMessageService) {
+  }
 
   ngOnInit() {
     this.getAllGroupUsers();
@@ -35,6 +37,9 @@ export class PeopleManageComponent implements OnInit {
     this.peopleManageService.getAllGroupUsers(group).subscribe(
       (res: GetPeopleInfo[]) => {
         this.tableData = res;
+        this.tableData.forEach(value => {
+          value.checked = false;
+        });
       }
     );
   }
@@ -77,11 +82,34 @@ export class PeopleManageComponent implements OnInit {
 
   showDeleteConfirm(): void {
     this.modalService.confirm({
-      nzTitle     : '确定要删除选中的自评吗?',
-      nzOkText    : '确定',
-      nzOkType    : 'danger',
+      nzTitle: '确定要删除选中的自评吗?',
+      nzOkText: '确定',
+      nzOkType: 'danger',
+      nzOnOk: this.delete.bind(this),
       nzCancelText: '取消',
       nzIconType: 'exclamation-circle'
     });
+  }
+
+  delete(): void {
+    const checkedData = [];
+
+    this.tableData.forEach(data => {
+      if (data.checked) {
+        const tempData = {
+          workNumber: data.workNumber,
+          role: data.role,
+          group: data.group,
+        };
+        checkedData.push(tempData);
+      }
+    });
+
+    this.peopleManageService.deleteUsers(checkedData).subscribe(
+      () => {
+        this.msg.success('删除成功!');
+        this.getAllGroupUsers();
+      }
+    );
   }
 }

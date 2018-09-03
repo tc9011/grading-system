@@ -4,3 +4,9 @@ export interface GetPeopleInfo {
   group: string;
   role: number;
 }
+
+export interface DeleteInfo {
+  workNumber: string;
+  role: number;
+  group: string;
+}
