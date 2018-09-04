@@ -56,15 +56,6 @@ export class MutualSummaryCtrl {
     const body: any = ctx.request.body;
     const { group, month } = body;
     const responseData = [];
-    /*const responseItem = {
-      workNumber: '',
-      group: '',
-      realName: '',
-      score: '',
-      status: '',
-      month: '',
-      project: ''
-    }*/
 
     // 查user表中同组人员
     const users: any = await UserModel
@@ -76,6 +67,13 @@ export class MutualSummaryCtrl {
 
     // 查当月同组人员的所有互评
     const mutualEvaluations: any = await MutualEvaluationModel
+      .find({ group: group, month: month })
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, '查找数据时出错!');
+      });
+
+    const mutualEvaluationStatuses: any = await MutualEvaluationStatusModel
       .find({ group: group, month: month })
       .catch(err => {
         console.log(err);
@@ -95,13 +93,27 @@ export class MutualSummaryCtrl {
           project: filter,
         };
 
-        let totalScore = 0;
+        // 计算score
         for (const mutualEvaluation of  mutualEvaluations) {
           if (user.workNumber === mutualEvaluation.workNumber) {
-
+            responseItem.score += filter === 'all' ?
+              mutualEvaluation.shareRate + mutualEvaluation.achievementRate + mutualEvaluation.contributionRate :
+              mutualEvaluation[filter + 'Rate'];
           }
         }
+
+        // 计算status状态
+        let statusCount = 0;
+        for (const mutualEvaluationStatus of mutualEvaluationStatuses) {
+          if (user.workNumber === mutualEvaluationStatus.owner && mutualEvaluationStatus.status) {
+            statusCount++;
+          }
+        }
+        // statusCount等于该组用户数减去自己和管理员时，表示该用户互评完成
+        responseItem.status = statusCount === (users.length - 2);
+        responseData.push(responseItem);
       }
     }
+    handleSuccess({ctx, message: undefined, response: responseData});
   }
 }
