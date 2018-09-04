@@ -36,7 +36,6 @@ export class MutualSummaryCtrl {
           // 如果owner和user的工号相同，且互评为完成状态
           if (status.owner === user.workNumber && status.status) {
             finishedCount++;
-            console.log('finshedCount: ' + finishedCount);
           }
         }
         if (finishedCount === allUserLength - 1) {
