@@ -58,11 +58,20 @@ export class MutualEvaluationCtrl extends BaseCtrl {
 
   public async save(ctx: Context) {
     const body: any = ctx.request.body;
-    const {owner, workNumber, group, month, status} = body;
+    const {owner, workNumber, group, month, realName, status} = body;
 
+    const newStatus = {
+      role: 0,
+      status: status,
+      owner: owner,
+      month: month,
+      workNumber: workNumber,
+      realName: realName,
+      group: group,
+    };
     // 更新status中的状态
     await MutualEvaluationStatusModel
-      .update({owner: owner, workNumber: workNumber, group: group, month: month}, {status: status})
+      .update({owner: owner, workNumber: workNumber, group: group, month: month}, newStatus, {upsert: true})
       .catch(err => {
         console.log(err);
         ctx.throw(500, 'update出错');
