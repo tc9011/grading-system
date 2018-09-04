@@ -38,7 +38,7 @@ export class AddAndEditComponent implements OnInit {
               private authService: AuthService) {
 
   }
-
+  // TODO 打分校验
   ngOnInit() {
     this.realName = this.route.snapshot.queryParams.realName;
     this.route.params.subscribe((params: Params) => {

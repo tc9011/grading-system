@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { SummaryService } from '../services/summary.service';
 import { AuthService } from '../../../core/auth/auth.service';
+import { MutualSummaryData } from '../interfaces/summary';
 
 @Component({
   selector: 'app-mutual-summary',
@@ -11,12 +12,18 @@ import { AuthService } from '../../../core/auth/auth.service';
 export class MutualSummaryComponent implements OnInit {
   date = null;
   progress = 0;
-  status = 'all';
+  status: 'all' | 'achievement' | 'share' | 'contribution';
   displayData = [];
   formatDate: Date;
+  tops = [];
 
   constructor(private summaryService: SummaryService,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+    this.status = 'all';
+    for (let i = 0; i < 3; i++) {     // TODO 异步数据不赋初值可以避免can't read property错误？
+      this.tops.push({realName: '', workNumber: '', score: 0});
+    }
+  }
 
   ngOnInit() {
     this.date = new Date(Date.now());
@@ -34,9 +41,31 @@ export class MutualSummaryComponent implements OnInit {
         this.progress = res;
       }
     );
+    this.statusFilter();
   }
 
-  statusFilter() {}
+  statusFilter() {
+    const year = this.formatDate.getFullYear().toString();
+    const month = (this.formatDate.getMonth() + 1).toString();
+    const data = {
+      group: this.authService.currentUser.group,
+      month: year + '-' + month,
+    };
+
+    this.summaryService.getMutualSummaryData(this.status, data).subscribe(
+      (res: MutualSummaryData[]) => {
+        this.displayData = res;
+        let tempData = [...this.displayData];
+        tempData.sort((a, b) => {
+          return a.score < b.score ? 1 : -1;
+        });
+        this.tops = [];
+        for (let i = 0; i < 3; i++) {
+          this.tops.push(tempData[i]);
+        }
+      }
+    );
+  }
 
   goToDetail(workNumber: string) {
 

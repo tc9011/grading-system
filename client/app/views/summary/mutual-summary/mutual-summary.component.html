@@ -30,9 +30,9 @@
         <div nz-row nzType="flex" nzAlign="middle" class="bg-yellow rounded-md">
           <div nz-col nzSpan="12" class="p-md text-white">
             <p class="text-nowrap">Top 1</p>
-            <div>123,456</div>
-            <div>123,456</div>
-            <div>123,456</div>
+            <div>{{tops[0].realName}}</div>
+            <div>{{tops[0].workNumber}}</div>
+            <div>{{tops[0].score}}</div>
           </div>
         </div>
       </div>
@@ -40,9 +40,9 @@
         <div nz-row nzType="flex" nzAlign="middle" class="bg-silver rounded-md">
           <div nz-col nzSpan="12" class="p-md text-white">
             <p class="text-nowrap">Top 2</p>
-            <div>123,456</div>
-            <div>123,456</div>
-            <div>123,456</div>
+            <div>{{tops[1].realName}}</div>
+            <div>{{tops[1].workNumber}}</div>
+            <div>{{tops[1].score}}</div>
           </div>
         </div>
       </div>
@@ -50,9 +50,9 @@
         <div nz-row nzType="flex" nzAlign="middle" class="bg-gold rounded-md">
           <div nz-col nzSpan="12" class="p-md text-white">
             <p class="text-nowrap">Top 3</p>
-            <div>123,456</div>
-            <div>123,456</div>
-            <div>123,456</div>
+            <div>{{tops[2].realName}}</div>
+            <div>{{tops[2].workNumber}}</div>
+            <div>{{tops[2].score}}</div>
           </div>
         </div>
       </div>
@@ -80,10 +80,10 @@
         </td>
         <td>
           <ng-container *ngIf="data.status">
-            <nz-badge nzStatus="success" nzText="已填写"></nz-badge>
+            <nz-badge nzStatus="success" nzText="已完成"></nz-badge>
           </ng-container>
           <ng-container *ngIf="!data.status">
-            <nz-badge nzStatus="error" nzText="未填写"></nz-badge>
+            <nz-badge nzStatus="error" nzText="未完成"></nz-badge>
           </ng-container>
         </td>
         <td>
