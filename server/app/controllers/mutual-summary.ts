@@ -115,4 +115,39 @@ export class MutualSummaryCtrl {
     }
     handleSuccess({ctx, message: undefined, response: responseData});
   }
+
+  public async getMutualOfTarget(ctx: Context) {
+    const body: any = ctx.request.body;
+    const { workNumber, group, month, filter } = body;
+    let responseData = [];
+
+    // 查指定人员的所有互评
+    const mutualEvaluations: any = await MutualEvaluationModel
+      .find({ workNumber: workNumber, group: group, month: month })
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, '查找数据时出错!');
+      });
+
+    if (filter !== 'all') {
+      const upperCaseFilter = filter.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase());
+
+      // 筛选对应互评
+      for (const mutualEvaluation of mutualEvaluations) {
+        const responseItem = {
+          owner: mutualEvaluation.owner,
+          ownerRealName: mutualEvaluation.ownerRealName,
+        };
+
+        responseItem[filter + 'Rate'] = mutualEvaluation[filter + 'Rate'];
+        responseItem['mutual' + upperCaseFilter] = mutualEvaluation['mutual' + upperCaseFilter];
+
+        responseData.push(responseItem);
+      }
+    } else {
+      responseData = mutualEvaluations;
+    }
+
+    handleSuccess({ctx, message: undefined, response: responseData});
+  }
 }
