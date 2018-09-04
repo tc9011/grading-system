@@ -12,6 +12,13 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
     const body: any = ctx.request.body;
     const {workNumber, group, month} = body;    // 这里前端传过来的month不是Date，是类似'2018-9'的字符串
 
+    let allStatus: any = await MutualEvaluationStatusModel
+      .find({owner: workNumber, month: month})
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, '查找数据时出错!');
+      });
+
     // 查user表中同组人员
     const users: any = await UserModel
       .find({group: group})
@@ -19,6 +26,8 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
         console.log(err);
         ctx.throw(500, '查找数据时出错!');
       });
+
+
 
     for (const user of users) {
       // users中剔除登录者和管理员的信息
@@ -43,23 +52,12 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
             role: user.role,
             status: false,
           };
-          const mutualEvaluationStatus = new MutualEvaluationStatusModel(newStatus);
-          await mutualEvaluationStatus
-            .save()
-            .catch(err => {
-              console.log(err);
-              ctx.throw(500, '保存数据库时出错');
-            });
+          allStatus.push(newStatus);
         }
       }
     }
 
-    const allStatus = await MutualEvaluationStatusModel
-      .find({owner: workNumber, month: month})
-      .catch(err => {
-        console.log(err);
-        ctx.throw(500, '查找数据时出错!');
-      });
+
     handleSuccess({ctx, message: undefined, response: allStatus});
   }
 }

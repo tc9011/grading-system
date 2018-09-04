@@ -2,7 +2,6 @@ import { Context } from 'koa';
 import { SelfEvaluationModel } from '../models/self-evaluation';
 import { handleSuccess } from '../../utils/handle';
 import { UserModel } from '../models/user';
-import { MutualEvaluationStatusModel } from '../models/mutual-evaluation-status';
 
 export class SelfSummaryCtrl {
   public async getAllSelfEvaluationInfo(ctx: Context) {
