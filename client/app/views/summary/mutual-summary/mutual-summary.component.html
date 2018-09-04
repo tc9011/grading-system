@@ -106,15 +106,19 @@
         <nz-list-item [nzContent]="nzContent" [nzExtra]="extra">
           <nz-list-item-meta
             [nzAvatar]="item.avatar"
-            [nzTitle]="nzTitle"
-            [nzDescription]="item.mutualAchievement">
-            <ng-template #nzTitle><a href="{{item.href}}">{{item.ownerRealName}}</a></ng-template>
+            [nzTitle]="'业绩'"
+            [nzDescription]="nzDescription">
+            <ng-template #nzDescription>
+              <nz-rate [(ngModel)]="item.achievementRate" [nzCount]="10" nzDisabled></nz-rate>
+            </ng-template>
             <ng-template #nzContent>
-              <nz-rate [(ngModel)]="item.achievementRate" [nzCount]="10"></nz-rate>
+              {{item.mutualAchievement}}
             </ng-template>
           </nz-list-item-meta>
           <ng-template #extra>
-            <img width="272" alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png">
+            <p class="name-block">
+              {{item.ownerRealName}}
+            </p>
           </ng-template>
         </nz-list-item>
       </ng-container>
@@ -122,15 +126,19 @@
         <nz-list-item [nzContent]="nzContent" [nzExtra]="extra">
           <nz-list-item-meta
             [nzAvatar]="item.avatar"
-            [nzTitle]="nzTitle"
-            [nzDescription]="item.mutualShare">
-            <ng-template #nzTitle><a href="{{item.href}}">{{item.ownerRealName}}</a></ng-template>
+            [nzTitle]="'共享和主动性'"
+            [nzDescription]="nzDescription">
+            <ng-template #nzDescription>
+              <nz-rate [(ngModel)]="item.shareRate" [nzCount]="10" nzDisabled></nz-rate>
+            </ng-template>
             <ng-template #nzContent>
-              <nz-rate [(ngModel)]="item.shareRate" [nzCount]="10"></nz-rate>
+              {{item.mutualShare}}
             </ng-template>
           </nz-list-item-meta>
           <ng-template #extra>
-            <img width="272" alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png">
+            <p class="name-block">
+              {{item.ownerRealName}}
+            </p>
           </ng-template>
         </nz-list-item>
       </ng-container>
@@ -138,15 +146,19 @@
         <nz-list-item [nzContent]="nzContent" [nzExtra]="extra">
           <nz-list-item-meta
             [nzAvatar]="item.avatar"
-            [nzTitle]="nzTitle"
-            [nzDescription]="item.mutualContribution">
-            <ng-template #nzTitle><a href="{{item.href}}">{{item.ownerRealName}}</a></ng-template>
+            [nzTitle]="'团队贡献'"
+            [nzDescription]="nzDescription">
+            <ng-template #nzDescription>
+              <nz-rate [(ngModel)]="item.contributionRate" [nzCount]="10" nzDisabled></nz-rate>
+            </ng-template>
             <ng-template #nzContent>
-              <nz-rate [(ngModel)]="item.contributionRate" [nzCount]="10"></nz-rate>
+              {{item.mutualContribution}}
             </ng-template>
           </nz-list-item-meta>
           <ng-template #extra>
-            <img width="272" alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png">
+            <p class="name-block">
+              {{item.ownerRealName}}
+            </p>
           </ng-template>
         </nz-list-item>
       </ng-container>

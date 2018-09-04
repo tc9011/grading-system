@@ -1,4 +1,5 @@
 @import "../../../../assets/css/variable/basic-class";
+@import "../../../../assets/css/variable/font";
 
 .container {
   margin: 0 24px 24px;
@@ -12,5 +13,13 @@
   .top-card {
     width: 150px;
   }
+}
+
+.name-block {
+  width: 172px;
+  height: 172px;
+  line-height: 172px;
+  text-align: center;
+  font-size: $h1-font-size;
 }
 
