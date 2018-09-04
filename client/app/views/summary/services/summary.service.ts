@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpService } from '../../../core/http/http.service';
 import { Observable } from 'rxjs';
-import { MutualSummaryData, MutualSummaryParameter } from '../interfaces/summary';
+import { DetailPostData, MutualSummaryData, MutualSummaryParameter } from '../interfaces/summary';
 
 @Injectable()
 export class SummaryService {
@@ -34,5 +34,10 @@ export class SummaryService {
     data: MutualSummaryParameter
   ): Observable<MutualSummaryData[]> {
     return this.httpService.postData('/api/v1/mutualsummary/filter/' + filter, data);
+  }
+
+  // 互评详情
+  public getMutualEvaluationDetails(data: DetailPostData): Observable<any[]> {
+    return this.httpService.postData('/api/v1/mutualsummary/details', data);
   }
 }

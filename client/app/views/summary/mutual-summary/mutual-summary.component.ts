@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { SummaryService } from '../services/summary.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { MutualSummaryData } from '../interfaces/summary';
+import { ModalService } from '../../../core/modal/modal.service';
 
 @Component({
   selector: 'app-mutual-summary',
@@ -16,9 +17,11 @@ export class MutualSummaryComponent implements OnInit {
   displayData = [];
   formatDate: Date;
   tops = [];
+  details = [];
 
   constructor(private summaryService: SummaryService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              public modalService: ModalService,) {
     this.status = 'all';
     for (let i = 0; i < 3; i++) {     // TODO 异步数据不赋初值可以避免can't read property错误？
       this.tops.push({realName: '', workNumber: '', score: 0});
@@ -68,6 +71,19 @@ export class MutualSummaryComponent implements OnInit {
   }
 
   goToDetail(workNumber: string) {
-
+    const year = this.formatDate.getFullYear().toString();
+    const month = (this.formatDate.getMonth() + 1).toString();
+    const postData = {
+      workNumber: workNumber,
+      group: this.authService.currentUser.group,
+      month: year + '-' + month,
+      filter: this.status,
+    };
+    this.summaryService.getMutualEvaluationDetails(postData).subscribe(
+      (res: any[]) => {
+        this.details = res;
+        this.modalService.open();
+      }
+    );
   }
 }

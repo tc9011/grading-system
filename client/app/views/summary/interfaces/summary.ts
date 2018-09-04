@@ -12,3 +12,10 @@ export interface MutualSummaryParameter {
   group: string;
   month: string;
 }
+
+export interface DetailPostData {
+  workNumber: string;
+  group: string;
+  month: string;
+  filter: string;
+}
