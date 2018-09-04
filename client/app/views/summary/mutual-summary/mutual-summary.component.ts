@@ -70,6 +70,7 @@ export class MutualSummaryComponent implements OnInit {
     );
   }
 
+  // TODO 分数排序
   goToDetail(workNumber: string) {
     const year = this.formatDate.getFullYear().toString();
     const month = (this.formatDate.getMonth() + 1).toString();
