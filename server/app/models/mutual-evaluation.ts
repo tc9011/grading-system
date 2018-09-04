@@ -5,6 +5,9 @@ class MutualEvaluationSchema extends Typegoose {
   owner: string;
 
   @prop({required: true})
+  ownerRealName: string;
+
+  @prop({required: true})
   month: string;
 
   @prop({required: true})

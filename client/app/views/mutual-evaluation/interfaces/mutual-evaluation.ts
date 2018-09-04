@@ -38,6 +38,7 @@ export interface GetMutualEvaluation {
 
 export interface MutualEvaluation {
   owner: string;
+  ownerRealName: string;
   month: string;
   workNumber: string;
   realName: string;

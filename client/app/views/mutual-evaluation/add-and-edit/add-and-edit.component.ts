@@ -67,6 +67,7 @@ export class AddAndEditComponent implements OnInit {
     const isFinished = this.mutualEvaluation.achievementRate !== 0 && this.mutualEvaluation.shareRate !== 0 && this.mutualEvaluation.contributionRate !== 0;
     const data: MutualEvaluation = {
       owner: this.authService.currentUser.workNumber,
+      ownerRealName: this.authService.currentUser.realName,
       month: this.year + '-' + this.month,
       workNumber: this.workNumber,
       realName: this.realName,
