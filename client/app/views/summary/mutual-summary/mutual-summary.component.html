@@ -22,15 +22,66 @@
       <nz-progress [nzPercent]="progress" [nzWidth]="200" nzType="circle"></nz-progress>
     </div>
 
-    <div class="table-area">
-      <nz-card style="width:300px;" nzTitle="Top 3">
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </nz-card>
-      这里顶上是top3
-      下面是全团队成员表格，取成员可能要单独接口？表格里面有分数
-      成员点进去是其他人对他的评价以及分数
+    <div nz-row nzGutter="16" class="card-area">
+      <div nz-col nzXs="24" nzSm="12" nzMd="6" class="top-card">
+        <div nz-row nzType="flex" nzAlign="middle" class="bg-yellow rounded-md">
+          <div nz-col nzSpan="12" class="p-md text-white">
+            <p class="text-nowrap">Top 1</p>
+            <div>123,456</div>
+            <div>123,456</div>
+            <div>123,456</div>
+          </div>
+        </div>
+      </div>
+      <div nz-col nzXs="24" nzSm="12" nzMd="6" class="top-card">
+        <div nz-row nzType="flex" nzAlign="middle" class="bg-silver rounded-md">
+          <div nz-col nzSpan="12" class="p-md text-white">
+            <p class="text-nowrap">Top 2</p>
+            <div>123,456</div>
+            <div>123,456</div>
+            <div>123,456</div>
+          </div>
+        </div>
+      </div>
+      <div nz-col nzXs="24" nzSm="12" nzMd="6" class="top-card">
+        <div nz-row nzType="flex" nzAlign="middle" class="bg-gold rounded-md">
+          <div nz-col nzSpan="12" class="p-md text-white">
+            <p class="text-nowrap">Top 3</p>
+            <div>123,456</div>
+            <div>123,456</div>
+            <div>123,456</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <div class="table-area">
+    这里顶上是top3
+    下面是全团队成员表格，取成员可能要单独接口？表格里面有分数
+    成员点进去是其他人对他的评价以及分数
+    <nz-table #selfSummaryTable
+              [nzData]="displayData">
+      <thead>
+      <tr>
+        <th>姓名</th>
+        <th>工号</th>
+        <th>分数</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of selfSummaryTable.data">
+        <td>{{data.realName}}</td>
+        <td>{{data.workNumber}}</td>
+        <td>
+          {{data.score}}
+        </td>
+        <td>
+          <a (click)="goToDetail(data.workNumber)">查看</a>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
   </div>
 </section>

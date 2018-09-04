@@ -9,6 +9,7 @@ export class MutualSummaryComponent implements OnInit {
   date = null;
   progress = 0;
   status = 'achievement';
+  displayData = [];
 
   constructor() { }
 
@@ -22,4 +23,7 @@ export class MutualSummaryComponent implements OnInit {
 
   statusFilter() {}
 
+  goToDetail(workNumber: string) {
+
+  }
 }

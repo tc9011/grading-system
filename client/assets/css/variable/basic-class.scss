@@ -1,0 +1,37 @@
+@import "color";
+
+.text-white {
+  color: $white;
+}
+
+.rounded-md {
+  border-radius: 4px!important;
+}
+
+.p-md {
+  padding: 16px!important;
+}
+
+.text-nowrap {
+  white-space: nowrap!important;
+}
+
+.bg-primary {
+  background-color: $blue-6!important;
+}
+
+.bg-success {
+  background-color: $green-6!important;
+}
+
+.bg-gold {
+  background-color: $gold-6!important;
+}
+
+.bg-yellow {
+  background-color: $yellow-6!important;
+}
+
+.bg-silver {
+  background-color: $grey-7!important;
+}

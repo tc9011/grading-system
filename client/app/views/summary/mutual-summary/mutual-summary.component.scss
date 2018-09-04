@@ -1,3 +1,15 @@
+@import "../../../../assets/css/variable/basic-class";
+
 .container {
   margin: 0 24px 24px;
 }
+
+.card-area {
+  display: flex;
+  align-items: center;
+  margin:  0 auto!important;
+  .top-card {
+    width: 150px;
+  }
+}
+
