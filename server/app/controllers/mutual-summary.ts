@@ -3,6 +3,7 @@ import { Context } from 'koa';
 import { MutualEvaluationStatusModel } from '../models/mutual-evaluation-status';
 import { handleSuccess } from '../../utils/handle';
 import { UserModel } from '../models/user';
+import { MutualEvaluationModel } from '../models/mutual-evaluation';
 
 export class MutualSummaryCtrl {
   public async getProgress(ctx: Context) {
@@ -48,5 +49,59 @@ export class MutualSummaryCtrl {
     let progress = Math.round((finishedLength / allUserLength) * 100);
     progress = isNaN(progress) ? 0 : progress;
     handleSuccess({ctx, message: undefined, response: progress});
+  }
+
+  public async getTargetMutualSummary(ctx: Context) {
+    const filter = ctx.params.filter;
+    const body: any = ctx.request.body;
+    const { group, month } = body;
+    const responseData = [];
+    /*const responseItem = {
+      workNumber: '',
+      group: '',
+      realName: '',
+      score: '',
+      status: '',
+      month: '',
+      project: ''
+    }*/
+
+    // 查user表中同组人员
+    const users: any = await UserModel
+      .find({ group: group })
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, '查找数据时出错!');
+      });
+
+    // 查当月同组人员的所有互评
+    const mutualEvaluations: any = await MutualEvaluationModel
+      .find({ group: group, month: month })
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, '查找数据时出错!');
+      });
+
+    for (const user of users) {
+      // 排除管理员
+      if (user.role < 10) {
+        const responseItem = {
+          workNumber: user.workNumber,
+          group: user.group,
+          realName: user.realName,
+          score: 0,
+          status: false,
+          month: month,
+          project: filter,
+        };
+
+        let totalScore = 0;
+        for (const mutualEvaluation of  mutualEvaluations) {
+          if (user.workNumber === mutualEvaluation.workNumber) {
+
+          }
+        }
+      }
+    }
   }
 }

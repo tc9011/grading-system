@@ -11,7 +11,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 export class MutualSummaryComponent implements OnInit {
   date = null;
   progress = 0;
-  status = 'achievement';
+  status = 'all';
   displayData = [];
   formatDate: Date;
 

@@ -6,7 +6,8 @@ const router = new Router();
 const mutualSummaryCtrl = new MutualSummaryCtrl();
 
 router
-  .get('/group/:group/year/:year/month/:month', mutualSummaryCtrl.getProgress);
+  .get('/group/:group/year/:year/month/:month', mutualSummaryCtrl.getProgress)
+  .post('/filter/:filter', mutualSummaryCtrl.getTargetMutualSummary);
 
 export { router as mutualSummaryRouter };
 
