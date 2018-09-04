@@ -8,7 +8,7 @@ class MutualEvaluationSchema extends Typegoose {
   month: string;
 
   @prop({required: true})
-  workNumber: string;
+  workNumber: string;         // 登陆者互评对象的工号
 
   @prop({required: true})
   realName: string;
@@ -31,7 +31,7 @@ class MutualEvaluationSchema extends Typegoose {
     required: true,
     default: false,
   })
-  status: boolean;
+  status: boolean;    // 互评的状态
 
   @prop({
     default: '',

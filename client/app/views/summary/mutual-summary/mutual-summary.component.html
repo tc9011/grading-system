@@ -4,6 +4,9 @@
   <header nz-row>
     <nz-month-picker [(ngModel)]="date" (ngModelChange)="getStatus($event)" nzPlaceHolder="请选择月份"></nz-month-picker>
     <nz-radio-group [(ngModel)]="status" class="mr-md radio-group" (ngModelChange)="statusFilter()">
+      <label nz-radio-button [nzValue]="'all'">
+        <span>全部</span>
+      </label>
       <label nz-radio-button [nzValue]="'achievement'">
         <span>业绩</span>
       </label>

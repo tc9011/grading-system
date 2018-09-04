@@ -80,7 +80,7 @@ export class SelfEvaluationCtrl extends BaseCtrl {
     const {workNumber, month}= data;
 
     // 新的月份和原月份不等时，先检查新月份在数据库中是否有重复，再删除数据库中老数据    // TODO 代码重复，记得重构
-    if (oldMonth != month) {
+    if (oldMonth !== month) {
       const selfEvaluations: any = await SelfEvaluationModel
         .find({workNumber: workNumber})
         .catch(err => {

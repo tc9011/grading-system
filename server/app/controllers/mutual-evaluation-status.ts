@@ -12,7 +12,7 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
     const body: any = ctx.request.body;
     const {workNumber, group, month} = body;    // 这里前端传过来的month不是Date，是类似'2018-9'的字符串
 
-    let allStatus: any = await MutualEvaluationStatusModel
+    const allStatus: any = await MutualEvaluationStatusModel
       .find({owner: workNumber, month: month})
       .catch(err => {
         console.log(err);
@@ -26,7 +26,6 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
         console.log(err);
         ctx.throw(500, '查找数据时出错!');
       });
-
 
 
     for (const user of users) {
@@ -50,7 +49,7 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
             realName: user.realName,
             group: user.group,
             role: user.role,
-            status: false,
+            status: false,    // 登录者对该对象的互评完成的状态
           };
           allStatus.push(newStatus);
         }
