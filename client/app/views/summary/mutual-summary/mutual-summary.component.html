@@ -62,11 +62,11 @@
   <div class="table-area">
     <nz-table #selfSummaryTable
               [nzData]="displayData">
-      <thead>
+      <thead (nzSortChange)="sort($event)" nzSingleSort>
       <tr>
         <th>姓名</th>
         <th>工号</th>
-        <th>分数</th>
+        <th nzShowSort nzSortKey="score">分数</th>
         <th>互评完成状态</th>
         <th>操作</th>
       </tr>

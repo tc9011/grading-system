@@ -18,6 +18,8 @@ export class MutualSummaryComponent implements OnInit {
   formatDate: Date;
   tops = [];
   details = [];
+  sortName = null;
+  sortValue = null;
 
   constructor(private summaryService: SummaryService,
               private authService: AuthService,
@@ -70,7 +72,6 @@ export class MutualSummaryComponent implements OnInit {
     );
   }
 
-  // TODO 分数排序
   goToDetail(workNumber: string) {
     const year = this.formatDate.getFullYear().toString();
     const month = (this.formatDate.getMonth() + 1).toString();
@@ -86,5 +87,22 @@ export class MutualSummaryComponent implements OnInit {
         this.modalService.open();
       }
     );
+  }
+
+  sort(sort: { key: string, value: string }): void {
+    this.sortName = sort.key;
+    this.sortValue = sort.value;
+    this.search();
+  }
+
+  search(): void {
+    let tmpData = [...this.displayData];
+    if (this.sortName && this.sortValue) {
+      this.displayData = tmpData.sort((a, b) => {
+        return (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1);
+      });
+    } else {
+      this.displayData = tmpData;
+    }
   }
 }
