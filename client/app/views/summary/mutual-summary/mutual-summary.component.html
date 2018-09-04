@@ -105,8 +105,7 @@
       <ng-container *ngIf="item.achievementRate">
         <nz-list-item [nzContent]="nzContent" [nzExtra]="extra">
           <nz-list-item-meta
-            [nzAvatar]="item.avatar"
-            [nzTitle]="'业绩'"
+            [nzTitle]="item.ownerRealName"
             [nzDescription]="nzDescription">
             <ng-template #nzDescription>
               <nz-rate [(ngModel)]="item.achievementRate" [nzCount]="10" nzDisabled></nz-rate>
@@ -116,17 +115,14 @@
             </ng-template>
           </nz-list-item-meta>
           <ng-template #extra>
-            <p class="name-block">
-              {{item.ownerRealName}}
-            </p>
+            <p class="attr-block bg-grey-5">业绩</p>
           </ng-template>
         </nz-list-item>
       </ng-container>
       <ng-container *ngIf="item.shareRate">
         <nz-list-item [nzContent]="nzContent" [nzExtra]="extra">
           <nz-list-item-meta
-            [nzAvatar]="item.avatar"
-            [nzTitle]="'共享和主动性'"
+            [nzTitle]="item.ownerRealName"
             [nzDescription]="nzDescription">
             <ng-template #nzDescription>
               <nz-rate [(ngModel)]="item.shareRate" [nzCount]="10" nzDisabled></nz-rate>
@@ -136,17 +132,14 @@
             </ng-template>
           </nz-list-item-meta>
           <ng-template #extra>
-            <p class="name-block">
-              {{item.ownerRealName}}
-            </p>
+            <p class="attr-block bg-grey-6">共享和主动性</p>
           </ng-template>
         </nz-list-item>
       </ng-container>
       <ng-container *ngIf="item.contributionRate">
         <nz-list-item [nzContent]="nzContent" [nzExtra]="extra">
           <nz-list-item-meta
-            [nzAvatar]="item.avatar"
-            [nzTitle]="'团队贡献'"
+            [nzTitle]="item.ownerRealName"
             [nzDescription]="nzDescription">
             <ng-template #nzDescription>
               <nz-rate [(ngModel)]="item.contributionRate" [nzCount]="10" nzDisabled></nz-rate>
@@ -156,9 +149,7 @@
             </ng-template>
           </nz-list-item-meta>
           <ng-template #extra>
-            <p class="name-block">
-              {{item.ownerRealName}}
-            </p>
+            <p class="attr-block bg-grey-7">团队贡献</p>
           </ng-template>
         </nz-list-item>
       </ng-container>

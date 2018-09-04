@@ -1,5 +1,6 @@
 @import "../../../../assets/css/variable/basic-class";
 @import "../../../../assets/css/variable/font";
+@import "../../../../assets/css/variable/color";
 
 .container {
   margin: 0 24px 24px;
@@ -15,11 +16,13 @@
   }
 }
 
-.name-block {
+.attr-block {
   width: 172px;
   height: 172px;
   line-height: 172px;
   text-align: center;
-  font-size: $h1-font-size;
+  font-size: $h2-font-size;
+  color: $white;
+  margin: 0;
 }
 
