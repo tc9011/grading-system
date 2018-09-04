@@ -27,7 +27,7 @@ export class SelfEvaluationService {
     return this.httpService.postData('/api/v1/self/workNumber/' + workNumber + '/batch', data);
   }
 
-  putSelfEvaluation(oldMonth: Date, data: SelfEvaluation): Observable<any> {
+  putSelfEvaluation(oldMonth: string, data: SelfEvaluation): Observable<any> {
     return this.httpService.putData('/api/v1/self', { oldMonth, data });
   }
 }

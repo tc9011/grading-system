@@ -26,7 +26,7 @@ export class SelfEvaluationComponent implements OnInit {
   disabledButton = false;
   user: string;
   isEdit = false;
-  oldMonth: Date;
+  oldMonth: string;
 
   constructor(private fb: FormBuilder,
               public loadingService: LoadingService,
@@ -123,7 +123,7 @@ export class SelfEvaluationComponent implements OnInit {
     this.refreshStatus();
   }
 
-  showEdit(month: string) {   // TODO 回选不了数据
+  showEdit(month: string) {
     this.isEdit = true;
     this.showModal();
     this.selfEvaluationService.getSelfEvaluationByMonth(this.user, month).subscribe(
