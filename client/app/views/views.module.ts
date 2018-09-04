@@ -16,6 +16,7 @@ import { LayoutModule } from '../layout/layout.module';
 import { SelfEvaluationService } from './self-evaluation/services/self-evaluation.service';
 import { MutualEvaluationService } from './mutual-evaluation/services/mutual-evaluation.service';
 import { AddAndEditComponent } from './mutual-evaluation/add-and-edit/add-and-edit.component';
+import { ModifyPasswordComponent } from './modify-password/modify-password.component';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { AddAndEditComponent } from './mutual-evaluation/add-and-edit/add-and-ed
     ExceptionComponent,
     SelfEvaluationComponent,
     MutualEvaluationComponent,
-    AddAndEditComponent
+    AddAndEditComponent,
+    ModifyPasswordComponent
   ],
   providers: [PassportService, SelfEvaluationService, MutualEvaluationService]
 })

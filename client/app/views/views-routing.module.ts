@@ -14,6 +14,7 @@ import { MutualEvaluationComponent } from './mutual-evaluation/mutual-evaluation
 import { AddAndEditComponent } from './mutual-evaluation/add-and-edit/add-and-edit.component';
 import { AuthGuardAdmin } from '../core/auth/auth-guard-admin.service';
 import { AuthGuardCustomer } from '../core/auth/auth-guard-customer.service';
+import { ModifyPasswordComponent } from './modify-password/modify-password.component';
 
 const routes: Routes = [
   {
@@ -51,7 +52,11 @@ const routes: Routes = [
         path: 'summary',
         loadChildren: './summary/summary.module#SummaryModule',
         canLoad: [AuthGuardAdmin],
-      }
+      },
+      {
+        path: 'modifypassword',
+        component: ModifyPasswordComponent,
+      },
     ]
   },
   {
