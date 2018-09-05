@@ -7,6 +7,7 @@ const userCtrl = new UserCtrl();
 
 router
   .post('/register', userCtrl.register)
-  .post('/login', userCtrl.login);
+  .post('/login', userCtrl.login)
+  .put('/modifypassword', userCtrl.modifyPassword);
 
 export { router as userRouter };

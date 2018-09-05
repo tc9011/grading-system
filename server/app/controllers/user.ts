@@ -1,6 +1,7 @@
 import { Context } from 'koa';
 
 import * as jsonwebtoken from 'jsonwebtoken';
+import * as bcrypt from 'bcryptjs';
 
 import { handleError, handleSuccess } from '../../utils/handle';
 import { Secret } from '../../config/config';
@@ -108,6 +109,41 @@ export class UserCtrl extends BaseCtrl{
         });
 
       handleSuccess({ctx, message: '创建成功!'});
+    }
+  }
+
+  public async modifyPassword(ctx: Context) {
+    const body: any = ctx.request.body;
+    const {workNumber, oldPassword, password, comfirm} = body;
+
+    console.log(body);
+    if (password === comfirm) {
+      handleError({ctx, message: '新密码和确认密码不等！'});
+      return;
+    }
+
+    const user: any = await UserModel
+      .findOne({workNumber: workNumber})
+      .catch(err => {
+        console.log(err);
+        ctx.throw(500, '查找数据时出错!');
+      });
+
+    const isMatch = await user.comparePassword(oldPassword);
+
+    if (!isMatch) {
+      ctx.status = 400;
+      handleError({ctx, message: '原密码错误!'});
+    } else {        // TODO 用mongoose pre update 中间件来做
+      try {
+        const salt = await bcrypt.genSalt(10);
+        const tempPassword = await bcrypt.hash(password, salt);
+        await UserModel
+          .findOneAndUpdate({ workNumber: workNumber }, {password: tempPassword, salt: salt});
+        handleSuccess({ ctx, message: undefined});
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 }

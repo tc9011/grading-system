@@ -11,3 +11,10 @@ export interface LoginInfo {
   workNumber: string;
   password: string;
 }
+
+export interface ModifyPasswordInfo {
+  workNumber: string;
+  oldPassword: string;
+  password: string;
+  confirm: string;
+}
