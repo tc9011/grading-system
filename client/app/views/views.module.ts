@@ -18,6 +18,7 @@ import { MutualEvaluationService } from './mutual-evaluation/services/mutual-eva
 import { AddAndEditComponent } from './mutual-evaluation/add-and-edit/add-and-edit.component';
 import { ModifyPasswordComponent } from './modify-password/modify-password.component';
 import { CollectComponent } from './collect/collect.component';
+import { CollectService } from './collect/services/collect.service';
 
 @NgModule({
   imports: [
@@ -39,6 +40,6 @@ import { CollectComponent } from './collect/collect.component';
     ModifyPasswordComponent,
     CollectComponent
   ],
-  providers: [PassportService, SelfEvaluationService, MutualEvaluationService]
+  providers: [PassportService, SelfEvaluationService, MutualEvaluationService, CollectService]
 })
 export class ViewsModule { }

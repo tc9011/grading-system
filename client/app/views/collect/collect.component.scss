@@ -1,5 +1,12 @@
 @import "../../../assets/css/variable/basic-class";
+@import "../../../assets/css/variable/font";
 
 .radio-group {
   float: right;
+}
+
+.no-data {
+  margin-top: 100px;
+  font-size: $h2-font-size;
+  text-align: center;
 }

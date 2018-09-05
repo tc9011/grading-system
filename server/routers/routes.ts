@@ -8,6 +8,7 @@ import { mutualEvaluationRouter } from './mutual-evaluation';
 import { peopleManageRouter } from './people-manage';
 import { selfSummaryRouter } from './self-summary';
 import { mutualSummaryRouter } from './mutual-summary';
+import { CollectRouter } from './collect';
 
 const router = new Router({
   prefix: APIPrefix
@@ -20,5 +21,6 @@ router.use('/mutual/status', mutualEvaluationStatusRouter.routes(), mutualEvalua
 router.use('/peoplemanage', peopleManageRouter.routes(), peopleManageRouter.allowedMethods());
 router.use('/selfsummary', selfSummaryRouter.routes(), selfSummaryRouter.allowedMethods());
 router.use('/mutualsummary', mutualSummaryRouter.routes(), mutualSummaryRouter.allowedMethods());
+router.use('/collect', CollectRouter.routes(), CollectRouter.allowedMethods());
 
 export { router };
