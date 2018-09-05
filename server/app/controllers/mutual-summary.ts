@@ -38,7 +38,7 @@ export class MutualSummaryCtrl {
             finishedCount++;
           }
         }
-        if (finishedCount === allUserLength - 1) {
+        if (finishedCount !== 0 && finishedCount === allUserLength - 1) {
           // 对除自己以外的人员都已经完成互评
           finishedLength++;
         }
@@ -109,7 +109,7 @@ export class MutualSummaryCtrl {
           }
         }
         // statusCount等于该组用户数减去自己和管理员时，表示该用户互评完成
-        responseItem.status = statusCount === (users.length - 2);
+        responseItem.status = statusCount === (users.length - 2) && statusCount !== 0;
         responseData.push(responseItem);
       }
     }

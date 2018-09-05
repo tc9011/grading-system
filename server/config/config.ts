@@ -3,7 +3,5 @@ export const Port = process.env.PORT || 3000;
 export const Secret = 'gradingSystem';
 export const APIPrefix = '/api/v1';
 export const Groups = [
-  'team1',
-  'team2',
-  'team3'
+  '拨云见雾'
 ];
