@@ -36,7 +36,7 @@ export class UntilService {
     return displayData;
   }
 
-  public handleDate(date: Date): string {
+  public formatDate(date: Date): string {
     const formatDate = new Date(date);
     const year = formatDate.getFullYear().toString();
     const month = (formatDate.getMonth() + 1).toString();
