@@ -13,6 +13,9 @@
     <li *ngIf="!authService.isAdmin" nz-menu-item routerLink="/mutualevaluation" routerLinkActive="ant-menu-item-selected">
       <span title><i class="anticon anticon-sync"></i>互评</span>
     </li>
+    <li *ngIf="!authService.isAdmin" nz-menu-item routerLink="/collect" routerLinkActive="ant-menu-item-selected">
+      <span title><i class="anticon anticon-profile"></i>汇总</span>
+    </li>
     <li *ngIf="authService.isAdmin" nz-menu-item routerLink="/peoplemanage" routerLinkActive="ant-menu-item-selected">
       <span title><i class="anticon anticon-usergroup-delete"></i>人员管理</span>
     </li>
