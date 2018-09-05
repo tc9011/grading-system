@@ -28,7 +28,7 @@ mongoose.connect(DBURL, { useNewUrlParser: true })
     app.use(jwt({
       secret: Secret
     }).unless({
-      path: [/\/register/, /\/login/],
+      path: [/\/register/, /\/login/, /\/groups/],
     }));
 
     app.use(bodyParser());

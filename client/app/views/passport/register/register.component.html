@@ -70,9 +70,9 @@
   <nz-form-item>
     <nz-form-control>
       <nz-select nzSize="large" formControlName="group" nzPlaceHolder="选择团队">
-        <nz-option [nzValue]="'team1'" [nzLabel]="'团队1'"></nz-option>
-        <nz-option [nzValue]="'team2'" [nzLabel]="'团队2'"></nz-option>
-        <nz-option [nzValue]="'team3'" [nzLabel]="'团队3'"></nz-option>
+        <ng-container *ngFor="let group of allGroup">
+          <nz-option [nzValue]="group" [nzLabel]="group"></nz-option>
+        </ng-container>
       </nz-select>
     </nz-form-control>
   </nz-form-item>

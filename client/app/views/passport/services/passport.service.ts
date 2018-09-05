@@ -21,4 +21,8 @@ export class PassportService {
   modifyPassword(data: ModifyPasswordInfo): Observable<any> {
     return this.httpService.putData('/api/v1/passport/modifypassword', data);
   }
+
+  getGroups(): Observable<string[]> {
+    return this.httpService.getData('/api/v1/passport/groups');
+  }
 }

@@ -4,7 +4,7 @@ import * as jsonwebtoken from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 
 import { handleError, handleSuccess } from '../../utils/handle';
-import { Secret } from '../../config/config';
+import { Groups, Secret } from '../../config/config';
 import { UserModel } from '../models/user';
 import { BaseCtrl } from './base';
 
@@ -145,5 +145,10 @@ export class UserCtrl extends BaseCtrl{
         console.log(err);
       }
     }
+  }
+
+  public async getGroups(ctx: Context) {
+    const groups = Groups;
+    handleSuccess({ctx, message: undefined, response: groups});
   }
 }

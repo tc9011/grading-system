@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { LoadingService } from '../../../core/loading/loading.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
 
   form: FormGroup;
   error = '';
@@ -24,6 +24,7 @@ export class RegisterComponent {
     pass: 'normal',
     pool: 'exception',
   };
+  allGroup = [];
 
   constructor(
     private fb: FormBuilder,
@@ -63,6 +64,18 @@ export class RegisterComponent {
       role: [null, [Validators.required]],
     });
     this.loadingService.end();
+  }
+
+  ngOnInit() {
+    this.getGroups();
+  }
+
+  getGroups(): void {
+    this.passportService.getGroups().subscribe(
+      (res: string[]) => {
+        this.allGroup = res;
+      }
+    );
   }
 
   static checkWorkNumber(control: FormControl) {
