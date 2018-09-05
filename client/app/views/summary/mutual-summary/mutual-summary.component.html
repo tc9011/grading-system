@@ -25,46 +25,47 @@
       <nz-progress [nzPercent]="progress" [nzWidth]="200" nzType="circle"></nz-progress>
     </div>
 
-    <!--TODO 无数据的时候占位-->
     <div nz-row nzGutter="16" class="card-area">
-      <ng-container *ngIf="tops[0]">
+
         <div nz-col nzXs="24" nzSm="12" nzMd="6" class="top-card">
           <div nz-row nzType="flex" nzAlign="middle" class="bg-yellow rounded-md">
             <div nz-col nzSpan="12" class="p-md text-white">
               <p class="text-nowrap">Top 1</p>
-              <div>{{tops[0].realName}}</div>
-              <div>{{tops[0].workNumber}}</div>
-              <div>{{tops[0].score}}</div>
+              <ng-container *ngIf="tops[0]">
+                <div>{{tops[0].realName}}</div>
+                <div>{{tops[0].workNumber}}</div>
+                <div>{{tops[0].score}}</div>
+              </ng-container>
             </div>
           </div>
         </div>
-      </ng-container>
 
-      <ng-container *ngIf="tops[1]">
+
         <div nz-col nzXs="24" nzSm="12" nzMd="6" class="top-card">
           <div nz-row nzType="flex" nzAlign="middle" class="bg-silver rounded-md">
             <div nz-col nzSpan="12" class="p-md text-white">
               <p class="text-nowrap">Top 2</p>
-              <div>{{tops[1].realName}}</div>
-              <div>{{tops[1].workNumber}}</div>
-              <div>{{tops[1].score}}</div>
+              <ng-container *ngIf="tops[1]">
+                <div>{{tops[1].realName}}</div>
+                <div>{{tops[1].workNumber}}</div>
+                <div>{{tops[1].score}}</div>
+              </ng-container>
             </div>
           </div>
         </div>
-      </ng-container>
 
-      <ng-container *ngIf="tops[2]">
         <div nz-col nzXs="24" nzSm="12" nzMd="6" class="top-card">
           <div nz-row nzType="flex" nzAlign="middle" class="bg-gold rounded-md">
             <div nz-col nzSpan="12" class="p-md text-white">
               <p class="text-nowrap">Top 3</p>
-              <div>{{tops[2].realName}}</div>
-              <div>{{tops[2].workNumber}}</div>
-              <div>{{tops[2].score}}</div>
+              <ng-container *ngIf="tops[2]">
+                <div>{{tops[2].realName}}</div>
+                <div>{{tops[2].workNumber}}</div>
+                <div>{{tops[2].score}}</div>
+              </ng-container>
             </div>
           </div>
         </div>
-      </ng-container>
 
     </div>
   </div>
