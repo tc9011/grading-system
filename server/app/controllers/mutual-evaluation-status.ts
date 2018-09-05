@@ -30,7 +30,6 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
 
 
     for (const user of users) {
-      console.log(user);
       // users中剔除登录者和管理员的信息
       if (user.workNumber !== workNumber && user.role < 10) {
         // 是否已存在指定月份和工号的数据，如果没有就新建一个
@@ -40,7 +39,6 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
             console.log(err);
             ctx.throw(500, '查找数据时出错!');
           });
-        console.log(status);
         if (!status) {
           // 查询自评表中是否存在自评（防止MutualEvaluationStatusModel没有数据，一直返回false）
           const selfEvaluation: any = await SelfEvaluationModel
