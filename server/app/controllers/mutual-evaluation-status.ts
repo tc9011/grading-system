@@ -42,7 +42,7 @@ export class MutualEvaluationStatusCtrl extends BaseCtrl {
         if (!status) {
           // 查询自评表中是否存在自评（防止MutualEvaluationStatusModel没有数据，一直返回false）
           const selfEvaluation: any = await SelfEvaluationModel
-            .find({workNumber: user.workNumber, month: month})
+            .find({owner: workNumber, workNumber: user.workNumber, month: month})
             .catch(err => {
               console.log(err);
               ctx.throw(500, '查找数据时出错!');
