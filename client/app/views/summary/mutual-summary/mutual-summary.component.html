@@ -25,7 +25,7 @@
       <nz-progress [nzPercent]="progress" [nzWidth]="200" nzType="circle"></nz-progress>
     </div>
 
-    <div nz-row nzGutter="16" class="card-area">
+    <div *ngIf="tops[0]" nz-row nzGutter="16" class="card-area">
       <div nz-col nzXs="24" nzSm="12" nzMd="6" class="top-card">
         <div nz-row nzType="flex" nzAlign="middle" class="bg-yellow rounded-md">
           <div nz-col nzSpan="12" class="p-md text-white">
@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div nz-col nzXs="24" nzSm="12" nzMd="6" class="top-card">
+      <div *ngIf="tops[1]" nz-col nzXs="24" nzSm="12" nzMd="6" class="top-card">
         <div nz-row nzType="flex" nzAlign="middle" class="bg-silver rounded-md">
           <div nz-col nzSpan="12" class="p-md text-white">
             <p class="text-nowrap">Top 2</p>
@@ -46,7 +46,7 @@
           </div>
         </div>
       </div>
-      <div nz-col nzXs="24" nzSm="12" nzMd="6" class="top-card">
+      <div *ngIf="tops[2]" nz-col nzXs="24" nzSm="12" nzMd="6" class="top-card">
         <div nz-row nzType="flex" nzAlign="middle" class="bg-gold rounded-md">
           <div nz-col nzSpan="12" class="p-md text-white">
             <p class="text-nowrap">Top 3</p>

@@ -23,7 +23,7 @@ export class MutualSummaryComponent implements OnInit {
 
   constructor(private summaryService: SummaryService,
               private authService: AuthService,
-              public modalService: ModalService,) {
+              public modalService: ModalService) {
     this.status = 'all';
     for (let i = 0; i < 3; i++) {     // TODO 异步数据不赋初值可以避免can't read property错误？
       this.tops.push({realName: '', workNumber: '', score: 0});
@@ -60,7 +60,7 @@ export class MutualSummaryComponent implements OnInit {
     this.summaryService.getMutualSummaryData(this.status, data).subscribe(
       (res: MutualSummaryData[]) => {
         this.displayData = res;
-        let tempData = [...this.displayData];
+        const tempData = [...this.displayData];
         tempData.sort((a, b) => {
           return a.score < b.score ? 1 : -1;
         });
@@ -96,7 +96,7 @@ export class MutualSummaryComponent implements OnInit {
   }
 
   search(): void {
-    let tmpData = [...this.displayData];
+    const tmpData = [...this.displayData];
     if (this.sortName && this.sortValue) {
       this.displayData = tmpData.sort((a, b) => {
         return (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1);
