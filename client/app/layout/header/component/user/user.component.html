@@ -6,8 +6,8 @@
   <div nz-menu class="width-sm">
     <!--TODO 个人中心-->
     <!--<div nz-menu-item [nzDisabled]="true"><i class="anticon anticon-user mr-sm"></i>个人中心</div>-->
-    <div nz-menu-item routerLink="/modifypassword"><i class="anticon anticon-lock mr-sm"></i>修改密码</div>
+    <div nz-menu-item class="list-item" routerLink="/modifypassword"><i class="anticon anticon-lock mr-sm"></i>修改密码</div>
     <li nz-menu-divider></li>
-    <div nz-menu-item (click)="logout()"><i class="anticon anticon-setting mr-sm"></i>退出登录</div>
+    <div nz-menu-item class="list-item" (click)="logout()"><i class="anticon anticon-setting mr-sm"></i>退出登录</div>
   </div>
 </nz-dropdown>
