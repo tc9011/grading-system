@@ -7,6 +7,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { LoadingService } from '../../core/loading/loading.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { PassportService } from '../passport/services/passport.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-modify-password',
@@ -30,7 +31,8 @@ export class ModifyPasswordComponent implements OnInit {
               private authService: AuthService,
               private passportService: PassportService,
               private router: Router,
-              public msg: NzMessageService,) {
+              public msg: NzMessageService,
+              private location: Location) {
     this.form = fb.group({
       oldPassword: [
         null,
@@ -122,5 +124,9 @@ export class ModifyPasswordComponent implements OnInit {
         this.router.navigateByUrl('/passport/login');
       }
     );
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
