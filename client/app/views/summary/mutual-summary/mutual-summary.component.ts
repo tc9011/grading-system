@@ -25,9 +25,6 @@ export class MutualSummaryComponent implements OnInit {
               private authService: AuthService,
               public modalService: ModalService) {
     this.status = 'all';
-    for (let i = 0; i < 3; i++) {     // TODO 异步数据不赋初值可以避免can't read property错误？
-      this.tops.push({realName: '', workNumber: '', score: 0});
-    }
   }
 
   ngOnInit() {
