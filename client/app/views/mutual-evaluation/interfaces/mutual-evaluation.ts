@@ -14,7 +14,7 @@ export interface Status {
   realName: string;
   group: string;
   role: number;
-  status: boolean,
+  status: boolean;
 }
 
 export interface InfoForGetMutualEvaluation {

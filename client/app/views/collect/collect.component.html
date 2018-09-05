@@ -4,5 +4,75 @@
   <header nz-row>
     <nz-month-picker [(ngModel)]="date" (ngModelChange)="getStatus($event)" nzPlaceHolder="选择月份"></nz-month-picker>
 
+    <nz-radio-group [(ngModel)]="status" class="mr-md radio-group" (ngModelChange)="statusFilter()">
+      <label nz-radio-button [nzValue]="'achievement'">
+        <span>业绩</span>
+      </label>
+      <label nz-radio-button [nzValue]="'share'">
+        <span>共享和主动性</span>
+      </label>
+      <label nz-radio-button [nzValue]="'contribution'">
+        <span>团队贡献</span>
+      </label>
+    </nz-radio-group>
   </header>
+
+  <nz-list
+    [nzDataSource]="details"
+    [nzItemLayout]="'vertical'"
+    [nzRenderItem]="item">
+    <ng-template #item let-item>
+      <ng-container *ngIf="item.achievementRate">
+        <nz-list-item [nzContent]="nzContent" [nzExtra]="extra">
+          <nz-list-item-meta
+            [nzTitle]="item.ownerRealName"
+            [nzDescription]="nzDescription">
+            <ng-template #nzDescription>
+              <nz-rate [(ngModel)]="item.achievementRate" [nzCount]="10" nzDisabled></nz-rate>
+            </ng-template>
+            <ng-template #nzContent>
+              {{item.mutualAchievement}}
+            </ng-template>
+          </nz-list-item-meta>
+          <ng-template #extra>
+            <p class="attr-block bg-grey-5">业绩</p>
+          </ng-template>
+        </nz-list-item>
+      </ng-container>
+      <ng-container *ngIf="item.shareRate">
+        <nz-list-item [nzContent]="nzContent" [nzExtra]="extra">
+          <nz-list-item-meta
+            [nzTitle]="item.ownerRealName"
+            [nzDescription]="nzDescription">
+            <ng-template #nzDescription>
+              <nz-rate [(ngModel)]="item.shareRate" [nzCount]="10" nzDisabled></nz-rate>
+            </ng-template>
+            <ng-template #nzContent>
+              {{item.mutualShare}}
+            </ng-template>
+          </nz-list-item-meta>
+          <ng-template #extra>
+            <p class="attr-block bg-grey-6">共享和主动性</p>
+          </ng-template>
+        </nz-list-item>
+      </ng-container>
+      <ng-container *ngIf="item.contributionRate">
+        <nz-list-item [nzContent]="nzContent" [nzExtra]="extra">
+          <nz-list-item-meta
+            [nzTitle]="item.ownerRealName"
+            [nzDescription]="nzDescription">
+            <ng-template #nzDescription>
+              <nz-rate [(ngModel)]="item.contributionRate" [nzCount]="10" nzDisabled></nz-rate>
+            </ng-template>
+            <ng-template #nzContent>
+              {{item.mutualContribution}}
+            </ng-template>
+          </nz-list-item-meta>
+          <ng-template #extra>
+            <p class="attr-block bg-grey-7">团队贡献</p>
+          </ng-template>
+        </nz-list-item>
+      </ng-container>
+    </ng-template>
+  </nz-list>
 </div>

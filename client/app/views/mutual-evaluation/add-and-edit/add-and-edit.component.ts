@@ -46,7 +46,7 @@ export class AddAndEditComponent implements OnInit {
       this.year = params['year'];
       this.month = params['month'];
       this.getMutualEvaluation();
-    })
+    });
   }
 
   getMutualEvaluation(): void {
@@ -64,7 +64,10 @@ export class AddAndEditComponent implements OnInit {
   }
 
   saveMutualEvaluation(): void {
-    const isFinished = this.mutualEvaluation.achievementRate !== 0 && this.mutualEvaluation.shareRate !== 0 && this.mutualEvaluation.contributionRate !== 0;
+    const isFinished = this.mutualEvaluation.achievementRate !== 0 &&
+                       this.mutualEvaluation.shareRate !== 0 &&
+                       this.mutualEvaluation.contributionRate !== 0;
+
     const data: MutualEvaluation = {
       owner: this.authService.currentUser.workNumber,
       ownerRealName: this.authService.currentUser.realName,

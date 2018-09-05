@@ -20,7 +20,7 @@ export class SelfEvaluationService {
   }
 
   getSelfEvaluationByMonth(workNumber: string, month: string): Observable<any> {
-    return this.httpService.postData('/api/v1/self/monthInfo',{ workNumber, month });
+    return this.httpService.postData('/api/v1/self/monthInfo', { workNumber, month });
   }
 
   deleteSelfEvaluation(workNumber: string, data: string[]): Observable<any> {

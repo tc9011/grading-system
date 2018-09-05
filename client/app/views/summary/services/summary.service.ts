@@ -16,7 +16,9 @@ export class SummaryService {
     year: string,
     month: string
   ): Observable<any> {
-    return this.httpService.getData('/api/v1/selfsummary/workNumber/' + workNumber + '/group/' + group + '/year/' + year + '/month/' + month);
+    return this.httpService.getData(
+      '/api/v1/selfsummary/workNumber/' + workNumber + '/group/' + group + '/year/' + year + '/month/' + month
+    );
   }
 
   // 互评完成率统计

@@ -176,7 +176,9 @@ export class SelfEvaluationComponent implements OnInit {
       this.form.controls[i].markAsDirty();
       this.form.controls[i].updateValueAndValidity();
     }
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      return;
+    }
 
     this.loadingService.begin();
 

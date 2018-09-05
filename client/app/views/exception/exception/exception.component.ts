@@ -33,7 +33,9 @@ export class ExceptionComponent {
       },
     }[value];
 
-    if (!item) return;
+    if (!item) {
+      return;
+    }
 
     this._img = item.img;
     this._title = item.title;

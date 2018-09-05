@@ -96,7 +96,9 @@ export class MutualSummaryComponent implements OnInit {
     const tmpData = [...this.displayData];
     if (this.sortName && this.sortValue) {
       this.displayData = tmpData.sort((a, b) => {
-        return (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1);
+        return (this.sortValue === 'ascend') ?
+          (a[this.sortName] > b[this.sortName] ? 1 : -1) :
+          (b[this.sortName] > a[this.sortName] ? 1 : -1);
       });
     } else {
       this.displayData = tmpData;

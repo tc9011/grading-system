@@ -7,14 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CollectComponent implements OnInit {
   date = null;
+  status = 'achievement';
 
   constructor() { }
 
   ngOnInit() {
     this.date = new Date(Date.now());
+    this.getStatus(this.date);
+    this.statusFilter();
   }
 
-  getStatus(): void {
+  getStatus(result: Date): void {
+
+  }
+
+  statusFilter(): void {
 
   }
 }
