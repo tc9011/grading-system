@@ -23,7 +23,7 @@ export class SelfEvaluationComponent implements OnInit {
   sortValue = null;
   allChecked = false;
   indeterminate = false;
-  disabledButton = false;
+  disabledButton = true;
   user: string;
   isEdit = false;
   oldMonth: string;
@@ -75,6 +75,7 @@ export class SelfEvaluationComponent implements OnInit {
           this.spliceWords(value);
           value.checked = false;
         });
+        this.displayData = [...this.tableData];
       }
     );
   }
@@ -111,11 +112,13 @@ export class SelfEvaluationComponent implements OnInit {
   }
 
   refreshStatus(): void {
-    const allChecked = this.displayData.every(value => value.checked === true);
-    const allUnChecked = this.displayData.every(value => !value.checked);
-    this.allChecked = allChecked;
-    this.indeterminate = (!allChecked) && (!allUnChecked);
-    this.disabledButton = !this.tableData.some(value => value.checked);
+    if (this.displayData.length) {
+      const allChecked = this.displayData.every(value => value.checked === true);
+      const allUnChecked = this.displayData.every(value => !value.checked);
+      this.allChecked = allChecked;
+      this.indeterminate = (!allChecked) && (!allUnChecked);
+      this.disabledButton = !this.tableData.some(value => value.checked);
+    }
   }
 
   checkAll(value: boolean): void {
