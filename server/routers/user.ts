@@ -1,12 +1,9 @@
 import * as Router from 'koa-router';
 
 import { UserCtrl } from '../app/controllers/user';
-import { isAdmin } from '../middlewares/isAdmin';
 
 const router = new Router();
 const userCtrl = new UserCtrl();
-
-router.use(['/groups'], isAdmin());
 
 router
   .post('/register', userCtrl.register)
