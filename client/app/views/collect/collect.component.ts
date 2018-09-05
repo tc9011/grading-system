@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./collect.component.scss']
 })
 export class CollectComponent implements OnInit {
+  date = null;
 
   constructor() { }
 
   ngOnInit() {
+    this.date = new Date(Date.now());
   }
 
+  getStatus(): void {
+
+  }
 }

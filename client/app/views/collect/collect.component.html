@@ -1,3 +1,8 @@
-<p>
-  collect works!
-</p>
+<app-page-header [title]="'汇总'"></app-page-header>
+
+<div class="content-area">
+  <header nz-row>
+    <nz-month-picker [(ngModel)]="date" (ngModelChange)="getStatus($event)" nzPlaceHolder="选择月份"></nz-month-picker>
+
+  </header>
+</div>
