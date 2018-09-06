@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "hmr": "ng serve --port 4200 --host 0.0.0.0 --open --proxy-config proxy.config.json --hmr --configuration=hmr",
     "start:client": "ng serve --port 4200 --host 0.0.0.0 --proxy-config proxy.config.json --open",
     "start:server": "concurrently \"mongod\" \"tsc -w -p server\" \"nodemon dist/server/app.js\"",
     "start": "concurrently \"mongod\" \"ng serve --port 4200 --host 0.0.0.0 --proxy-config proxy.config.json --open\" \"tsc -w -p server\" \"nodemon dist/server/app.js\"",
@@ -44,6 +45,7 @@
     "@angular/cli": "~6.0.8",
     "@angular/compiler-cli": "^6.0.3",
     "@angular/language-service": "^6.0.3",
+    "@angularclass/hmr": "^2.1.3",
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
     "@types/koa": "^2.0.46",

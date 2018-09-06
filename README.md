@@ -12,7 +12,7 @@ npm start
 
 TODO:
 
-* HMR
+* ~~HMR~~
 
 * Angular Universal
 

@@ -33,6 +33,14 @@
             "scripts": []
           },
           "configurations": {
+            "hmr": {
+              "fileReplacements": [
+                {
+                  "replace": "client/environments/environment.ts",
+                  "with": "client/environments/environment.hmr.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -58,6 +66,9 @@
             "browserTarget": "grading-system:build"
           },
           "configurations": {
+            "hmr": {
+              "browserTarget": "grading-system:build:hmr"
+            },
             "production": {
               "browserTarget": "grading-system:build:production"
             }
