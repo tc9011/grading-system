@@ -1,4 +1,11 @@
 # grading-system
 a grading system
 
-angular6 + Koa2 + mongodb
+an angular fullstack project base on angular6 + Koa2 + mongodb
+
+node > 7.9
+
+```shell
+npm i 
+npm start
+```
