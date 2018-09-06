@@ -9,3 +9,13 @@ node > 7.9
 npm i 
 npm start
 ```
+
+TODO:
+
+* HMR
+
+* Angular Universal
+
+* test
+
+* refactor
