@@ -4,10 +4,12 @@
   "scripts": {
     "ng": "ng",
     "hmr": "ng serve --port 4200 --host 0.0.0.0 --open --proxy-config proxy.config.json --hmr --configuration=hmr",
+    "start": "concurrently \"mongod\" \"ng serve --port 4200 --host 0.0.0.0 --proxy-config proxy.config.json --open\" \"tsc -w -p server\" \"nodemon dist/server/app.js\"",
     "start:client": "ng serve --port 4200 --host 0.0.0.0 --proxy-config proxy.config.json --open",
     "start:server": "concurrently \"mongod\" \"tsc -w -p server\" \"nodemon dist/server/app.js\"",
-    "start": "concurrently \"mongod\" \"ng serve --port 4200 --host 0.0.0.0 --proxy-config proxy.config.json --open\" \"tsc -w -p server\" \"nodemon dist/server/app.js\"",
     "build": "concurrently \"mongod\" \"ng build --aot --prod && tsc -p server && node dist/server/app.js\"",
+    "build:client": "ng build --aot --prod",
+    "build:server": "tsc -p server && node dist/server/app.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
