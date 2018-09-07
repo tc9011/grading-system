@@ -2,11 +2,11 @@ import * as path from 'path';
 import * as mongoose from 'mongoose';
 
 import * as Koa from 'koa';
-import * as kcors from 'kcors'
+import * as kcors from 'kcors';
 import * as serveStatic from 'koa-static';
 import * as bodyParser from 'koa-bodyparser';
-import * as logger from 'koa-logger'
-import * as jwt from 'koa-jwt'
+import * as logger from 'koa-logger';
+import * as jwt from 'koa-jwt';
 
 import { DBURL, Port, Secret } from './config/config';
 import { router } from './routers/routes';
