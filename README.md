@@ -14,7 +14,7 @@ TODO:
 
 * ~~HMR~~
 
-* Angular Universal
+* ~~Angular Universal~~ (Angular Universal does not support koa, maybe do it later)
 
 * test
 
