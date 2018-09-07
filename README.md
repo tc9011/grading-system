@@ -1,6 +1,6 @@
-# grading-system
-
 <div align="center"> 
+
+# grading-system
 
 [![Build Status](https://travis-ci.org/tc9011/grading-system.svg?branch=master)](https://travis-ci.org/tc9011/grading-system)
 [![GitHub](https://img.shields.io/cran/l/devtools.svg)](https://github.com/tc9011/grading-system/blob/master/LICENSE)
