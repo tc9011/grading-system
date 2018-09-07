@@ -54,7 +54,7 @@
 
 </section>
 
-<nz-modal [(nzVisible)]="modalService.isVisible" nzWidth="900" nzMaskClosable="false" nzTitle="自评" [nzCancelText]="null"(nzOnOk)="modalService.close()" (nzOnCancel)="modalService.close()">
+<nz-modal [nzVisible]="modalService.isVisible" nzWidth="900" nzMaskClosable="false" nzTitle="自评" [nzCancelText]="null"(nzOnOk)="modalService.close()" (nzOnCancel)="modalService.close()">
   <form nz-form role="form">
     <!--业绩-->
     <nz-form-item>

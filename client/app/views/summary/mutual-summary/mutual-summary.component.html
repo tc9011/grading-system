@@ -107,7 +107,7 @@
 </section>
 
 
-<nz-modal [(nzVisible)]="modalService.isVisible" nzWidth="900" nzMaskClosable="false" nzTitle="互评" [nzCancelText]="null"(nzOnOk)="modalService.close()" (nzOnCancel)="modalService.close()">
+<nz-modal [nzVisible]="modalService.isVisible" nzWidth="900" nzMaskClosable="false" nzTitle="互评" [nzCancelText]="null"(nzOnOk)="modalService.close()" (nzOnCancel)="modalService.close()">
   <ng-container *ngIf="details.length === 0">
     <p class="text-center">
       暂时没有对他/她的互评！
