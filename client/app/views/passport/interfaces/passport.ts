@@ -18,3 +18,8 @@ export interface ModifyPasswordInfo {
   password: string;
   confirm: string;
 }
+
+export interface LoginRes {
+  lifeTime: number;
+  token: string;
+}

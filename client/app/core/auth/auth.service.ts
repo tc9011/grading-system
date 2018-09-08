@@ -5,7 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { LoginInfo, User } from '../../views/passport/interfaces/passport';
+import { LoginInfo, LoginRes, User } from '../../views/passport/interfaces/passport';
 import { PassportService } from '../../views/passport/services/passport.service';
 import { StorageService } from '../storage/storage.service';
 import { NzMessageService } from 'ng-zorro-antd';
@@ -36,7 +36,7 @@ export class AuthService {
 
   login(loginInfo: LoginInfo): Observable<boolean> {
     return this.passportService.postLogin(loginInfo).pipe(map(
-      (res: any) => {
+      (res: LoginRes) => {
           this.storageService.setLocalStorage('token', res.token);
           const decodedUser = this.decodeUserFromToken(res.token);
           this.setCurrentUser(decodedUser);
