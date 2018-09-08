@@ -2,6 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { LoginInfo, User } from '../../views/passport/interfaces/passport';
@@ -33,7 +34,7 @@ export class AuthService {
     return this.injector.get(NzMessageService);
   }
 
-  login(loginInfo: LoginInfo) {
+  login(loginInfo: LoginInfo): Observable<boolean> {
     return this.passportService.postLogin(loginInfo).pipe(map(
       (res: any) => {
           this.storageService.setLocalStorage('token', res.token);
@@ -46,18 +47,18 @@ export class AuthService {
     );
   }
 
-  logout() {
+  logout(): void {
     this.storageService.removeLocalStorage('token');
     this.loggedIn = false;
     this.isAdmin = false;
     this.currentUser = new User();
   }
 
-  decodeUserFromToken(token) {
+  decodeUserFromToken(token): User {
     return this.jwtHelperService.decodeToken(token).user;
   }
 
-  setCurrentUser(decodedUser) {
+  setCurrentUser(decodedUser): void {
     this.loggedIn = true;
     this.currentUser.workNumber = decodedUser.workNumber;
     this.currentUser.realName = decodedUser.realName;
