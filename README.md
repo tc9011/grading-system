@@ -8,6 +8,7 @@
 </div>
 
 node > 8.9
+MongoDB > 4.0.0
 
 an angular fullstack project base on angular6 + Koa2 + mongodb
 
