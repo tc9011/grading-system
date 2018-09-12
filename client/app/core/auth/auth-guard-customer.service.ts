@@ -10,7 +10,7 @@ export class AuthGuardCustomer implements CanActivate, CanLoad {
   constructor(public auth: AuthService,
               private router: Router) { }
 
-  canActivate() {
+  canActivate(): boolean {
     if (this.auth.isAdmin) {
       this.router.navigate(['/peoplemanage']);
     }
@@ -18,7 +18,7 @@ export class AuthGuardCustomer implements CanActivate, CanLoad {
     return !this.auth.isAdmin;
   }
 
-  canLoad() {
+  canLoad(): boolean {
     if (this.auth.isAdmin) {
       this.router.navigate(['/peoplemanage']);
     }

@@ -11,7 +11,7 @@ export class AuthGuardAdmin implements CanActivate, CanLoad {
   constructor(public auth: AuthService,
               private router: Router) {}
 
-  canActivate() {
+  canActivate(): boolean {
     if (!this.auth.isAdmin) {
       this.router.navigate(['/selfevaluation']);
     }
@@ -19,7 +19,7 @@ export class AuthGuardAdmin implements CanActivate, CanLoad {
     return this.auth.isAdmin;
   }
 
-  canLoad() {
+  canLoad(): boolean {
     if (!this.auth.isAdmin) {
       this.router.navigate(['/selfevaluation']);
     }

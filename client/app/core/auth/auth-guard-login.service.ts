@@ -11,14 +11,14 @@ export class AuthGuardLogin implements CanActivate,  CanActivateChild {
   constructor(public auth: AuthService,
               private router: Router) { }
 
-  canActivate() {
+  canActivate(): boolean {
     if (!this.auth.loggedIn) {
       this.router.navigate(['/passport/login']);
     }
     return this.auth.loggedIn;
   }
 
-  canActivateChild() {
+  canActivateChild(): boolean {
     return this.canActivate();
   }
 }
