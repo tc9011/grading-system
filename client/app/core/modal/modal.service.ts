@@ -15,11 +15,11 @@ export class ModalService {
     return this._isVisible;
   }
 
-  open() {
+  open(): void {
     setTimeout(() => (this._isVisible = true));
   }
 
-  close() {
+  close(): void {
     setTimeout(() => (this._isVisible = false));
   }
 }

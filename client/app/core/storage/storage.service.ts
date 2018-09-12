@@ -35,7 +35,7 @@ export class StorageService {
     return JSON.parse(this.localStorage[key] || '{}');
   }
 
-  public removeLocalStorage(key: string): any {
+  public removeLocalStorage(key: string): void {
     this.localStorage.removeItem(key);
   }
 
@@ -47,7 +47,7 @@ export class StorageService {
     return this.sessionStorage.getItem(key) || false;
   }
 
-  public removeSessionStorage(key: string): any {
+  public removeSessionStorage(key: string): void {
     this.sessionStorage.removeItem(key);
   }
 }

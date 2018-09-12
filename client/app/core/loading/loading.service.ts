@@ -14,11 +14,11 @@ export class LoadingService {
     return this._loading;
   }
 
-  begin() {
+  begin(): void {
     setTimeout(() => (this._loading = true));
   }
 
-  end() {
+  end(): void {
     setTimeout(() => (this._loading = false));
   }
 }
