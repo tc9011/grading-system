@@ -34,7 +34,7 @@ export class InterceptorService implements HttpInterceptor {
     return this.injector.get(NzMessageService);
   }
 
-  private goTo(url: string) {
+  private goTo(url: string): void {
     setTimeout(() => this.injector.get(Router).navigateByUrl(url));
   }
 
