@@ -23,7 +23,7 @@ import { LoadingService } from '../loading/loading.service';
   providedIn: 'root'
 })
 /**
- * 默认HTTP拦截器，其注册细节见 `app.module.ts`
+ * 默认HTTP拦截器，其注册细节见 `core.module.ts`
  */
 export class InterceptorService implements HttpInterceptor {
 
