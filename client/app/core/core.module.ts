@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -11,6 +11,7 @@ import { AuthGuardAdmin } from './auth/auth-guard-admin.service';
 import { AuthGuardCustomer } from './auth/auth-guard-customer.service';
 import { UntilService } from './util/until.service';
 import { ModalService } from './modal/modal.service';
+import { throwIfAlreadyLoaded } from './module-import-guard';
 
 @NgModule({
   imports: [
@@ -29,4 +30,8 @@ import { ModalService } from './modal/modal.service';
     ModalService
   ]
 })
-export class CoreModule { }
+export class CoreModule {
+  constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
+    throwIfAlreadyLoaded(parentModule, 'CoreModule');
+  }
+}
